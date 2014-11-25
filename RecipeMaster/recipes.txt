@@ -1,0 +1,78 @@
+Total Recipes: 4
+
+*
+Item:
+Boiled Dinner
+
+Meal:
+Dinner
+
+Type:
+Ham
+
+Ingredients:
+Ham x 1.0, Cabbage x 2.5, Potatoes x 3.0, Carrots x 2.0
+
+LastMade On:
+5 16 2014
+
+Rating:
+4.2
+
+*
+Item:
+Steak
+
+Meal:
+Dinner
+
+Type:
+Beef
+
+Ingredients:
+Beef x 1.0, Marinade x 2.0, Pepper x 0.7
+
+LastMade On:
+10 5 2014
+
+Rating:
+4.2
+
+*
+Item:
+Spaghetti
+
+Meal:
+Dinner
+
+Type:
+Pasta
+
+Ingredients:
+Noodles x 1.0, Tomatoe Sauce x 2.0, Meatballs x 5.0
+
+LastMade On:
+10 5 2014
+
+Rating:
+4.2
+
+*
+Item:
+Lasagna
+
+Meal:
+Dinner
+
+Type:
+Pasta
+
+Ingredients:
+Noodles x 1.0, Tomatoe Sauce x 2.0, Meatballs x 5.0
+
+LastMade On:
+10 5 2014
+
+Rating:
+4.2
+

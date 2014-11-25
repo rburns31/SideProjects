@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="recipemaster.RecipeController">
+   <children>
+      <TitledPane fx:id="recipePane" alignment="TOP_LEFT" collapsible="false" contentDisplay="TOP" layoutX="180.0" layoutY="20.0" prefHeight="680.0" prefWidth="600.0" text="New Recipe">
+         <content>
+            <VBox prefHeight="654.0" prefWidth="600.0">
+               <children>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="530.0" prefWidth="600.0" vbarPolicy="ALWAYS">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </content></TitledPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="720.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="recipemaster.RecipeBookController">
+   <children>
+      <BorderPane fx:id="borderPane" prefHeight="720.0" prefWidth="960.0">
+         <top>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="viewCartButton" mnemonicParsing="false" onAction="#viewCartButtonAction" prefHeight="35.0" prefWidth="100.0" text="View Cart">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="addToCartButton" mnemonicParsing="false" onAction="#addToCartButtonAction" prefHeight="35.0" prefWidth="100.0" text="Add to Cart">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="editCartButton" mnemonicParsing="false" onAction="#editCartButtonAction" prefHeight="35.0" prefWidth="100.0" text="Edit Cart">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="checkOutButton" mnemonicParsing="false" onAction="#checkOutButtonAction" prefHeight="35.0" prefWidth="100.0" text="Check Out">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets right="30.0" />
+               </padding>
+            </HBox>
+         </top>
+         <bottom>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="addRecipeButton" mnemonicParsing="false" onAction="#addRecipeButtonAction" prefHeight="35.0" prefWidth="100.0" text="Add Recipe">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="viewRecipeButton" mnemonicParsing="false" onAction="#viewRecipeButtonAction" prefHeight="35.0" prefWidth="100.0" text="View Recipe">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="deleteRecipeButton" mnemonicParsing="false" onAction="#deleteRecipeButtonAction" prefHeight="35.0" prefWidth="100.0" text="Delete Recipe">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets right="30.0" />
+               </padding></HBox>
+         </bottom>
+         <left>
+            <VBox alignment="CENTER" prefHeight="520.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="sortButton" mnemonicParsing="false" onAction="#sortButtonAction" prefHeight="35.0" prefWidth="100.0" text="Sort" />
+               </children></VBox>
+         </left>
+         <right>
+            <ScrollPane fx:id="listScrollPane" focusTraversable="false" hbarPolicy="NEVER" prefHeight="520.0" prefWidth="740.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="20.0" />
+               </BorderPane.margin>
+               <content>
+                  <VBox fx:id="scrollVBox" alignment="TOP_CENTER" prefHeight="520.0" prefWidth="725.0">
+                     <children>
+                        <GridPane fx:id="grid" alignment="CENTER" gridLinesVisible="true" prefHeight="20.0" prefWidth="725.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="20.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                              <ColumnConstraints hgrow="SOMETIMES" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="-Infinity" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label contentDisplay="CENTER" prefHeight="20.0" prefWidth="150.0" text="Item" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label contentDisplay="CENTER" prefHeight="20.0" prefWidth="150.0" text="Label" GridPane.columnIndex="2">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children></VBox>
+               </content>
+            </ScrollPane>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>
