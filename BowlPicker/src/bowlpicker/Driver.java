@@ -5,6 +5,7 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -23,7 +24,7 @@ public class Driver extends Application {
         mainStage = primaryStage;
         primaryStage.setTitle("BowlPicker");
         primaryStage.setResizable(false);
-        //primaryStage.getIcons().add(new Image());
+        primaryStage.getIcons().add(new Image("cfbicons/WINDOW.png"));
         try {
             Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("OpeningScreen.fxml"));
             Scene myScene = new Scene(myPane);

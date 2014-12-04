@@ -22,6 +22,7 @@ public class Team {
                     Conference conference, String record) {
         this.name = name;
         StringBuilder imageName = new StringBuilder();
+        imageName.append("cfbicons/");
         imageName.append(name.toLowerCase().replace(" ", ""));
         imageName.append("_96.png");
         try {

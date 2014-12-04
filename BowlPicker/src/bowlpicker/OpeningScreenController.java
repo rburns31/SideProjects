@@ -25,11 +25,20 @@ public class OpeningScreenController implements Initializable {
     private TextField emailField;
     @FXML
     private Label errorField;
-    
+
     private FadeTransition ft;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ft = new FadeTransition(Duration.millis(1000), errorField);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.setAutoReverse(true);
+        ft.setCycleCount(2);
+    }
+
     public void confirmButtonAction(ActionEvent e) {
-        if (!nameField.getText().matches("[A-Z][a-z]* [A-Z][a-z]*")) {
+        if (!nameField.getText().matches("[A-Z][a-z]+ [A-Z][a-z]+")) {
             errorField.setText("Your name is not valid!");
             if (ft != null) {
                 ft.play();
@@ -50,14 +59,5 @@ public class OpeningScreenController implements Initializable {
                 System.out.println(ioe.getMessage());
             }
         }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        ft = new FadeTransition(Duration.millis(1000), errorField);
-        ft.setFromValue(0);
-        ft.setToValue(1);
-        ft.setAutoReverse(true);
-        ft.setCycleCount(2);
     }
 }
