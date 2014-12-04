@@ -7,42 +7,52 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class BowlPickerController implements Initializable, ControlledScreen {
+/**
+ * 
+ * @author Ryan Burns
+ */
+public class BowlPickerController implements Initializable {
+    public static final int NUM_GAMES = 39;
+
     private static Game[] allGames;
-    private static SpecButton[] teamButtons;
-    private ScreensController parentController;
-    
-    private static final int NUM_GAMES = 39;
-    
+
     @FXML
-    private VBox schedule;
+    private Label errorField;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox gamesVBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         allGames = new Game[NUM_GAMES];
-        teamButtons = new SpecButton[NUM_GAMES * 2];
+        scrollPane.setContent(gamesVBox);
         try {
-            scheduler();
+            setup();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private static void scheduler() throws IOException {
+    private static void setup() throws IOException {
         BufferedReader input = new BufferedReader(new FileReader("teams.txt"));
         int counter = 0;
         String thisLine = input.readLine();
         while (thisLine != null) {
             String[] singleGame = thisLine.split(" ");
-            allGames[counter] = new Game(new Team(singleGame[0], true), new Team(singleGame[1], false), 0);
+            allGames[counter] = new Game(new Team(singleGame[0], true, 0),
+                                        new Team(singleGame[1], false, 0), 0);
             thisLine = input.readLine();
             counter++;
         }
@@ -52,22 +62,26 @@ public class BowlPickerController implements Initializable, ControlledScreen {
     private void placeButtons() {
         for (int i = 0; i < allGames.length; i++) {
             Game curGame = allGames[i];
-            teamButtons[i] = new SpecButton(curGame.getAwayTeam().getName());
-            teamButtons[i + 1] = new SpecButton(curGame.getHomeTeam().getName());
-            HBox gameRow = new HBox();
+            GameRow gameRow = new GameRow(curGame);
             gameRow.setPrefSize(Driver.SCREEN_WIDTH, 10);
             gameRow.setPadding(new Insets(5, 12, 5, 12));
-            gameRow.setSpacing(Driver.SCREEN_WIDTH - (2 * teamButtons[i].getPrefWidth()) - 24);
-            gameRow.getChildren().addAll(teamButtons[i], teamButtons[i + 1]);
-            //schedule.add(gameRow);
+            gamesVBox.getChildren().add(gameRow);
         }
     }
 
     @FXML
     private void submitButtonAction(ActionEvent event) {
-        String msg = "Please pick all games before submitting!";
-        if (allGamesPicked()) {
-            msg = "Thank you! Email 'picks.txt' to Ryan.";
+        if (!allGamesPicked()) {
+            errorField.setText("Please pick all games before submitting.");
+        } else {
+            try {
+                Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("EndingScreen.fxml"));
+                Scene myScene = new Scene(myPane);
+                Driver.mainStage.setScene(myScene);
+                Driver.mainStage.show();
+            } catch (IOException ioe) {
+                System.out.println(ioe.getMessage());
+            }
         }
     }
 
@@ -80,42 +94,11 @@ public class BowlPickerController implements Initializable, ControlledScreen {
         return true;
     }
 
-    @Override
-    public void setScreenParent(ScreensController parentController) {
-        this.parentController = parentController;
-    }
+    private class GameRow extends HBox {
+        private final Game game;
 
-    private class SpecButton extends Button {
-        protected boolean isSelected = false;
-
-        public SpecButton(String label) {
-            super(label);
-            this.setPrefSize(100, 10);
-            this.setStyle("-fx-background-color: #FFFFFF;");
-            this.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(final ActionEvent event) {
-                    //int index = teamButtons.indexOf(b);
-                    int index = 0;
-                    if (!isSelected) {
-                        setStyle("-fx-background-color: #00BFFF;");
-                        isSelected = true;
-                        if (index % 2 != 0) {
-                            SpecButton b2 = teamButtons[index - 1];
-                            b2.setStyle("-fx-background-color: #FFFFFF;");
-                            b2.isSelected = false;
-                        } else {
-                            SpecButton b2 = teamButtons[index + 1];
-                            b2.setStyle("-fx-background-color: #FFFFFF;");
-                            b2.isSelected = false;
-                        }
-                    } else {
-                        setStyle("-fx-background-color: #FFFFFF;");
-                        isSelected = false;
-                    }
-                }
-            });
+        public GameRow(Game game) {
+            this.game = game;
         }
     }
 }

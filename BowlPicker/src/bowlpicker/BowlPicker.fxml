@@ -6,7 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="460.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="bowlpicker.BowlPickerController">
-    
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bowlpicker.BowlPickerController">
+   <children>
+      <Button fx:id="submitButtonAction" layoutX="190.0" layoutY="620.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Submit" />
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="20.0" prefHeight="580.0" prefWidth="420.0">
+         <content>
+            <VBox fx:id="gamesVBox" prefHeight="580.0" prefWidth="400.0" />
+         </content></ScrollPane>
+      <Label fx:id="errorField" alignment="CENTER" layoutX="20.0" layoutY="665.0" prefHeight="40.0" prefWidth="420.0" textAlignment="CENTER" textFill="RED" />
+   </children>
 </AnchorPane>

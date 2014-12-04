@@ -1,14 +1,16 @@
 package bowlpicker;
 
+/**
+ * 
+ * @author Ryan Burns
+ */
 public class Game {
     private final Team awayTeam;
     private final Team homeTeam;
-    private final int spread;
 
-    public Game(Team awayTeam, Team homeTeam, int spread) {
+    public Game(Team awayTeam, Team homeTeam) {
         this.awayTeam = awayTeam;
         this.homeTeam = homeTeam;
-        this.spread = spread;
     }
 
     public Team getAwayTeam() {
@@ -18,9 +20,12 @@ public class Game {
     public Team getHomeTeam() {
         return homeTeam;
     }
- 
-    public int getSpread() {
-        return spread;
+
+    public Team getOtherTeam(Team firstTeam) {
+        if (firstTeam.equals(awayTeam)) {
+            return homeTeam;
+        }
+        return awayTeam;
     }
 
     @Override

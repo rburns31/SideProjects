@@ -1,34 +1,54 @@
 package bowlpicker;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-public class OpeningScreenController implements Initializable, ControlledScreen {
+/**
+ * 
+ * @author Ryan Burns
+ */
+public class OpeningScreenController implements Initializable {
     @FXML
-    private Label nameField;
+    private TextField nameField;
     @FXML
-    private Label emailField;
+    private TextField emailField;
     @FXML
     private Label errorField;
     
-    private ScreensController parentController;
     private FadeTransition ft;
 
     public void confirmButtonAction(ActionEvent e) {
-        if (nameField.getText().matches("[A-Z][a-z]* [A-Z][a-z]*")
-            && emailField.getText().matches("([a-z]|[A-Z])([a-z]|[A-Z]|\\d|\\_|\\-|\\.)*@"
+        if (!nameField.getText().matches("[A-Z][a-z]* [A-Z][a-z]*")) {
+            errorField.setText("Your name is not valid!");
+            if (ft != null) {
+                ft.play();
+            }
+        } else if (!emailField.getText().matches("([a-z]|[A-Z])([a-z]|[A-Z]|\\d|\\_|\\-|\\.)*@"
                 + "([a-z]|[A-Z])([a-z]|[A-Z]|\\d|\\_|\\-|\\.)*\\.(com|org|net|edu)")) {
-            //parentController.setScreen("BowlPickerController");
-        }
-        errorField.setText("Your information is not valid!");
-        if (ft != null) {
-            ft.play();
+            errorField.setText("Your email address is not valid!");
+            if (ft != null) {
+                ft.play();
+            }
+        } else {
+            try {
+                Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("BowlPicker.fxml"));
+                Scene myScene = new Scene(myPane);
+                Driver.mainStage.setScene(myScene);
+                Driver.mainStage.show();
+            } catch (IOException ioe) {
+                System.out.println(ioe.getMessage());
+            }
         }
     }
 
@@ -39,10 +59,5 @@ public class OpeningScreenController implements Initializable, ControlledScreen 
         ft.setToValue(1);
         ft.setAutoReverse(true);
         ft.setCycleCount(2);
-    }
-
-    @Override
-    public void setScreenParent(ScreensController parentController) {
-        this.parentController = parentController;
     }
 }

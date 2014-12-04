@@ -4,6 +4,10 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+/**
+ * 
+ * @author Ryan Burns
+ */
 public class EmailSender {
     private final String recipientAddress;
     private final String senderAddress;
@@ -21,7 +25,8 @@ public class EmailSender {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderAddress));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipientAddress));
+            message.addRecipient(Message.RecipientType.TO,
+                    new InternetAddress(recipientAddress));
             message.setSubject("This is the subject line");
             message.setText("This is the actual message");
             Transport.send(message);

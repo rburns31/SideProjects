@@ -1,37 +1,37 @@
 package bowlpicker;
 
+import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Ryan Burns
+ */
 public class Driver extends Application {
-    /**
-     * The width of the screen
-     */
     public static final int SCREEN_WIDTH = 460;
-    /**
-     * The height of the screen
-     */
     public static final int SCREEN_HEIGHT = 720;
 
+    public static Stage mainStage;
+
     @Override
-    public void start(Stage stage) {
-        ScreensController mainContainer = new ScreensController();
-        mainContainer.loadScreen("OpeningScreen", "OpeningScreen.fxml");
-        System.out.println(mainContainer);
-        mainContainer.unloadScreen("OpeningScreen");
-        //mainContainer.loadScreen("BowlPicker", "BowlPicker.fxml");
-        //mainContainer.loadScreen("EndingScreen", "EndingScreen.fxml");
-        mainContainer.setScreen("OpeningScreen");
-
-        Group root = new Group();
-        root.getChildren().addAll(mainContainer);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) {
+        mainStage = primaryStage;
+        primaryStage.setTitle("BowlPicker");
+        primaryStage.setResizable(false);
+        //primaryStage.getIcons().add(new Image());
+        try {
+            Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("OpeningScreen.fxml"));
+            Scene myScene = new Scene(myPane);
+            primaryStage.setScene(myScene);
+            primaryStage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

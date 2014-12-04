@@ -4,16 +4,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
-public class EndingScreenController  implements Initializable, ControlledScreen {
-    private ScreensController parentController;
+/**
+ * 
+ * @author Ryan Burns
+ */
+public class EndingScreenController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
     }
-
-    @Override
-    public void setScreenParent(ScreensController parentController) {
-        this.parentController = parentController;
-    } 
 }
