@@ -1,2 +1,114 @@
+New Orleans Bowl
+Pittsburgh -1 ACC 6-6
+LouisianaLafayette -1 SUNBELT 8-4
+New Mexico Bowl
+UTEP -1 CUSA 7-5
+AirForce -1 MWC 9-3
+Las Vegas Bowl
+ArizonaState 17 PAC12 9-3
+ColoradoState -1 MWC 10-2
+Potato Bowl
+BowlingGreen -1 MAC 7-5
+Nevada -1 MWC 7-5
+Camellia Bowl
+CentralMichigan -1 MAC 7-5
+SouthAlabama -1 SUNBELT 6-6
+Miami Beach Bowl
+BYU -1 INDEPENDENT 8-4
+Cincinnati -1 AAC  8-3
+Boca Raton Bowl
+Marshall -1 CUSA 11-1
+WesternMichigan -1 MAC 8-4
+Poinsettia Bowl
+Navy -1 INDEPENDENT 6-5
+SanDiegoState -1 MWC 7-5
+Bahamas Bowl
+MiddleTennessee -1 CUSA 6-6
+Toledo -1 MAC 8-4
+Hawaii Bowl
+WesternKentucky -1 CUSA 7-5
+FresnoState -1 MWC 6-6
+Heart Of Dallas Bowl
+Rutgers -1 BIG10 7-5
+LouisianaTech -1 CUSA 8-4
+Quick Lane Bowl
+VirginiaTech -1 ACC 6-6
+Illinois -1 BIG10 6-6
+St. Petersburg Bowl
+UCF -1 AAC 8-3
+Miami -1 ACC 6-6
+Military Bowl
+BostonCollege -1 ACC 7-5
+EastCarolina -1 AAC 8-3
+Sun Bowl
+NotreDame -1 INDEPENDENT 7-5
+Utah 23 PAC12 8-4
+Independence Bowl
+NorthCarolina -1 ACC 6-6
+Arkansas -1 SEC 6-6
+Pinstripe Bowl
+PennState -1 BIG10 6-6
+Duke -1 ACC 9-3
+Holiday Bowl
+Nebraska -1 BIG10 9-3
+USC 25 PAC12 8-4
+Russell Athletic Bowl
+Clemson 18 ACC 9-3
+Oklahoma 20 BIG12 8-3
+Liberty Bowl
+WestVirginia -1 BIG12 7-5
+Tennessee -1 SEC 6-6
+Texas Bowl
+Texas -1 BIG12 6-6
+LSU 24 SEC 8-4
+Music City Bowl
+TexasA&M -1 SEC 7-5
+Louisville 21 ACC 9-3
+Belk Bowl
+NorthCarolinaState -1 ACC 7-5
+SouthCarolina -1 SEC 6-6
+Foster Farms Bowl
+Iowa -1 BIG10 7-5
+Stanford -1 PAC12 7-5
+Peach Bowl
+Baylor 6 BIG12 10-1
+Wisconsin 13 BIG10 10-2
+Fiesta Bowl
+Arizona 7 PAC12 10-2
+BoiseState 22 MWC 10-2
+Orange Bowl
 GeorgiaTech 11 ACC 10-2
+MississippiState 10 SEC 10-2
+Outback Bowl
+Georgia 14 SEC 9-3
+Minnesota -1 BIG10 8-4
+Cotton Bowl
+MichiganState 8 BIG10 10-2
+OleMiss 12 SEC 9-3
+Citrus Bowl
+OhioState 5 BIG10 11-1
+Missouri 16 SEC 10-2
+Rose Bowl
+FloridaState 4 ACC 12-0
+Oregon 2 PAC12 11-1
+Sugar Bowl
 Alabama 1 SEC 11-1
+TCU 3 BIG12 10-1
+Armed Forces Bowl
+Houston -1 AAC 7-4
+Rice -1 CUSA 7-5
+TaxSlayer Bowl
+Maryland -1 BIG10 7-5
+Auburn 19 SEC 8-4
+Alamo Bowl
+KansasState 9 BIG12 9-2
+UCLA 15 PAC12 9-3
+Cactus Bowl
+Washington -1 PAC12 8-5
+UtahState -1 MWC 9-4
+Birmingham Bowl
+Memphis -1 AAC 9-3
+Florida -1 SEC 6-5
+GoDaddy Bowl
+NorthernIllinois -1 MAC 10-2
+ArkansasState -1 SUNBELT 7-5

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -8,31 +9,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bowlpicker.OpeningScreenController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bowlpicker.OpeningScreenController">
    <children>
-      <Label layoutX="163.0" layoutY="352.0" text="Name:">
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-      </Label>
-      <TextField fx:id="nameField" layoutX="207.0" layoutY="348.0" />
-      <Label layoutX="120.0" layoutY="405.0" text="Email Address:">
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-      </Label>
-      <TextField fx:id="emailField" layoutX="207.0" layoutY="401.0" />
-      <Label fx:id="errorField" alignment="TOP_CENTER" layoutX="20.0" layoutY="640.0" prefHeight="60.0" prefWidth="420.0" textAlignment="CENTER" textFill="#ee0a0a" />
-      <Button layoutX="204.0" layoutY="479.0" mnemonicParsing="false" onAction="#confirmButtonAction" text="Confirm" />
-      <Label layoutX="107.0" layoutY="58.0" text="Bowl" textFill="#e0c010">
+      <ImageView fx:id="headerImageView" fitHeight="408.0" fitWidth="660.0" pickOnBounds="true" preserveRatio="true" />
+      <Label alignment="CENTER" contentDisplay="TOP" layoutY="408.0" prefHeight="72.0" prefWidth="660.0" text="Bowl Picker" textFill="#e0c010">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="207.0" layoutY="128.0" text="Picker" textFill="#e0c010">
-         <font>
-            <Font name="System Bold" size="48.0" />
-         </font>
+      <Label layoutX="200.0" layoutY="510.0" prefHeight="25.0" prefWidth="100.0" text="Name:">
+         <padding>
+            <Insets right="10.0" />
+         </padding>
       </Label>
+      <TextField fx:id="nameField" layoutX="300.0" layoutY="510.0" prefHeight="25.0" prefWidth="160.0" />
+      <Label layoutX="200.0" layoutY="550.0" prefHeight="25.0" prefWidth="100.0" text="Email Address:">
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </Label>
+      <TextField fx:id="emailField" layoutX="300.0" layoutY="550.0" prefHeight="25.0" prefWidth="160.0" />
+      <Button layoutX="200.0" layoutY="615.0" mnemonicParsing="false" onAction="#picksButtonAction" prefHeight="25.0" prefWidth="100.0" text="Make Picks" />
+      <Button layoutX="360.0" layoutY="615.0" mnemonicParsing="false" onAction="#standingsButtonAction" prefHeight="25.0" prefWidth="100.0" text="Track Standings" />
+      <Label fx:id="errorField" alignment="TOP_CENTER" layoutX="20.0" layoutY="660.0" prefHeight="40.0" prefWidth="620.0" textAlignment="CENTER" textFill="#ee0a0a" />
    </children>
 </AnchorPane>

@@ -10,15 +10,15 @@ public class Team {
     private final String name;
     private Image image;
     private final boolean isAwayTeam;
-    private final int rank;
+    private final String rank;
     private final Conference conference;
     private final String record;
     
     public enum Conference {
-        ACC, BIG10, BIG12, BIGEAST, CUSA, INDEPENDENT, MWC, MAC, PAC12, SEC, SUNBELT, WAC
+        AAC, ACC, BIG10, BIG12, CUSA, INDEPENDENT, MWC, MAC, PAC12, SEC, SUNBELT
     }
 
-    public Team(String name, boolean isAwayTeam, int rank,
+    public Team(String name, boolean isAwayTeam, String rank,
                     Conference conference, String record) {
         this.name = name;
         StringBuilder imageName = new StringBuilder();
@@ -27,8 +27,8 @@ public class Team {
         imageName.append("_96.png");
         try {
             this.image = new Image(imageName.toString());
-        } catch (Exception e) {
-            this.image = new Image("NCAA.png");
+        } catch (IllegalArgumentException iae) {
+            this.image = new Image("cfbicons/ncaa.png");
         }
         this.isAwayTeam = isAwayTeam;
         this.rank = rank;
@@ -49,7 +49,7 @@ public class Team {
         return isAwayTeam;
     }
 
-    public int getRank() {
+    public String getRank() {
         return rank;
     }
 

@@ -10,14 +10,14 @@ import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -50,7 +50,8 @@ public class BowlPickerController implements Initializable {
         try {
             setup();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Setup didn't work, probably due to an "
+                    + "error with teams.txt");
         }
     }
 
@@ -59,14 +60,16 @@ public class BowlPickerController implements Initializable {
         int counter = 0;
         String firstLine = input.readLine();
         while (firstLine != null) {
-            String[] team1Info = firstLine.split(" ");
-            Team team1 = new Team(team1Info[0], true, Integer.parseInt(team1Info[1]),
-                    Conference.valueOf(team1Info[2]), team1Info[3]);
             String secondLine = input.readLine();
-            String[] team2Info = secondLine.split(" ");
-            Team team2 = new Team(team2Info[0], false, Integer.parseInt(team2Info[1]),
-                    Conference.valueOf(team2Info[2]), team2Info[3]);
-            allGames[counter] = new GameRow(new Game(team1, team2));
+            String[] team1Info = secondLine.split(" ");
+            Team team1 = new Team(addSpacesBack(team1Info[0]), true,
+                    team1Info[1], Conference.valueOf(team1Info[2]), team1Info[3]);
+            String thirdLine = input.readLine();
+            String[] team2Info = thirdLine.split(" ");
+            Team team2 = new Team(addSpacesBack(team2Info[0]), false,
+                    team2Info[1], Conference.valueOf(team2Info[2]), team2Info[3]);
+            allGames[counter] = new GameRow(
+                    new Game(team1, team2, firstLine), counter);
             gamesVBox.getChildren().add(allGames[counter]);
             firstLine = input.readLine();
             counter++;
@@ -74,8 +77,20 @@ public class BowlPickerController implements Initializable {
         input.close();
     }
 
-    private void selectionMade() {
+    private String addSpacesBack(String originalStr) {
+        StringBuilder s = new StringBuilder(originalStr);
+        for (int i = 1; i < s.length(); ++i) {
+            if (Character.isLowerCase(s.charAt(i - 1))
+                    && Character.isUpperCase(s.charAt(i))) {
+                s.insert(i++, ' ');
+            }
+        }
+        return s.toString();
+    }
+
+    private void selectionCheckBoxAction(ActionEvent event) {
         // Handles whenever a user picks any game
+        
     }
 
     @FXML
@@ -86,14 +101,8 @@ public class BowlPickerController implements Initializable {
                 ft.play();
             }
         } else {
-            try {
-                Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("EndingScreen.fxml"));
-                Scene myScene = new Scene(myPane);
-                Driver.mainStage.setScene(myScene);
-                Driver.mainStage.show();
-            } catch (IOException ioe) {
-                System.out.println(ioe.getMessage());
-            }
+            // Email and write to file their picks
+            // Clear the screen, display the appropriate ending message
         }
     }
 
@@ -108,10 +117,68 @@ public class BowlPickerController implements Initializable {
 
     private class GameRow extends HBox {
         private final Game game;
+        private final int gameNumber;
 
-        public GameRow(Game game) {
+        @FXML
+        private final CheckBox checkBox1;
+        @FXML
+        private final CheckBox checkBox2;
+
+        public GameRow(Game game, int gameNumber) {
             super();
             this.game = game;
+            this.gameNumber = gameNumber;
+            this.checkBox1 = new CheckBox();
+            checkBox1.setId(Integer.toString(2 * gameNumber));
+            checkBox1.setOnAction(handler);
+            this.checkBox2 = new CheckBox();
+            checkBox2.setId(Integer.toString((2 * gameNumber) + 1));
+            display();
+        }
+
+        EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                CheckBox pressedBox = (CheckBox)event.getSource();
+                if (pressedBox.getId().equals(checkBox1.getId())) {
+                    if (!checkBox1.isSelected()) {
+                        checkBox1.setSelected(true);
+                        if (checkBox2.isSelected()) {
+                            checkBox2.setSelected(false);
+                        }
+                    }
+                } else {
+                    if (!checkBox2.isSelected()) {
+                        checkBox2.setSelected(true);
+                        if (checkBox1.isSelected()) {
+                            checkBox1.setSelected(false);
+                        }
+                    }
+                }
+            }
+        };
+
+        private void display() {
+            ImageView imageView1 = new ImageView(game.getAwayTeam().getImage());
+            this.getChildren().add(imageView1);
+            Label rankLabel1 = new Label();
+            this.getChildren().add(rankLabel1);
+            if (Integer.parseInt(game.getAwayTeam().getRank()) > 0) {
+                rankLabel1.setText("#" + game.getAwayTeam().getRank());
+            }
+            this.getChildren().add(new Label(game.getAwayTeam().getName()));
+            this.getChildren().add(checkBox1);
+
+            this.getChildren().add(checkBox2);
+            Label rankLabel2 = new Label();
+            this.getChildren().add(rankLabel2);
+            if (Integer.parseInt(game.getHomeTeam().getRank()) > 0) {
+                rankLabel2.setText("#" + game.getHomeTeam().getRank());
+            }
+            this.getChildren().add(new Label(game.getHomeTeam().getName()));
+            ImageView imageView2 = new ImageView(game.getHomeTeam().getImage());
+            this.getChildren().add(imageView2);
         }
 
         public Game getGame() {
@@ -119,7 +186,7 @@ public class BowlPickerController implements Initializable {
         }
 
         public boolean isPicked() {
-            return false; // TODO: Implement
+            return (checkBox1.isSelected() || checkBox2.isSelected());
         }
     }
 }
