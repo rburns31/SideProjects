@@ -75,7 +75,6 @@ public class OpeningScreenController implements Initializable {
                 Driver.mainStage.show();
             } catch (IOException ioe) {
                 System.out.println("Couldn't load the bowl picking screen.");
-                ioe.printStackTrace();
             }
         }
     }

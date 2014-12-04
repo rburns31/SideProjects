@@ -17,7 +17,7 @@ public class EmailSender {
         this.senderAddress = senderAddress;
     }
 
-    private void sender() {
+    public void sendEmail() {
         String host = "localhost";
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", host);
@@ -32,7 +32,7 @@ public class EmailSender {
             Transport.send(message);
             System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
-            System.out.println(mex.getMessage());
+            System.out.println("Couldn't send email.");
         }
     }
 }

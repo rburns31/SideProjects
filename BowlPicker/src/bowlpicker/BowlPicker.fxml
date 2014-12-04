@@ -10,11 +10,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bowlpicker.BowlPickerController">
    <children>
-      <Button fx:id="submitButtonAction" layoutX="290.0" layoutY="620.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Submit" />
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="20.0" prefHeight="580.0" prefWidth="620.0">
          <content>
             <VBox fx:id="gamesVBox" prefHeight="580.0" prefWidth="600.0" />
          </content></ScrollPane>
+      <Button layoutX="290.0" layoutY="620.0" mnemonicParsing="false" onAction="#submitButtonAction" prefHeight="30.0" prefWidth="80.0" text="Submit" />
       <Label fx:id="errorField" alignment="CENTER" layoutX="20.0" layoutY="665.0" prefHeight="40.0" prefWidth="620.0" textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>
