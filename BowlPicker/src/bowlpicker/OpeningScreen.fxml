@@ -23,14 +23,8 @@
          </padding>
       </Label>
       <TextField fx:id="nameField" layoutX="300.0" layoutY="510.0" prefHeight="25.0" prefWidth="160.0" />
-      <Label layoutX="200.0" layoutY="550.0" prefHeight="25.0" prefWidth="100.0" text="Email Address:">
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-      </Label>
-      <TextField fx:id="emailField" layoutX="300.0" layoutY="550.0" prefHeight="25.0" prefWidth="160.0" />
-      <Button layoutX="200.0" layoutY="615.0" mnemonicParsing="false" onAction="#picksButtonAction" prefHeight="25.0" prefWidth="100.0" text="Make Picks" />
-      <Button layoutX="360.0" layoutY="615.0" mnemonicParsing="false" onAction="#standingsButtonAction" prefHeight="25.0" prefWidth="100.0" text="Track Standings" />
+      <Button layoutX="200.0" layoutY="600.0" mnemonicParsing="false" onAction="#picksButtonAction" prefHeight="25.0" prefWidth="100.0" text="Make Picks" />
+      <Button layoutX="360.0" layoutY="600.0" mnemonicParsing="false" onAction="#standingsButtonAction" prefHeight="25.0" prefWidth="100.0" text="Track Standings" />
       <Label fx:id="errorField" alignment="TOP_CENTER" layoutX="20.0" layoutY="660.0" prefHeight="40.0" prefWidth="620.0" textAlignment="CENTER" textFill="#ee0a0a" />
    </children>
 </AnchorPane>

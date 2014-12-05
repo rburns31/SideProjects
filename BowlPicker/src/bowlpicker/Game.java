@@ -1,7 +1,7 @@
 package bowlpicker;
 
 /**
- * 
+ * A model class in BowlPicker that represents a single bowl game
  * @author Ryan Burns
  */
 public class Game {
@@ -32,11 +32,6 @@ public class Game {
             return homeTeam;
         }
         return awayTeam;
-    }
-
-    @Override
-    public String toString() {
-        return awayTeam + " vs. " + homeTeam;
     }
 
     @Override

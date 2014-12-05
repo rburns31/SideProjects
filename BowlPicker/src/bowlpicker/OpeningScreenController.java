@@ -17,14 +17,13 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 /**
- * 
+ * The FXML controller for the opening screen of BowlPicker
+ * Allows the user to enter their name, and then choose between the two screens
  * @author Ryan Burns
  */
 public class OpeningScreenController implements Initializable {
     @FXML
     private TextField nameField;
-    @FXML
-    private TextField emailField;
     @FXML
     private Label errorField;
     @FXML
@@ -46,17 +45,13 @@ public class OpeningScreenController implements Initializable {
         }
     }
 
-    private boolean validateEntries() {
+    /**
+     * Does not allow the user to enter either screen without a valid name
+     * @return Whether or not the currently entered name is valid
+     */
+    private boolean validateName() {
         if (!nameField.getText().matches("[A-Z][a-z]+ [A-Z][a-z]+")) {
             errorField.setText("Your name is not valid!");
-            if (ft != null) {
-                ft.play();
-            }
-            return false;
-        } else if (!emailField.getText().matches("([a-z]|[A-Z])"
-                + "([a-z]|[A-Z]|\\d|\\_|\\-|\\.)*@([a-z]|[A-Z])"
-                + "([a-z]|[A-Z]|\\d|\\_|\\-|\\.)*\\.(com|org|net|edu)")) {
-            errorField.setText("Your email address is not valid!");
             if (ft != null) {
                 ft.play();
             }
@@ -66,7 +61,8 @@ public class OpeningScreenController implements Initializable {
     }
 
     public void picksButtonAction(ActionEvent e) {
-        if (validateEntries()) {
+        if (validateName()) {
+            Driver.playerName = nameField.getText();
             try {
                 Pane myPane = (Pane)FXMLLoader.load(getClass().getResource(
                         "BowlPicker.fxml"));
@@ -79,8 +75,8 @@ public class OpeningScreenController implements Initializable {
         }
     }
 
-    public void standingsButtonAction(ActionEvent e) {
-        if (validateEntries()) {
+    public void standingsButtonAction(ActionEvent e) throws Exception {
+        if (validateName()) {
             // Change screen to the track standings page
             errorField.setText("Not currently supported.");
             if (ft != null) {

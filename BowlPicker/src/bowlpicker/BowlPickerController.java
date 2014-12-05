@@ -3,8 +3,10 @@ package bowlpicker;
 import bowlpicker.Team.Conference;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -37,7 +39,7 @@ public class BowlPickerController implements Initializable {
     /**
      * As of 2014-2015,there are 39 bowl games, including the championship
      */
-    public static final int NUM_GAMES = 39;
+    public static final int NUM_GAMES = 38;
 
     private GameRow[] allGames;
     private FadeTransition ft;
@@ -126,8 +128,6 @@ public class BowlPickerController implements Initializable {
                 ft.play();
             }
         } else {
-
-            boolean emailSuccess = endingProtocol();
             Pane mainPane = (Pane)scrollPane.getParent();
             mainPane.getChildren().clear();
             Label finalMsg = new Label();
@@ -136,20 +136,11 @@ public class BowlPickerController implements Initializable {
             finalMsg.setLayoutX(50);
             finalMsg.setWrapText(true);
             finalMsg.setFont(new Font("System", 24));
-            if (emailSuccess) {
-                finalMsg.setText("Your picks have been emailed to Ryan, and "
-                        + "there is also a copy of them in the same folder "
-                        + "as this application for your own viewing. Ryan will "
-                        + "update you when all picks have been submitted. "
-                        + "Good luck, and Go Jackets!");
-            } else {
-                finalMsg.setText("Your picks have failed to email to Ryan, but "
-                        + "there is a copy of them in the same folder "
-                        + "as this application. You will need to email this "
-                        + ".txt file to bearskid5@yahoo.com for your picks "
-                        + "to count. Ryan will update you when all picks have "
-                        + "been submitted. Good luck, and Go Jackets!");
-            }
+            finalMsg.setText("There is a file containing your picks in the "
+                    + "same folder as this application. You will need to email "
+                    + "this .txt file to bearskid5@yahoo.com for your picks "
+                    + "to count. Ryan will update you when all picks have "
+                    + "been submitted. Good luck!");
             finalMsg.setAlignment(Pos.CENTER);
             mainPane.getChildren().add(finalMsg);
         }
@@ -157,12 +148,25 @@ public class BowlPickerController implements Initializable {
 
     /**
      * Handles all procedures to be taken upon successful picking completion
-     *     Attempts to email picks to me, and saves picks to file
+     *      and saves picks to file
      * @return Whether or not the email sent successfully
      */
-    private boolean endingProtocol() {
-        
-        return false;
+    private void endingProtocol() {
+        try {
+            File file = new File(
+                    Driver.playerName.replace(" ", "") + "Picks.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            PrintWriter outputFile = new PrintWriter(file, "UTF-8"); 
+            for (GameRow gameRow : allGames) {
+                outputFile.println(gameRow.getCurrentlyPicked().getName());
+            }
+            outputFile.close();
+        } catch(IOException ioe) {
+            System.out.println("Couldn't create and write to the picks file.");
+            System.exit(1);
+        }
     }
 
     /**
@@ -218,6 +222,19 @@ public class BowlPickerController implements Initializable {
                 } else if (pressedBox.getId().equals(checkBox2.getId())) {
                     checkBox2.setSelected(true);
                     checkBox1.setSelected(false);
+                }
+                if (game.getAwayTeam().getName().equals("Georgia Tech")
+                        || game.getHomeTeam().getName().equals("Georgia Tech")) {
+                    errorField.setText("Give 'em hell, Tech!");
+                    if (ft != null) {
+                        ft.play();
+                    }
+                } else if (game.getAwayTeam().getName().equals("Georgia")
+                        || game.getHomeTeam().getName().equals("Georgia")) {
+                    errorField.setText("THWg");
+                    if (ft != null) {
+                        ft.play();
+                    }
                 }
             }
         };
@@ -287,8 +304,14 @@ public class BowlPickerController implements Initializable {
             return game;
         }
 
-        public int getGameNumber() {
-            return gameNumber;
+        public Team getCurrentlyPicked() {
+            if (checkBox1.isSelected()) {
+                return game.getAwayTeam();
+            } else if (checkBox2.isSelected()) {
+                return game.getHomeTeam();
+            } else {
+                return null;
+            }
         }
 
         public boolean isPicked() {

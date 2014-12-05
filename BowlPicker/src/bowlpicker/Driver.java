@@ -10,7 +10,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * 
+ * The driver for BowlPicker
+ * Sets up the basics of the window, and then loads the OpeningScreen
+ * Credit to Jason Nessa for the cool team icons
+ *     (http://icons.jasonnessa.com/collegefootball/)
  * @author Ryan Burns
  */
 public class Driver extends Application {
@@ -18,6 +21,7 @@ public class Driver extends Application {
     public static final int SCREEN_HEIGHT = 720;
 
     public static Stage mainStage;
+    public static String playerName;
 
     @Override
     public void start(Stage primaryStage) {
@@ -25,7 +29,8 @@ public class Driver extends Application {
         primaryStage.setTitle("BowlPicker");
         primaryStage.setResizable(false);
         try {
-            primaryStage.getIcons().add(new Image("cfbicons/applicationIcon.png"));
+            primaryStage.getIcons().add(
+                    new Image("cfbicons/applicationIcon.png"));
         } catch (Exception e) {
             System.out.println("Couldn't find the window icon image.");
         }

@@ -3,7 +3,7 @@ package bowlpicker;
 import javafx.scene.image.Image;
 
 /**
- * 
+ * A model class in BowlPicker that represents a single football team
  * @author Ryan Burns
  */
 public class Team {
@@ -13,7 +13,10 @@ public class Team {
     private final String rank;
     private final Conference conference;
     private final String record;
-    
+
+    /**
+     * The list of valid conferences that a team can be in
+     */
     public enum Conference {
         AAC, ACC, BIG10, BIG12, CUSA, INDEPENDENT, MWC, MAC, PAC12, SEC, SUNBELT
     }
@@ -39,7 +42,6 @@ public class Team {
     public String getName() {
         return name;
     }
-
 
     public Image getImage() {
         return image;
