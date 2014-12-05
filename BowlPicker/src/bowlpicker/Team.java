@@ -18,7 +18,8 @@ public class Team {
      * The list of valid conferences that a team can be in
      */
     public enum Conference {
-        AAC, ACC, BIG10, BIG12, CUSA, INDEPENDENT, MWC, MAC, PAC12, SEC, SUNBELT
+        AAC, ACC, BIG10, BIG12, CUSA, INDEPENDENT, MWC, MAC, PAC12,
+        SEC, SUNBELT, TBD
     }
 
     public Team(String name, boolean isAwayTeam, String rank,

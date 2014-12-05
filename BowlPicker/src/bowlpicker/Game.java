@@ -5,8 +5,8 @@ package bowlpicker;
  * @author Ryan Burns
  */
 public class Game {
-    private final Team awayTeam;
-    private final Team homeTeam;
+    private Team awayTeam;
+    private Team homeTeam;
     private final String bowlName;
 
     public Game(Team awayTeam, Team homeTeam, String bowlName) {
@@ -32,6 +32,16 @@ public class Game {
             return homeTeam;
         }
         return awayTeam;
+    }
+
+    public Game setAwayTeam(Team newTeam) {
+        this.awayTeam = newTeam;
+        return this;
+    }
+
+    public Game setHomeTeam(Team newTeam) {
+        this.homeTeam = newTeam;
+        return this;
     }
 
     @Override

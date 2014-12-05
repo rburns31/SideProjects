@@ -8,7 +8,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.animation.FadeTransition;
 
 import javafx.event.ActionEvent;
@@ -39,7 +41,9 @@ public class BowlPickerController implements Initializable {
     /**
      * As of 2014-2015,there are 39 bowl games, including the championship
      */
-    public static final int NUM_GAMES = 38;
+    public static final int NUM_GAMES = 39;
+
+    private Set<String> bigBowlNames = new HashSet<>();
 
     private GameRow[] allGames;
     private FadeTransition ft;
@@ -58,6 +62,13 @@ public class BowlPickerController implements Initializable {
         ft.setToValue(1);
         ft.setAutoReverse(true);
         ft.setCycleCount(2);
+        bigBowlNames.add("Championship Game");
+        bigBowlNames.add("Rose Bowl");
+        bigBowlNames.add("Sugar Bowl");
+        bigBowlNames.add("Orange Bowl");
+        bigBowlNames.add("Cotton Bowl");
+        bigBowlNames.add("Fiesta Bowl");
+        bigBowlNames.add("Peach Bowl");
         allGames = new GameRow[NUM_GAMES];
         scrollPane.setContent(gamesVBox);
         try {
@@ -95,6 +106,11 @@ public class BowlPickerController implements Initializable {
             counter++;
         }
         input.close();
+        Team champTeam1 = new Team("TBD", true, "-1", Conference.TBD, "0-0");
+        Team champTeam2 = new Team("TBD", false, "-1", Conference.TBD, "0-0");
+        allGames[counter] = new GameRow(
+                new Game(champTeam1, champTeam2, "Championship Game"), counter);
+        gamesVBox.getChildren().add(allGames[counter]);
     }
 
     /**
@@ -130,6 +146,7 @@ public class BowlPickerController implements Initializable {
         } else {
             Pane mainPane = (Pane)scrollPane.getParent();
             mainPane.getChildren().clear();
+            endingProtocol();
             Label finalMsg = new Label();
             finalMsg.setPrefWidth(560);
             finalMsg.setPrefHeight(720);
@@ -205,6 +222,9 @@ public class BowlPickerController implements Initializable {
             checkBox1.setOnAction(handler);
             checkBox2.setId(Integer.toString((2 * gameNumber) + 1));
             checkBox2.setOnAction(handler);
+            if (bigBowlNames.contains(game.getBowlName())) {
+                this.setStyle("-fx-background-color: #FFFF00");
+            }
             display();
         }
 
@@ -235,6 +255,19 @@ public class BowlPickerController implements Initializable {
                     if (ft != null) {
                         ft.play();
                     }
+                }
+                if (game.getBowlName().equals("Rose Bowl")) {
+                    allGames[NUM_GAMES - 1] = new GameRow(
+                            allGames[NUM_GAMES - 1].game.setAwayTeam(
+                                    getCurrentlyPicked()), NUM_GAMES - 1);
+                    gamesVBox.getChildren().remove(NUM_GAMES - 1);
+                    gamesVBox.getChildren().add(allGames[NUM_GAMES - 1]);
+                } else if (game.getBowlName().equals("Sugar Bowl")) {
+                    allGames[NUM_GAMES - 1] = new GameRow(
+                            allGames[NUM_GAMES - 1].game.setHomeTeam(
+                                    getCurrentlyPicked()), NUM_GAMES - 1);
+                    gamesVBox.getChildren().remove(NUM_GAMES - 1);
+                    gamesVBox.getChildren().add(allGames[NUM_GAMES - 1]);
                 }
             }
         };
