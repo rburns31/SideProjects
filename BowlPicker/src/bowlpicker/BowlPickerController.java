@@ -35,6 +35,10 @@ import javafx.util.Duration;
  * The FXML controller for the main picking screen of BowlPicker
  * Inputs the schedule of games from file, then allows the user to
  *     pick each of those games, and then handles outputting their picks to file
+ * 
+ * TODO: Make the name error field clearer, highlight games that were not
+ *     picked in red if the user tries to prematurely submit, handle bowl time
+ *     and date displaying and team record and conference displaying
  * @author Ryan Burns
  */
 public class BowlPickerController implements Initializable {
@@ -43,7 +47,7 @@ public class BowlPickerController implements Initializable {
      */
     public static final int NUM_GAMES = 39;
 
-    private Set<String> bigBowlNames = new HashSet<>();
+    private final Set<String> bigBowlNames = new HashSet<>();
 
     private GameRow[] allGames;
     private FadeTransition ft;
@@ -100,7 +104,7 @@ public class BowlPickerController implements Initializable {
                     team2Info[1], Conference.valueOf(team2Info[2]),
                     team2Info[3]);
             allGames[counter] = new GameRow(
-                    new Game(team1, team2, firstLine), counter);
+                    new Game(team1, team2, addSpacesBack(firstLine)), counter);
             gamesVBox.getChildren().add(allGames[counter]);
             firstLine = input.readLine();
             counter++;
@@ -256,6 +260,7 @@ public class BowlPickerController implements Initializable {
                         ft.play();
                     }
                 }
+                // Handles the semifinals' picks affecting the championship game
                 if (game.getBowlName().equals("Rose Bowl")) {
                     allGames[NUM_GAMES - 1] = new GameRow(
                             allGames[NUM_GAMES - 1].game.setAwayTeam(
