@@ -36,9 +36,9 @@ import javafx.util.Duration;
  * Inputs the schedule of games from file, then allows the user to
  *     pick each of those games, and then handles outputting their picks to file
  * 
- * TODO: Make the name error field clearer, highlight games that were not
- *     picked in red if the user tries to prematurely submit, handle bowl time
- *     and date displaying and team record and conference displaying
+ * TODO: Highlight games that were not picked in red if the user tries to
+ *     prematurely submit, handle bowl time and date displaying
+ *     and team record and conference displaying
  * @author Ryan Burns
  */
 public class BowlPickerController implements Initializable {
@@ -98,22 +98,29 @@ public class BowlPickerController implements Initializable {
             Team team1 = new Team(addSpacesBack(team1Info[0]), true,
                     team1Info[1], Conference.valueOf(team1Info[2]),
                     team1Info[3]);
+
             String thirdLine = input.readLine();
             String[] team2Info = thirdLine.split(" ");
             Team team2 = new Team(addSpacesBack(team2Info[0]), false,
                     team2Info[1], Conference.valueOf(team2Info[2]),
                     team2Info[3]);
-            allGames[counter] = new GameRow(
-                    new Game(team1, team2, addSpacesBack(firstLine)), counter);
+
+            String[] bowlInfo = firstLine.split(" ");
+            allGames[counter] = new GameRow(new Game(team1, team2,
+                    addSpacesBack(bowlInfo[0]), bowlInfo[1], bowlInfo[2]),
+                    counter);
+
             gamesVBox.getChildren().add(allGames[counter]);
             firstLine = input.readLine();
             counter++;
         }
         input.close();
+        // Initializes the championship game as a special case (TBD teams)
         Team champTeam1 = new Team("TBD", true, "-1", Conference.TBD, "0-0");
         Team champTeam2 = new Team("TBD", false, "-1", Conference.TBD, "0-0");
         allGames[counter] = new GameRow(
-                new Game(champTeam1, champTeam2, "Championship Game"), counter);
+                new Game(champTeam1, champTeam2, "Championship Game",
+                        "1/12", "TBD"), counter);
         gamesVBox.getChildren().add(allGames[counter]);
     }
 

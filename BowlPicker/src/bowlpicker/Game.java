@@ -8,11 +8,16 @@ public class Game {
     private Team awayTeam;
     private Team homeTeam;
     private final String bowlName;
+    private final String date;
+    private final String time;
 
-    public Game(Team awayTeam, Team homeTeam, String bowlName) {
+    public Game(Team awayTeam, Team homeTeam, String bowlName,
+            String date, String time) {
         this.awayTeam = awayTeam;
         this.homeTeam = homeTeam;
         this.bowlName = bowlName;
+        this.date = date;
+        this.time = time;
     }
 
     public Team getAwayTeam() {
@@ -25,6 +30,14 @@ public class Game {
 
     public String getBowlName() {
         return bowlName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public Team getOtherTeam(Team firstTeam) {

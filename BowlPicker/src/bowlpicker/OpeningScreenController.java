@@ -51,7 +51,8 @@ public class OpeningScreenController implements Initializable {
      */
     private boolean validateName() {
         if (!nameField.getText().matches("[A-Z][a-z]+ [A-Z][a-z]+")) {
-            errorField.setText("Your name is not valid!");
+            errorField.setText("Your name is not valid! Please use the "
+                    + "format 'Firstname Lastname'");
             if (ft != null) {
                 ft.play();
             }
