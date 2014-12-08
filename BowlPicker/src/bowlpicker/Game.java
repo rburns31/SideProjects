@@ -1,5 +1,7 @@
 package bowlpicker;
 
+import java.util.Objects;
+
 /**
  * A model class in BowlPicker that represents a single bowl game
  * @author Ryan Burns
@@ -64,5 +66,12 @@ public class Game {
         }
         Game other = (Game)o;
         return bowlName.equals(other.getBowlName());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.bowlName);
+        return hash;
     }
 }

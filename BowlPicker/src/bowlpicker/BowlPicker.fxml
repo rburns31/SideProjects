@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -16,5 +17,10 @@
          </content></ScrollPane>
       <Button layoutX="290.0" layoutY="620.0" mnemonicParsing="false" onAction="#submitButtonAction" prefHeight="30.0" prefWidth="80.0" text="Submit" />
       <Label fx:id="errorField" alignment="CENTER" layoutX="20.0" layoutY="665.0" prefHeight="40.0" prefWidth="620.0" textAlignment="CENTER" textFill="RED" />
+      <Label layoutX="20.0" layoutY="600.0" text="*Click on a team's icon to get more information about them.">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

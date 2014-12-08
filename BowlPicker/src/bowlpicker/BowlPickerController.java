@@ -42,8 +42,7 @@ import javafx.util.Duration;
  * Inputs the schedule of games from file, then allows the user to
  *     pick each of those games, and then handles outputting their picks to file
  * 
- * TODO: Add in instructions on the home screen (icon), and
- *     package into an .exe
+ * TODO: Package into an .exe
  * @author Ryan Burns
  */
 public class BowlPickerController implements Initializable {
@@ -323,8 +322,11 @@ public class BowlPickerController implements Initializable {
                         Desktop.getDesktop().browse(new URI(urlName.toString()));
                     }
                 } catch (URISyntaxException | IOException e) {
-                    System.out.println("Could not open that team's webpage. "
+                    errorField.setText("Could not open that team's webpage. "
                             + "Check your internet.");
+                    if (ft != null) {
+                        ft.play();
+                    }
                 }
                 event.consume();
             }

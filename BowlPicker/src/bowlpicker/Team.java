@@ -1,6 +1,7 @@
 package bowlpicker;
 
 import java.util.HashMap;
+import java.util.Objects;
 import javafx.scene.image.Image;
 
 /**
@@ -81,5 +82,12 @@ public class Team {
         }
         Team other = (Team)o;
         return name.equals(other.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.name);
+        return hash;
     }
 }
