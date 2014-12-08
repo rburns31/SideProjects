@@ -42,9 +42,8 @@ import javafx.util.Duration;
  * Inputs the schedule of games from file, then allows the user to
  *     pick each of those games, and then handles outputting their picks to file
  * 
- * TODO: Highlight games that were not picked in red if the user tries to
- *     prematurely submit, add in instructions on the home screen (icon), and
- *     fix the image clicking to go the home and away teams when appropriate
+ * TODO: Add in instructions on the home screen (icon), and
+ *     package into an .exe
  * @author Ryan Burns
  */
 public class BowlPickerController implements Initializable {
@@ -207,6 +206,7 @@ public class BowlPickerController implements Initializable {
     private boolean allGamesPicked() {
         for (GameRow gameRow : allGames) {
             if (!gameRow.isPicked()) {
+                gameRow.setStyle("-fx-background-color: #FF0000");
                 return false;
             }
         }
@@ -250,6 +250,7 @@ public class BowlPickerController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
+                // Toggles the choice of the game
                 CheckBox pressedBox = (CheckBox)event.getSource();
                 if (pressedBox.getId().equals(checkBox1.getId())) {
                     checkBox1.setSelected(true);
@@ -257,6 +258,14 @@ public class BowlPickerController implements Initializable {
                 } else if (pressedBox.getId().equals(checkBox2.getId())) {
                     checkBox2.setSelected(true);
                     checkBox1.setSelected(false);
+                }
+                // Unhighlights the box if it was red prior to being selected
+                GameRow thisRow = (GameRow)pressedBox.getParent().getParent().getParent();
+                if (thisRow.getStyle().equals("-fx-background-color: #FF0000")) {
+                    thisRow.setStyle("-fx-background-color: #FFFFFF");
+                    if (bigBowlNames.contains(game.getBowlName())) {
+                        thisRow.setStyle("-fx-background-color: #FFFF00");
+                    }
                 }
                 // Just some prompts for my own enjoyment
                 if (game.getAwayTeam().getName().equals("Georgia Tech")
@@ -300,13 +309,19 @@ public class BowlPickerController implements Initializable {
                 try {
                     StringBuilder urlName = new StringBuilder();
                     urlName.append("http://search.espn.go.com/");
-                    String[] nameParts = game.getHomeTeam().getName().split(" ");
+                    Team thisTeam = game.getAwayTeam();
+                    ImageView thisImage = (ImageView)event.getSource();
+                    if (Integer.parseInt(thisImage.getId()) % 2 == 1) {
+                        thisTeam = game.getHomeTeam();
+                    }
+                    String[] nameParts = thisTeam.getName().split(" ");
                     for (String namePart : nameParts) {
                         urlName.append(namePart).append("-");
                     }
                     urlName.append("football/");
-                    System.out.println(urlName.toString());
-                    Desktop.getDesktop().browse(new URI(urlName.toString()));
+                    if (!thisTeam.getName().equals("TBD")) {
+                        Desktop.getDesktop().browse(new URI(urlName.toString()));
+                    }
                 } catch (URISyntaxException | IOException e) {
                     System.out.println("Could not open that team's webpage. "
                             + "Check your internet.");
@@ -321,6 +336,7 @@ public class BowlPickerController implements Initializable {
         private void display() {
             // The first team's icon
             ImageView imageView1 = new ImageView(game.getAwayTeam().getImage());
+            imageView1.setId(Integer.toString(2 * gameNumber));
             imageView1.setOnMouseClicked(imageClickHandler);
             this.getChildren().add(imageView1);
 
@@ -394,6 +410,7 @@ public class BowlPickerController implements Initializable {
 
             // The second team's icon
             ImageView imageView2 = new ImageView(game.getHomeTeam().getImage());
+            imageView2.setId(Integer.toString(2 * gameNumber) + 1);
             imageView2.setOnMouseClicked(imageClickHandler);
             this.getChildren().add(imageView2);
         }
