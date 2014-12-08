@@ -1,12 +1,15 @@
 package bowlpicker;
 
 import bowlpicker.Team.Conference;
+import java.awt.Desktop;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -25,10 +28,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
 /**
@@ -37,8 +43,8 @@ import javafx.util.Duration;
  *     pick each of those games, and then handles outputting their picks to file
  * 
  * TODO: Highlight games that were not picked in red if the user tries to
- *     prematurely submit, handle bowl time and date displaying
- *     and team record and conference displaying
+ *     prematurely submit, add in instructions on the home screen (icon), and
+ *     fix the image clicking to go the home and away teams when appropriate
  * @author Ryan Burns
  */
 public class BowlPickerController implements Initializable {
@@ -95,15 +101,13 @@ public class BowlPickerController implements Initializable {
         while (firstLine != null) {
             String secondLine = input.readLine();
             String[] team1Info = secondLine.split(" ");
-            Team team1 = new Team(addSpacesBack(team1Info[0]), true,
-                    team1Info[1], Conference.valueOf(team1Info[2]),
-                    team1Info[3]);
+            Team team1 = new Team(addSpacesBack(team1Info[0]), team1Info[1],
+                    Conference.valueOf(team1Info[2]), team1Info[3]);
 
             String thirdLine = input.readLine();
             String[] team2Info = thirdLine.split(" ");
-            Team team2 = new Team(addSpacesBack(team2Info[0]), false,
-                    team2Info[1], Conference.valueOf(team2Info[2]),
-                    team2Info[3]);
+            Team team2 = new Team(addSpacesBack(team2Info[0]), team2Info[1],
+                    Conference.valueOf(team2Info[2]), team2Info[3]);
 
             String[] bowlInfo = firstLine.split(" ");
             allGames[counter] = new GameRow(new Game(team1, team2,
@@ -116,8 +120,8 @@ public class BowlPickerController implements Initializable {
         }
         input.close();
         // Initializes the championship game as a special case (TBD teams)
-        Team champTeam1 = new Team("TBD", true, "-1", Conference.TBD, "0-0");
-        Team champTeam2 = new Team("TBD", false, "-1", Conference.TBD, "0-0");
+        Team champTeam1 = new Team("TBD", "-1", Conference.TBD, "0-0");
+        Team champTeam2 = new Team("TBD", "-1", Conference.TBD, "0-0");
         allGames[counter] = new GameRow(
                 new Game(champTeam1, champTeam2, "Championship Game",
                         "1/12", "TBD"), counter);
@@ -213,8 +217,6 @@ public class BowlPickerController implements Initializable {
      * A special type of HBox that houses the GUI for one bowl game
      */
     private class GameRow extends HBox {
-        public static final int LABEL_HEIGHT = 70;
-
         private final Game game;
         private final int gameNumber;
 
@@ -230,9 +232,9 @@ public class BowlPickerController implements Initializable {
             this.checkBox1 = new CheckBox();
             this.checkBox2 = new CheckBox();
             checkBox1.setId(Integer.toString(2 * gameNumber));
-            checkBox1.setOnAction(handler);
+            checkBox1.setOnAction(checkBoxHandler);
             checkBox2.setId(Integer.toString((2 * gameNumber) + 1));
-            checkBox2.setOnAction(handler);
+            checkBox2.setOnAction(checkBoxHandler);
             if (bigBowlNames.contains(game.getBowlName())) {
                 this.setStyle("-fx-background-color: #FFFF00");
             }
@@ -240,9 +242,11 @@ public class BowlPickerController implements Initializable {
         }
 
         /**
-         * Handles any CheckBox being pressed
+         * Handles any CheckBox being pressed by toggling the choice if
+         *     appropriate, and taking the proper action when semi-finals
+         *     are selected, etc.
          */
-        EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
+        EventHandler<ActionEvent> checkBoxHandler = new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -254,6 +258,7 @@ public class BowlPickerController implements Initializable {
                     checkBox2.setSelected(true);
                     checkBox1.setSelected(false);
                 }
+                // Just some prompts for my own enjoyment
                 if (game.getAwayTeam().getName().equals("Georgia Tech")
                         || game.getHomeTeam().getName().equals("Georgia Tech")) {
                     errorField.setText("Give 'em hell, Tech!");
@@ -285,28 +290,62 @@ public class BowlPickerController implements Initializable {
         };
 
         /**
+         * Handles any team icon being clicked by opening that team's info in
+         *     their browser on ESPN's web site
+         */
+        EventHandler<MouseEvent> imageClickHandler = new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    StringBuilder urlName = new StringBuilder();
+                    urlName.append("http://search.espn.go.com/");
+                    String[] nameParts = game.getHomeTeam().getName().split(" ");
+                    for (String namePart : nameParts) {
+                        urlName.append(namePart).append("-");
+                    }
+                    urlName.append("football/");
+                    System.out.println(urlName.toString());
+                    Desktop.getDesktop().browse(new URI(urlName.toString()));
+                } catch (URISyntaxException | IOException e) {
+                    System.out.println("Could not open that team's webpage. "
+                            + "Check your internet.");
+                }
+                event.consume();
+            }
+        };
+
+        /**
          * Displays everything that is housed in one GameRow
          */
         private void display() {
             // The first team's icon
             ImageView imageView1 = new ImageView(game.getAwayTeam().getImage());
+            imageView1.setOnMouseClicked(imageClickHandler);
             this.getChildren().add(imageView1);
 
             // The first team's name and cooresponding CheckBox
-            StringBuilder labelStr1 = new StringBuilder();
+            StringBuilder team1NameStr = new StringBuilder();
             if (Integer.parseInt(game.getAwayTeam().getRank()) > 0) {
-                labelStr1.append("#").append(
+                team1NameStr.append("#").append(
                         game.getAwayTeam().getRank()).append(" ");
             }
-            labelStr1.append(game.getAwayTeam().getName());
-            Label label1 = new Label(labelStr1.toString());
-            label1.setGraphic(checkBox1);
-            label1.setContentDisplay(ContentDisplay.RIGHT);
-            label1.setGraphicTextGap(10);
-            label1.setPrefHeight(LABEL_HEIGHT);
-            label1.setPrefWidth(145);
-            label1.setAlignment(Pos.CENTER_RIGHT);
-            this.getChildren().add(label1);
+            team1NameStr.append(game.getAwayTeam().getName());
+            Label team1NameLabel = new Label(team1NameStr.toString());
+            team1NameLabel.setGraphic(checkBox1);
+            team1NameLabel.setContentDisplay(ContentDisplay.RIGHT);
+            team1NameLabel.setGraphicTextGap(10);
+            team1NameLabel.setAlignment(Pos.CENTER_RIGHT);
+            Label team1InfoLabel = new Label(
+                    game.getAwayTeam().getConferenceString() + ", "
+                            + game.getAwayTeam().getRecord());
+            team1InfoLabel.setAlignment(Pos.CENTER_RIGHT);
+            team1InfoLabel.setFont(Font.font("System", FontPosture.ITALIC, 12));
+            VBox team1LabelBox = new VBox();
+            team1LabelBox.setPrefWidth(145);
+            team1LabelBox.setAlignment(Pos.CENTER_RIGHT);
+            team1LabelBox.getChildren().addAll(team1NameLabel, team1InfoLabel);
+            this.getChildren().add(team1LabelBox);
 
             // The first separator, between team 1 and the bowl info
             Separator sep1 = new Separator();
@@ -314,11 +353,17 @@ public class BowlPickerController implements Initializable {
             this.getChildren().add(sep1);
 
             // The bowl info
-            Label bowlLabel = new Label(game.getBowlName());
-            bowlLabel.setPrefWidth(115);
-            bowlLabel.setPrefHeight(LABEL_HEIGHT);
-            bowlLabel.setAlignment(Pos.CENTER);
-            this.getChildren().add(bowlLabel);
+            Label bowlNameLabel = new Label(game.getBowlName());
+            bowlNameLabel.setAlignment(Pos.CENTER);
+            bowlNameLabel.setFont(Font.font("System", FontWeight.BOLD, 11));
+            Label bowlTimeLabel = new Label(
+                    game.getDate() + ", "+ game.getTime());
+            bowlTimeLabel.setAlignment(Pos.CENTER);
+            VBox bowlLabelBox = new VBox();
+            bowlLabelBox.setPrefWidth(115);
+            bowlLabelBox.setAlignment(Pos.CENTER);
+            bowlLabelBox.getChildren().addAll(bowlNameLabel, bowlTimeLabel);
+            this.getChildren().add(bowlLabelBox);
 
             // The second separator, between the bowl info and team 2
             Separator sep2 = new Separator();
@@ -326,22 +371,30 @@ public class BowlPickerController implements Initializable {
             this.getChildren().add(sep2);
 
             // The second team's name and cooresponding CheckBox
-            StringBuilder labelStr2 = new StringBuilder();
+            StringBuilder team2NameStr = new StringBuilder();
             if (Integer.parseInt(game.getHomeTeam().getRank()) > 0) {
-                labelStr2.append("#").append(
+                team2NameStr.append("#").append(
                         game.getHomeTeam().getRank()).append(" ");
             }
-            labelStr2.append(game.getHomeTeam().getName());
-            Label label2 = new Label(labelStr2.toString());
-            label2.setGraphic(checkBox2);
-            label2.setContentDisplay(ContentDisplay.LEFT);
-            label2.setPrefHeight(LABEL_HEIGHT);
-            label2.setPrefWidth(145);
-            label2.setAlignment(Pos.CENTER_LEFT);
-            this.getChildren().add(label2);
+            team2NameStr.append(game.getHomeTeam().getName());
+            Label team2NameLabel = new Label(team2NameStr.toString());
+            team2NameLabel.setGraphic(checkBox2);
+            team2NameLabel.setContentDisplay(ContentDisplay.LEFT);
+            team2NameLabel.setAlignment(Pos.CENTER_LEFT);
+            Label team2InfoLabel = new Label(
+                    game.getHomeTeam().getConferenceString() + ", "
+                            + game.getHomeTeam().getRecord());
+            team2InfoLabel.setAlignment(Pos.CENTER_LEFT);
+            team2InfoLabel.setFont(Font.font("System", FontPosture.ITALIC, 12));
+            VBox team2LabelBox = new VBox();
+            team2LabelBox.setPrefWidth(145);
+            team2LabelBox.setAlignment(Pos.CENTER_LEFT);
+            team2LabelBox.getChildren().addAll(team2NameLabel, team2InfoLabel);
+            this.getChildren().add(team2LabelBox);
 
             // The second team's icon
             ImageView imageView2 = new ImageView(game.getHomeTeam().getImage());
+            imageView2.setOnMouseClicked(imageClickHandler);
             this.getChildren().add(imageView2);
         }
 

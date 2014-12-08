@@ -1,5 +1,6 @@
 package bowlpicker;
 
+import java.util.HashMap;
 import javafx.scene.image.Image;
 
 /**
@@ -9,11 +10,10 @@ import javafx.scene.image.Image;
 public class Team {
     private final String name;
     private Image image;
-    private final boolean isAwayTeam;
     private final String rank;
     private final Conference conference;
     private final String record;
-
+    public static HashMap<Conference, String> confStrings;
     /**
      * The list of valid conferences that a team can be in
      */
@@ -22,7 +22,7 @@ public class Team {
         SEC, SUNBELT, TBD
     }
 
-    public Team(String name, boolean isAwayTeam, String rank,
+    public Team(String name, String rank,
                     Conference conference, String record) {
         this.name = name;
         StringBuilder imageName = new StringBuilder();
@@ -34,10 +34,17 @@ public class Team {
         } catch (IllegalArgumentException iae) {
             this.image = new Image("cfbicons/ncaa.png");
         }
-        this.isAwayTeam = isAwayTeam;
         this.rank = rank;
         this.conference = conference;
         this.record = record;
+        confStrings = new HashMap<>();
+        confStrings.put(Conference.BIG10, "Big 10");
+        confStrings.put(Conference.BIG12, "Big 12");
+        confStrings.put(Conference.CUSA, "Conference USA");
+        confStrings.put(Conference.INDEPENDENT, "Independent");
+        confStrings.put(Conference.MWC, "Mountain West");
+        confStrings.put(Conference.PAC12, "Pac 12");
+        confStrings.put(Conference.SUNBELT, "Sun Belt");
     }
 
     public String getName() {
@@ -48,16 +55,19 @@ public class Team {
         return image;
     }
 
-    public boolean getIsAwayTeam() {
-        return isAwayTeam;
-    }
-
     public String getRank() {
         return rank;
     }
 
     public Conference getConference() {
         return conference;
+    }
+
+    public String getConferenceString() {
+        if (confStrings.containsKey(conference)) {
+            return confStrings.get(conference);
+        }
+        return conference.toString();
     }
 
     public String getRecord() {
