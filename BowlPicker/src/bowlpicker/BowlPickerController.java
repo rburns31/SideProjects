@@ -5,8 +5,9 @@ import java.awt.Desktop;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -93,7 +94,9 @@ public class BowlPickerController implements Initializable {
      * @throws IOException Throws a fatal exception when teams.txt isn't present
      */
     private void setup() throws IOException {
-        BufferedReader input = new BufferedReader(new FileReader("teams.txt"));
+        InputStream is = getClass().getResourceAsStream("teams.txt");
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader input = new BufferedReader(isr);
         int counter = 0;
         String firstLine = input.readLine();
         while (firstLine != null) {
@@ -117,6 +120,9 @@ public class BowlPickerController implements Initializable {
             counter++;
         }
         input.close();
+        isr.close();
+        is.close();
+
         // Initializes the championship game as a special case (TBD teams)
         Team champTeam1 = new Team("TBD", "-1", Conference.TBD, "0-0");
         Team champTeam2 = new Team("TBD", "-1", Conference.TBD, "0-0");

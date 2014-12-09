@@ -38,7 +38,7 @@ StPetersburgBowl 12/26 8:00pm
 NorthCarolinaState -1 ACC 7-5
 UCF -1 AAC 9-3
 MilitaryBowl 12/27 1:00pm
-Cincinnati -1 AAC  9-3
+Cincinnati -1 AAC 9-3
 VirginiaTech -1 ACC 6-6
 SunBowl 12/27 2:00pm
 ArizonaState 15 PAC12 9-3
