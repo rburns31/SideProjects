@@ -1,12 +1,17 @@
+package bracketbuster;
+
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * 
+ * @author Ryan Burns
+ */
 public class Driver {
-
-    protected static String YEAR = "2014(3)";
+    public static final String YEAR = "2014(3)";
     public static final double[] f2010x1 = {1, 0, 1, 1, 1.5, 0, 4, 0, 0, 1, 1, 4, 0};
     public static final double[] f2010x2 = {-1.337083, -12.297309, 1.608043, 10.634143, 12.31531,
                                             7.048258, 13.381866, 6.853372, -9.505144, 15.456194,
@@ -43,18 +48,17 @@ public class Driver {
                                             -1.052736285, 9.11687863, -0.95274776, 2.5423920375, 0};
 
     public static void main(String[] args) throws IOException {
-        //Optional second parameter: 0 for normal, 1 for high seed, 2 for actual results. (Not yet functional)
+        // Optional second parameter: 0 for normal, 1 for high seed, 2 for actual results. (Not yet functional)
         BracketBuster bb1 = new BracketBuster(1);
-//        BracketBusterDebugging bb1 = new BracketBusterDebugging(5);
         FileConverter fc1 = new FileConverter();
-        fc1.convert();
+        fc1.convert(YEAR);
         int max = bb1.maxFind();
         PrintWriter toFile = new PrintWriter(new FileWriter("log.txt", true));
         toFile.println("Generated: " + getTime());
         toFile.println("Year: " + YEAR + " with trials: " + bb1.getTrials());
-        for (int k = 0; k < bb1.best.length - 1; k++) {
-            System.out.printf("%f ", bb1.best[k]);
-            toFile.printf("%f ", bb1.best[k]);
+        for (int k = 0; k < bb1.getBest().length - 1; k++) {
+            System.out.printf("%f ", bb1.getBest()[k]);
+            toFile.printf("%f ", bb1.getBest()[k]);
         }
         toFile.println();
         toFile.println("Maximum: " + max);
@@ -66,19 +70,26 @@ public class Driver {
         int score = bb1.score(e3);
 //        int score = bb1.score(bb1.best);
         System.out.println(score);
-        BracketVisual bv = new BracketVisual(bb1.getWinnerPos(), getTime(), true);
+        BracketVisual bv
+                = new BracketVisual(bb1.getWinnerPos(), getTime(), true);
         bv.show();
     }
 
+    /**
+     * 
+     * @return 
+     */
     private static String getTime() {
         Calendar calendar = new GregorianCalendar();
         String year = Integer.toString(calendar.get(Calendar.YEAR));
         String month = Integer.toString(calendar.get(Calendar.MONTH) + 1);
-        String dayOfMonth = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+        String dayOfMonth = Integer.toString(calendar.get(
+                Calendar.DAY_OF_MONTH));
         String hourOfDay = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
         String minute = Integer.toString(calendar.get(Calendar.MINUTE));
         String sec = Integer.toString(calendar.get(Calendar.SECOND));
-        String timeStr = month + "-" + dayOfMonth + "-" + year + " " + hourOfDay + "'" + minute + "'" + sec;
+        String timeStr = month + "-" + dayOfMonth + "-" + year + " "
+                + hourOfDay + "'" + minute + "'" + sec;
         return timeStr;
     }
 }

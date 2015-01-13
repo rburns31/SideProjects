@@ -1,18 +1,23 @@
+package bracketbuster;
+
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Ryan Burns
+ */
 public class BracketVisual {
-    
     private final int[] winnerPos;
     private String outputTxt = "bracket.txt";
     private String timeStr;
-    
+
     public BracketVisual(int[] winnerPos, String timeStr) {
         this.winnerPos = winnerPos;
         this.timeStr = timeStr;
     }
-    
+
     public BracketVisual(int[] winnerPos, String timeStr, boolean keepOnFile) {
         this(winnerPos, timeStr);
         if (keepOnFile) {
@@ -20,64 +25,113 @@ public class BracketVisual {
         }
     }
 
+    /**
+     * 
+     * @param inputs 
+     */
     private static void validate(String[] inputs) {
-        ArrayList<String> badOnes = new ArrayList<String>();
-        for (int i = 0; i < inputs.length; i++) {
-            if (inputs[i].length() > 9) {
-                badOnes.add(inputs[i]);
+        ArrayList<String> badOnes = new ArrayList<>();
+        for (String input : inputs) {
+            if (input.length() > 9) {
+                badOnes.add(input);
             }
         }
         if (!badOnes.isEmpty()) {
-            System.out.println("The following team names are too long, please revise:");
-            for (int i = 0; i < badOnes.size(); i++) {
-                System.out.println(badOnes.get(i));
+            System.out.println("The following team names"
+                    + " are too long, please revise:");
+            for (String badOne : badOnes) {
+                System.out.println(badOne);
             }
             System.out.println("Exiting.");
             System.exit(0);
         }
     }
 
-    protected void show() throws IOException {
-        String[] names2010 = {"Kansas", "Lehigh", "UNLV", "N Iowa", "Mich St", "NM St", "Maryland", "Houston",
-                                "Tenn", "San D St", "G'town", "Ohio", "Okla St", "Ga Tech", "Ohio St", "UCSB",
-                                "Syracuse", "Vermont", "Gonzaga", "Fla St", "Butler", "UTEP", "Vandy", "Murray St",
-                                "Xavier", "Minnesota", "Pitt", "Oakland", "BYU", "Florida", "Kansas St", "N Texas",
-                                "Kentucky", "E Tenn St", "Texas", "Wake For", "Temple", "Cornell", "Wisconsin", "Wofford",
-                                "Marquette", "Washingt", "New Mexic", "Montana", "Clemson", "Missouri", "WVU", "Morgan St",
-                                "Duke", "Ark PB", "Cal", "L'ville", "Texas A&M", "Utah St", "Purdue", "Siena",
-                                "ND", "Old Domin", "Baylor", "Sam H St", "Richmond", "St Marys", "Villanova", "Robert M"};
-        String[] names2011 = {"Ohio St", "UTSA", "G Mason", "Villanova", "WVU", "Clemson", "Kentucky", "Princeton",
-                                "Xavier", "Marquette", "Syracuse", "Ind St", "Washingt", "Georgia", "UNC", "LIU Bkn",
-                                "Duke", "Hampton", "Michigan", "Tenn", "Arizona", "Memphis", "Texas", "Oakland",
-                                "Cincy", "Missouri", "UConn", "Bucknell", "Temple", "Penn St", "San D St", "N Col",
-                                "Kansas", "Boston U", "UNLV", "Illinois", "Vandy", "Richmond", "L'ville", "M'head St",
-                                "G'town", "VCU", "Purdue", "St Peters", "Texas A&M", "Fla St", "ND", "Akron",
-                                "Pitt", "UNC Ash", "Butler", "Old Domin", "Kansas St", "Utah St", "Wisconsin", "Belmont",
-                                "St Johns", "Gonzaga", "BYU", "Wofford", "UCLA", "Mich St", "Florida", "UCSB"};
-        String[] names2012 = {"Kentucky", "W KY", "Iowa St", "UConn", "Wich St", "VCU", "Indiana", "NM St",
-                                "UNLV", "Colorado", "Baylor", "S Dak St", "ND", "Xavier", "Duke", "Lehigh",
-                                "Mich St", "LIU Bkn", "Memphis", "St Louis", "New Mexic", "LB St", "L'ville", "Davidson",
-                                "Murray St", "Col St", "Marquette", "BYU", "Florida", "Virginia", "Missouri", "Norf St",
-                                "Syracuse", "UNC Ash", "Kansas St", "So Miss", "Vandy", "Harvard", "Wisconsin", "Montana",
-                                "Cincy", "Texas", "Fla St", "St Bonnys", "Gonzaga", "WVU", "Ohio St", "Loyola MD",
-                                "UNC", "Vermont", "Creighton", "Alabama", "Temple", "South Fla", "Michigan", "Ohio",
-                                "San D St", "NC St", "G'town", "Belmont", "St Marys", "Purdue", "Kansas", "Detroit"};
-        String[] names2013 = {"L'ville", "NC A&T", "Col St", "Missouri", "Okla St", "Oregon", "St Louis", "NM St",
-                                "Memphis", "St Marys", "Mich St", "Valpo", "Creighton", "Cincy", "Duke", "Albany",
-                                "Gonzaga", "Southern", "Pitt", "Wich St", "Wisconsin", "Ole Miss", "Kansas St", "La Salle",
-                                "Arizona", "Belmont", "New Mexic", "Harvard", "ND", "Iowa St", "Ohio St", "Iona",
-                                "Kansas", "W KY", "UNC", "Villanova", "VCU", "Akron", "Michigan", "S Dak St",
-                                "UCLA", "Minnesota", "Florida", "NW St", "San D St", "Oklahoma", "G'town", "Fla GC",
-                                "Indiana", "James Mad", "NC St", "Temple", "UNLV", "Cal", "Syracuse", "Montana",
-                                "Butler", "Bucknell", "Marquette", "Davidson", "Illinois", "Colorado", "Miami", "Pacific"};
-        String[] names2014 = {"Florida", "Albany", "Colorado", "Pitt", "VCU", "SF Austin", "UCLA", "Tulsa",
-                                "Ohio St", "Dayton", "Syracuse", "W Mich", "New Mexic", "Stanford", "Kansas", "E KY",
-                                "Virginia", "Coast Car", "Memphis", "G Wash", "Cincy", "Harvard", "Mich St", "Delaware",
-                                "UNC", "Providenc", "Iowa St", "NC Cen", "UConn", "St Joes", "Villanova", "Milwaukee",
-                                "Arizona", "Weber St", "Gonzaga", "Okla St", "Oklahoma", "N Dak St", "San D St", "NM St",
-                                "Baylor", "Nebraska", "Creighton", "LA Lafay", "Oregon", "BYU", "Wisconsin", "American",
-                                "Wich St", "Cal Poly", "Kentucky", "Kansas St", "St Louis", "NC St", "L'ville", "Manhattan",
-                                "UMass", "Tenn", "Duke", "Mercer", "Texas", "ASU", "Michigan", "Wofford"};
+    /**
+     * 
+     * @throws IOException 
+     */
+    public void show() throws IOException {
+        String[] names2010 = {"Kansas", "Lehigh", "UNLV", "N Iowa",
+                                "Mich St", "NM St", "Maryland", "Houston",
+                                "Tenn", "San D St", "G'town", "Ohio",
+                                "Okla St", "Ga Tech", "Ohio St", "UCSB",
+                                "Syracuse", "Vermont", "Gonzaga", "Fla St",
+                                "Butler", "UTEP", "Vandy", "Murray St",
+                                "Xavier", "Minnesota", "Pitt", "Oakland",
+                                "BYU", "Florida", "Kansas St", "N Texas",
+                                "Kentucky", "E Tenn St", "Texas", "Wake For",
+                                "Temple", "Cornell", "Wisconsin", "Wofford",
+                                "Marquette", "Washingt", "New Mexic", "Montana",
+                                "Clemson", "Missouri", "WVU", "Morgan St",
+                                "Duke", "Ark PB", "Cal", "L'ville",
+                                "Texas A&M", "Utah St", "Purdue", "Siena",
+                                "ND", "Old Domin", "Baylor", "Sam H St",
+                                "Richmond", "St Marys", "Villanova", "Robert M"};
+        String[] names2011 = {"Ohio St", "UTSA", "G Mason", "Villanova",
+                                "WVU", "Clemson", "Kentucky", "Princeton",
+                                "Xavier", "Marquette", "Syracuse", "Ind St",
+                                "Washingt", "Georgia", "UNC", "LIU Bkn",
+                                "Duke", "Hampton", "Michigan", "Tenn",
+                                "Arizona", "Memphis", "Texas", "Oakland",
+                                "Cincy", "Missouri", "UConn", "Bucknell",
+                                "Temple", "Penn St", "San D St", "N Col",
+                                "Kansas", "Boston U", "UNLV", "Illinois",
+                                "Vandy", "Richmond", "L'ville", "M'head St",
+                                "G'town", "VCU", "Purdue", "St Peters",
+                                "Texas A&M", "Fla St", "ND", "Akron",
+                                "Pitt", "UNC Ash", "Butler", "Old Domin",
+                                "Kansas St", "Utah St", "Wisconsin", "Belmont",
+                                "St Johns", "Gonzaga", "BYU", "Wofford",
+                                "UCLA", "Mich St", "Florida", "UCSB"};
+        String[] names2012 = {"Kentucky", "W KY", "Iowa St", "UConn",
+                                "Wich St", "VCU", "Indiana", "NM St",
+                                "UNLV", "Colorado", "Baylor", "S Dak St",
+                                "ND", "Xavier", "Duke", "Lehigh",
+                                "Mich St", "LIU Bkn", "Memphis", "St Louis",
+                                "New Mexic", "LB St", "L'ville", "Davidson",
+                                "Murray St", "Col St", "Marquette", "BYU",
+                                "Florida", "Virginia", "Missouri", "Norf St",
+                                "Syracuse", "UNC Ash", "Kansas St", "So Miss",
+                                "Vandy", "Harvard", "Wisconsin", "Montana",
+                                "Cincy", "Texas", "Fla St", "St Bonnys",
+                                "Gonzaga", "WVU", "Ohio St", "Loyola MD",
+                                "UNC", "Vermont", "Creighton", "Alabama",
+                                "Temple", "South Fla", "Michigan", "Ohio",
+                                "San D St", "NC St", "G'town", "Belmont",
+                                "St Marys", "Purdue", "Kansas", "Detroit"};
+        String[] names2013 = {"L'ville", "NC A&T", "Col St", "Missouri",
+                                "Okla St", "Oregon", "St Louis", "NM St",
+                                "Memphis", "St Marys", "Mich St", "Valpo",
+                                "Creighton", "Cincy", "Duke", "Albany",
+                                "Gonzaga", "Southern", "Pitt", "Wich St",
+                                "Wisconsin", "Ole Miss", "Kansas St", "La Salle",
+                                "Arizona", "Belmont", "New Mexic", "Harvard",
+                                "ND", "Iowa St", "Ohio St", "Iona",
+                                "Kansas", "W KY", "UNC", "Villanova", "VCU",
+                                "Akron", "Michigan", "S Dak St",
+                                "UCLA", "Minnesota", "Florida", "NW St",
+                                "San D St", "Oklahoma", "G'town", "Fla GC",
+                                "Indiana", "James Mad", "NC St", "Temple",
+                                "UNLV", "Cal", "Syracuse", "Montana",
+                                "Butler", "Bucknell", "Marquette", "Davidson",
+                                "Illinois", "Colorado", "Miami", "Pacific"};
+        String[] names2014 = {"Florida", "Albany", "Colorado", "Pitt",
+                                "VCU", "SF Austin", "UCLA", "Tulsa",
+                                "Ohio St", "Dayton", "Syracuse", "W Mich",
+                                "New Mexic", "Stanford", "Kansas", "E KY",
+                                "Virginia", "Coast Car", "Memphis", "G Wash",
+                                "Cincy", "Harvard", "Mich St", "Delaware",
+                                "UNC", "Providenc", "Iowa St", "NC Cen",
+                                "UConn", "St Joes", "Villanova", "Milwaukee",
+                                "Arizona", "Weber St", "Gonzaga", "Okla St",
+                                "Oklahoma", "N Dak St", "San D St", "NM St",
+                                "Baylor", "Nebraska", "Creighton", "LA Lafay",
+                                "Oregon", "BYU", "Wisconsin", "American",
+                                "Wich St", "Cal Poly", "Kentucky", "Kansas St",
+                                "St Louis", "NC St", "L'ville", "Manhattan",
+                                "UMass", "Tenn", "Duke", "Mercer",
+                                "Texas", "ASU", "Michigan", "Wofford"};
         PrintWriter outFile = new PrintWriter(outputTxt);
         String topLine = "_________";
         String lBottomLine = "_________|";
@@ -87,26 +141,29 @@ public class BracketVisual {
         String fine = "____________";
         String header = "Displaying bracket for year: " + Driver.YEAR;
         String header2 = "Generated: " + timeStr;
-        String[] names = new String[64];
+        String[] names = null;
         String[] winners = new String[63];
-        if (Driver.YEAR == "2010") {
+        if (Driver.YEAR.equals("2010")) {
             names = names2010;
-        } else if (Driver.YEAR == "2011") {
+        } else if (Driver.YEAR.equals("2011")) {
             names = names2011;
-        } else if (Driver.YEAR == "2012(1)" || Driver.YEAR == "2012(2)") {
+        } else if (Driver.YEAR.equals("2012(1)")
+                || Driver.YEAR.equals("2012(2)")) {
             names = names2012;
-        } else if (Driver.YEAR == "2013") {
+        } else if (Driver.YEAR.equals("2013")) {
             names = names2013;
-        } else if (Driver.YEAR == "2014(1)" || Driver.YEAR == "2014(3)") {
+        } else if (Driver.YEAR.equals("2014(1)")
+                || Driver.YEAR.equals("2014(3)")) {
             names = names2014;
         } else {
-            System.out.println("I cannot yet make a bracket for that year. Exiting.");
+            System.out.println("I cannot yet make a "
+                    + "bracket for that year. Exiting.");
             System.exit(0);
         }
         for (int i = 0; i < winners.length; i++) {
             winners[i] = names[winnerPos[i]];
         }
-        BracketVisual.validate(names);
+        validate(names);
 
         outFile.println(header);
         outFile.println(header2);

@@ -42,8 +42,6 @@ import javafx.util.Duration;
  * The FXML controller for the main picking screen of BowlPicker
  * Inputs the schedule of games from file, then allows the user to
  *     pick each of those games, and then handles outputting their picks to file
- * 
- * TODO: Package into an .exe
  * @author Ryan Burns
  */
 public class BowlPickerController implements Initializable {

@@ -1,3 +1,5 @@
+package bracketbuster;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,22 +16,32 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+/**
+ * 
+ * @author Ryan Burns
+ */
 public class FileConverter {
 
-    public void convert() throws IOException {
-        File outFile = new File("stats_" + Driver.YEAR + "_3" + ".txt");
+    /**
+     * 
+     * @param year 
+     * @throws IOException 
+     */
+    public void convert(String year) throws IOException {
+        File outFile = new File("stats_" + year + "_3" + ".txt");
         PrintStream output = new PrintStream(outFile);
-        InputStream input = new BufferedInputStream(new FileInputStream("stats_" + Driver.YEAR + "_3" + ".xls"));
+        InputStream input = new BufferedInputStream(
+                new FileInputStream("stats_" + year + "_3" + ".xls"));
         POIFSFileSystem fs = new POIFSFileSystem(input);
         HSSFWorkbook wb = new HSSFWorkbook(fs);
         HSSFSheet sheet = wb.getSheetAt(0);
         Iterator<Row> rows = sheet.rowIterator();
-        while(rows.hasNext()) {
+        while (rows.hasNext()) {
             HSSFRow row = (HSSFRow) rows.next();
             Iterator<Cell> cells = row.cellIterator();
-            while(cells.hasNext()) {
-                HSSFCell cell = (HSSFCell) cells.next();
-                if(HSSFCell.CELL_TYPE_NUMERIC == cell.getCellType()) {
+            while (cells.hasNext()) {
+                HSSFCell cell = (HSSFCell)cells.next();
+                if (HSSFCell.CELL_TYPE_NUMERIC == cell.getCellType()) {
                     output.printf("%.5f ", cell.getNumericCellValue());
                 }
             }
