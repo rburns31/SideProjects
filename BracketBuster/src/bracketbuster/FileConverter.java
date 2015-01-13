@@ -21,13 +21,22 @@ import org.apache.poi.ss.usermodel.Row;
  * @author Ryan Burns
  */
 public class FileConverter {
+    /**
+     * The year of the stats spreadsheet to be imported
+     */
+    private final String year;
+
+    public FileConverter(String year) {
+        this.year = year;
+    }
 
     /**
      * 
-     * @param year 
-     * @throws IOException 
+     * @throws IOException Will be thrown if the correct stats file does not
+     *     exist, among potentially other things
+     *     This is a fatal error intentionally
      */
-    public void convert(String year) throws IOException {
+    public void convert() throws IOException {
         File outFile = new File("stats_" + year + "_3" + ".txt");
         PrintStream output = new PrintStream(outFile);
         InputStream input = new BufferedInputStream(
