@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * 
+ * Outputs a visual representation of a set of picks on a hard-coded bracket
+ *     text file
  * @author Ryan Burns
  */
 public class BracketVisual {
@@ -111,15 +112,17 @@ public class BracketVisual {
                         "Texas", "ASU", "Michigan", "Wofford"};
 
     /**
-     * 
+     * Defines the winners of each game in order, but it defines them in terms
+     *     of their index in the TEAMS_20XX array currently being used
      */
     private final int[] winnerPos;
     /**
-     * 
+     * The current time as defined in Driver
+     *     Allows for time stamping and easy differentiation to results
      */
     private final String timeStr;
     /**
-     * 
+     * The file name that BracketVisual is creating, defaults to bracket.txt
      */
     private String outputTxt;
 
@@ -137,18 +140,20 @@ public class BracketVisual {
     }
 
     /**
-     * 
-     * @param inputs 
+     * Due to the nature of how brackets are visualized in the produced text
+     *     file, each team name must be limited to 9 characters to fit on
+     *     the hard-coded lines
+     * @param inputs The team names to check for length
      */
-    private static void validate(String[] inputs) {
+    private void validate(String[] teamNames) {
         ArrayList<String> badOnes = new ArrayList<>();
-        for (String input : inputs) {
-            if (input.length() > 9) {
-                badOnes.add(input);
+        for (String teamName : teamNames) {
+            if (teamName.length() > 9) {
+                badOnes.add(teamName);
             }
         }
         if (!badOnes.isEmpty()) {
-            System.out.println("The following team teams"
+            System.out.println("The following team names"
                     + " are too long, please revise:");
             for (String badOne : badOnes) {
                 System.out.println(badOne);
@@ -159,21 +164,29 @@ public class BracketVisual {
     }
 
     /**
-     * 
-     * @throws IOException 
+     * Creates a file, and fills it with a filled-in bracket based on the input
+     *     year and winners
+     * Not ideal setup to have this hard-coded like it is, try to fix this
      */
-    public void show() throws IOException {
-        PrintWriter outFile = new PrintWriter(outputTxt);
+    public void show() {
+        PrintWriter outFile = null;
+        try {
+            outFile = new PrintWriter(outputTxt);
+        } catch (IOException e) {
+            System.out.println("Some problem with writing to the bracket "
+                    + "visual. Decide if this is fatal or not.");
+        }
+
         String topLine = "_________";
         String lBottomLine = "_________|";
         String rBottomLine = "|_________";
         String divider = "|";
         String empty = "";
-        String fine = "____________";
+        String champLine = "____________";
         String header = "Displaying bracket for year: " + Driver.YEAR;
         String header2 = "Generated: " + timeStr;
+
         String[] teams = null;
-        String[] winners = new String[63];
         if (Driver.YEAR.equals("2010")) {
             teams = TEAMS_2010;
         } else if (Driver.YEAR.equals("2011")) {
@@ -191,10 +204,12 @@ public class BracketVisual {
                     + "bracket for that year. Exiting.");
             System.exit(0);
         }
+        validate(teams);
+
+        String[] winners = new String[63];
         for (int i = 0; i < winners.length; i++) {
             winners[i] = teams[winnerPos[i]];
         }
-        validate(teams);
 
         outFile.println(header);
         outFile.println(header2);
@@ -244,7 +259,7 @@ public class BracketVisual {
         outFile.printf("%-9s%s%-10s%10s%20s%30s%-20s%-10s%10s%s%9s%n", teams[13], divider, topLine, divider, divider, empty, divider, divider, topLine, divider, teams[45]);
         outFile.printf("%-10s%10s%10s%20s%30s%-20s%-10s%-10s%10s%n", lBottomLine, divider, divider, divider, empty, divider, divider, divider, rBottomLine);
         outFile.printf("%20s%-9s%-11s%10s%10s%-10s%10s%-10s%11s%9s%-20s%n", divider, winners[35], divider, divider, empty, winners[62], empty, divider, divider, winners[43], divider);
-        outFile.printf("%-9s%11s%-10s%20s%9s%12s%9s%-20s%10s%-11s%9s%n", teams[14], divider, lBottomLine, divider, empty, fine, empty, divider, rBottomLine, divider, teams[46]);
+        outFile.printf("%-9s%11s%-10s%20s%9s%12s%9s%-20s%10s%-11s%9s%n", teams[14], divider, lBottomLine, divider, empty, champLine, empty, divider, rBottomLine, divider, teams[46]);
         outFile.printf("%-10s%10s%30s%30s%-30s%-10s%10s%n", topLine, divider, divider, empty, divider, divider, topLine);
         outFile.printf("%10s%-9s%-11s%20s%30s%-20s%11s%9s%-10s%n", divider, winners[7], divider, divider, empty, divider, divider, winners[23], divider);
         outFile.printf("%-9s%s%-10s%30s%30s%-30s%10s%s%9s%n", teams[15], divider, lBottomLine, divider, empty, divider, rBottomLine, divider, teams[47]);

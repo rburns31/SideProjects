@@ -3,3 +3,5 @@
 BowlPicker/nbproject/private/private.properties
 *.properties
 /BracketBuster/nbproject/private/
+/BracketBuster/build/
+/BracketBuster/dist/

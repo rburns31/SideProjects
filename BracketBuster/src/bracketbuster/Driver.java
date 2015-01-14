@@ -7,7 +7,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * 
+ * Driver for the BracketBuster application, allows for manual entry of both
+ *     the year and number of trials, as well as supporting the scoring of
+ *     predefined formulas
+ * TODO: Wrap in a basic GUI to make more intuitive
  * NOTE: All formulas must have a zero as their last index, for that
  *     column represents actual placement in the spreadsheets (called worth)
  * @author Ryan Burns
@@ -16,7 +19,11 @@ public class Driver {
     /**
      * The year to be simulated
      */
-    public static final String YEAR = "2014(3)";
+    public static String YEAR;
+    /**
+     * The predefined formula to be evaluated
+     */
+    public static double[] FORMULA;
     /**
      * Original holistic formula generated based on 2010 results, created
      *     prior to the 2013 tournament
@@ -130,37 +137,67 @@ public class Driver {
                -1.052736285, 9.11687863, -0.95274776, 2.5423920375, 0};
 
     /**
-     * 
+     * To score a predefined formula, set the year and formula fields
+     * To generate a new formula, use maxFind() and then score()
+     * Has the option to print to file and/or to console
+     * Has the option to save a copy of the bracket as a text file
      * TODO: Optional second parameter to BracketBuster:
      *     0 for normal, 1 for high seed, 2 for actual results
      * @param args
-     * @throws IOException 
      */
-    public static void main(String[] args) throws IOException {
-        BracketBuster bb1 = new BracketBuster(1);
-        FileConverter fc1 = new FileConverter(YEAR);
-        fc1.convert();
-        int max = bb1.maxFind();
-        PrintWriter toFile = new PrintWriter(new FileWriter("log.txt", true));
-        toFile.println("Generated: " + getTime());
-        toFile.println("Year: " + YEAR + " with trials: " + bb1.getTrials());
-        for (int k = 0; k < bb1.getBest().length - 1; k++) {
-            System.out.printf("%f ", bb1.getBest()[k]);
-            toFile.printf("%f ", bb1.getBest()[k]);
-        }
-        toFile.println();
-        toFile.println("Maximum: " + max);
-        toFile.println();
-        System.out.println("\n" + "Maximum: " + max + "\n" + "All done!");
-        System.out.println(bb1.getCounter());
-        toFile.close();
+    public static void main(String[] args) {
+        YEAR = "2014(3)";
+        FORMULA = e3;
 
-        int score = bb1.score(e3);
-//        int score = bb1.score(bb1.best);
-        System.out.println(score);
-        BracketVisual bv
-                = new BracketVisual(bb1.getWinnerPos(), getTime(), true);
+        BracketBuster bb1 = new BracketBuster(1);
+        FileConverter fc1 = new FileConverter();
+        fc1.convert();
+
+        //int max = bb1.maxFind();
+        //int score = bb1.score(bb1.best);
+
+        int score = bb1.score(FORMULA);
+        System.out.println("This formula scored a " + score);
+
+        //printToFile(bb1.getTrials(), bb1.getBest(), max);
+        //printToConsole(bb1.getBest(), max);
+
+        BracketVisual bv = new BracketVisual(
+                bb1.getWinnerPos(), getTime(), false);
         bv.show();
+    }
+
+    /**
+     * Prints the best coefficients found and their score to the log with a
+     *     timestamp and the number of trials run
+     */
+    private static void printToFile(int trials, double[] best, int max) {
+        try {
+            PrintWriter toFile = new PrintWriter(new FileWriter(
+                    "log.txt", true));
+            toFile.println("Generated: " + getTime());
+            toFile.println("Year: " + YEAR + " with trials: " + trials);
+            for (int k = 0; k < best.length - 1; k++) {
+                toFile.printf("%f ", best[k]);
+            }
+            toFile.println();
+            toFile.println("Maximum: " + max);
+            toFile.println();
+            toFile.close();
+        } catch (IOException e) {
+            System.out.println("Some problem with writing to the log. "
+                    + "Decide if this is fatal or not.");
+        }
+    }
+
+    /**
+     * Prints the best coefficients found and their score to the console
+     */
+    private static void printToConsole(double[] best, int max) {
+        for (int k = 0; k < best.length - 1; k++) {
+            System.out.printf("%f ", best[k]);
+        }
+        System.out.println("\n" + "Maximum: " + max + "\n" + "All done!");
     }
 
     /**

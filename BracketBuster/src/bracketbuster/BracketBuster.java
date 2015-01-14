@@ -11,18 +11,49 @@ import java.util.Scanner;
  * @author Ryan Burns
  */
 public class BracketBuster {
+    /**
+     * 
+     */
     private static final int SPREAD = 32;
+    /**
+     * 
+     */
     private static final int LIMIT = 140;
 
+    /**
+     * The number of trials to be run in this iteration
+     */
     private final int trials;
+    /**
+     * 
+     */
     private final double[] constants;
+    /**
+     * 
+     */
     private final double[] best;
+    /**
+     * 
+     */
     private final int[] winnerPos;
+    /**
+     * 
+     */
     private int max;
+    /**
+     * Currently has no effect, ideally it would correspond to 0 for a normal
+     *     formula generation, 1 for high seed, and 2 for actual results
+     */
     private int typeChoice;
+    /**
+     * 
+     */
     private int counter;
 
-    private static final HashMap<String, Integer> YEAR_TO_SIZE;
+    /**
+     * 
+     */
+    public static final HashMap<String, Integer> YEAR_TO_SIZE;
     static {
         YEAR_TO_SIZE = new HashMap<>();
         YEAR_TO_SIZE.put("2010", 13);
@@ -71,10 +102,7 @@ public class BracketBuster {
      * @return 
      */
     public int maxFind() {
-        for (int i = 1; i < trials; i++) {
-            if (i % 500 == 0) {
-                System.out.println(i);
-            }
+        for (int i = 0; i < trials; i++) {
             for (int j = 0; j < constants.length - 1; j++) {
                 constants[j] = (Math.random() * SPREAD) - (SPREAD / 2);
                 int current = score(constants);
@@ -117,24 +145,36 @@ public class BracketBuster {
 
     /**
      * 
-     * @param constants
-     * @return 
+     * @param constants The coefficients specific to the formula being scored
+     * @return The number of points scored by this formula
      */
     public int score(double[] constants) {
+        /**
+         * Sets up all of the arrays which will be used to score:
+         *     teams houses all of the z scores for each team in the tournament
+         *     worths houses the number of games that team actually won
+         *         in that year's tournament (based on ESPN standard scoring)
+         *     scores houses each team's composite z score based on whatever
+         *         formula is currently being applied
+         */
         double[][] teams = new double[64][constants.length];
         double[] worths = new double[64];
         double[] scores = new double[64];
-        int points = 0;
-        File dataFile = new File("stats_" + Driver.YEAR + "_3" + ".txt");
-        int m = 0;
+        int pointsEarned = 0;
+
+        /**
+         * Reads in the z scores from file and fills in the teams array
+         */
         try {
+            File dataFile = new File("stats_" + Driver.YEAR + "_3" + ".txt");
             Scanner fileScanner = new Scanner(dataFile);
-            while (fileScanner.hasNext()) {
+            int j = 0;
+            while (fileScanner.hasNext() && j < 64) {
                 String line = fileScanner.nextLine();
                 for (int i = 0; i < constants.length; i++) {
-                    teams[m][i] = Double.parseDouble((line.split(" ", 0))[i]);
+                    teams[j][i] = Double.parseDouble((line.split(" ", 0))[i]);
                 }
-                m++;
+                j++;
             }
             fileScanner.close();
         } catch (IOException e) {
@@ -142,12 +182,16 @@ public class BracketBuster {
             System.exit(0);
         }
 
+        /**
+         * Sets up each team's composite z score and actual worth
+         */
         for (int i = 0; i < scores.length; i++) {
             worths[i] = teams[i][constants.length - 1];
             for (int j = 0; j < constants.length; j++) {
                 scores[i] += constants[j] * teams[i][j];
             }
         }
+
         for (int round = 0; round < 6; round++) {
             int value = (int)(Math.pow(2, round + 1));
             int[] compare = new int[value];
@@ -193,10 +237,10 @@ public class BracketBuster {
                     }
                 }
                 if (worths[found] == test2[value - 1]) {
-                    points += value / 2;
+                    pointsEarned += value / 2;
                 }
             }
         }
-        return points;
+        return pointsEarned;
     }
 }
