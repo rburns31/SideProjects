@@ -118,24 +118,21 @@ public class BracketVisual {
     private final int[] winnerPos;
     /**
      * The current time as defined in Driver
-     *     Allows for time stamping and easy differentiation to results
+     *     Allows for time stamping and easy differentiation of results
      */
     private final String timeStr;
     /**
      * The file name that BracketVisual is creating, defaults to bracket.txt
      */
-    private String outputTxt;
-
-    public BracketVisual(int[] winnerPos, String timeStr) {
-        this.winnerPos = winnerPos;
-        this.timeStr = timeStr;
-        this.outputTxt = "bracket.txt";
-    }
+    private final String outputTxt;
 
     public BracketVisual(int[] winnerPos, String timeStr, boolean keepOnFile) {
-        this(winnerPos, timeStr);
+        this.winnerPos = winnerPos;
+        this.timeStr = timeStr;
         if (keepOnFile) {
             this.outputTxt = timeStr + ".txt";
+        } else {
+            this.outputTxt = "bracket.txt";
         }
     }
 
@@ -143,7 +140,7 @@ public class BracketVisual {
      * Due to the nature of how brackets are visualized in the produced text
      *     file, each team name must be limited to 9 characters to fit on
      *     the hard-coded lines
-     * @param inputs The team names to check for length
+     * @param teamNames The team names to check for length
      */
     private void validate(String[] teamNames) {
         ArrayList<String> badOnes = new ArrayList<>();
@@ -177,15 +174,19 @@ public class BracketVisual {
                     + "visual. Decide if this is fatal or not.");
         }
 
+        // Parts of the bracket to be printed (for convenience)
         String topLine = "_________";
         String lBottomLine = "_________|";
         String rBottomLine = "|_________";
         String divider = "|";
         String empty = "";
         String champLine = "____________";
+
+        // Headers which will be printed at the beginning of the output file
         String header = "Displaying bracket for year: " + Driver.YEAR;
         String header2 = "Generated: " + timeStr;
 
+        // Set the teams variable to the appropriate array for the year
         String[] teams = null;
         if (Driver.YEAR.equals("2010")) {
             teams = TEAMS_2010;
@@ -204,16 +205,22 @@ public class BracketVisual {
                     + "bracket for that year. Exiting.");
             System.exit(0);
         }
+
+        // Make sure that each team name in that array is valid to be printed
         validate(teams);
 
+        // Extract the team names of the winners from their passed in indices
         String[] winners = new String[63];
         for (int i = 0; i < winners.length; i++) {
             winners[i] = teams[winnerPos[i]];
         }
 
+        // Print headers to file
         outFile.println(header);
         outFile.println(header2);
         outFile.println();
+
+        // Print the first octets of each side of the bracket
         outFile.printf("%-10s%110s%10s%n", teams[0], empty, teams[32]);
         outFile.printf("%-10s%110s%10s%n", topLine, empty, topLine);
         outFile.printf("%10s%-10s%90s%10s%-10s%n", divider, winners[0], empty, winners[16], divider);
@@ -238,6 +245,7 @@ public class BracketVisual {
         outFile.printf("%-9s%s%-10s%20s%50s%-20s%10s%s%9s%n", teams[7], divider, lBottomLine, divider, empty, divider, rBottomLine, divider, teams[39]);
         outFile.printf("%-10s%30s%50s%-30s%10s%n", lBottomLine, divider, empty, divider, rBottomLine);
 
+        // Print the second octets of each side of the bracket (and the winner)
         outFile.printf("%40s%-10s%30s%10s%-40s%n", divider, winners[56], empty, winners[58], divider);
         outFile.printf("%-10s%30s%-10s%30s%10s%-30s%10s%n", teams[8], divider, topLine, empty, topLine, divider, teams[40]);
         outFile.printf("%-10s%30s%10s%30s%-10s%-30s%10s%n", topLine, divider, divider, empty, divider, divider, topLine);
@@ -265,6 +273,7 @@ public class BracketVisual {
         outFile.printf("%-9s%s%-10s%30s%30s%-30s%10s%s%9s%n", teams[15], divider, lBottomLine, divider, empty, divider, rBottomLine, divider, teams[47]);
         outFile.printf("%-10s%40s%30s%-40s%10s%n", lBottomLine, divider, empty, divider, rBottomLine);
 
+        // Print the third octets of each side of the bracket (and the semis)
         outFile.printf("%50s%-10s%10s%10s%-50s%n", divider, winners[60], empty, winners[61], divider);
         outFile.printf("%-10s%40s%-10s%10s%10s%-40s%10s%n", teams[16], divider, topLine, empty, topLine, divider, teams[48]);
         outFile.printf("%-10s%40s%30s%-40s%10s%n", topLine, divider, empty, divider, topLine);
@@ -291,6 +300,7 @@ public class BracketVisual {
         outFile.printf("%-9s%s%-10s%20s%10s%30s%-10s%-20s%10s%s%9s%n", teams[23], divider, lBottomLine, divider, divider, empty, divider, divider, rBottomLine, divider, teams[55]);
         outFile.printf("%-10s%30s%10s%30s%-10s%-30s%10s%n", lBottomLine, divider, divider, empty, divider, divider, rBottomLine);
 
+        // Print the fourth octets of each side of the bracket
         outFile.printf("%40s%-9s%s%30s%s%9s%-40s%n", divider, winners[57], divider, empty, divider, winners[59], divider);
         outFile.printf("%-10s%30s%-10s%30s%10s%-30s%10s%n", teams[24], divider, lBottomLine, empty, rBottomLine, divider, teams[56]);
         outFile.printf("%-10s%30s%50s%-30s%10s%n", topLine, divider, empty, divider, topLine);

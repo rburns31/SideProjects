@@ -1,0 +1,5 @@
+Recipe Master TO DO:
+
+-Importing pictures (scan/camera)
+-File name set-up and maintenance
+-Text recognition (Tesseract OCR)

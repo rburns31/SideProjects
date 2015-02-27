@@ -146,25 +146,25 @@ public class Driver {
      * @param args
      */
     public static void main(String[] args) {
-        YEAR = "2014(3)";
-        FORMULA = e3;
+        YEAR = "2010";
+        //FORMULA = e3;
 
-        BracketBuster bb1 = new BracketBuster(1);
+        BracketBuster bb1 = new BracketBuster(100);
         FileConverter fc1 = new FileConverter();
         fc1.convert();
 
-        //int max = bb1.maxFind();
-        //int score = bb1.score(bb1.best);
+        int max = bb1.maxFind();
+        //int score = bb1.score(bb1.getBest());
 
-        int score = bb1.score(FORMULA);
-        System.out.println("This formula scored a " + score);
+        //int score = bb1.score(FORMULA);
+        //System.out.println("This formula scored a " + score);
 
         //printToFile(bb1.getTrials(), bb1.getBest(), max);
-        //printToConsole(bb1.getBest(), max);
+        printToConsole(bb1.getBest(), max);
 
-        BracketVisual bv = new BracketVisual(
-                bb1.getWinnerPos(), getTime(), false);
-        bv.show();
+        //BracketVisual bv = new BracketVisual(
+        //        bb1.getWinnerPos(), getTime(), false);
+        //bv.show();
     }
 
     /**
