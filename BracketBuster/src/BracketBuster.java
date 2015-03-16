@@ -1,5 +1,3 @@
-package bracketbuster;
-
 import java.io.IOException;
 import java.io.File;
 import java.util.HashMap;
@@ -51,11 +49,6 @@ public class BracketBuster {
      */
     private int max;
     /**
-     * Currently has no effect, ideally it would correspond to 0 for a normal
-     *     formula generation, 1 for high seed, and 2 for actual results
-     */
-    private int typeChoice;
-    /**
      * The number of trials currently completed
      */
     private int progress;
@@ -81,12 +74,6 @@ public class BracketBuster {
         constants = new double[YEAR_TO_SIZE.get(Driver.YEAR)];
         best = new double[YEAR_TO_SIZE.get(Driver.YEAR)];
         winnerPos = new int[63];
-    }
-
-    // typeChoice currently does not do anything
-    public BracketBuster(int trials, int typeChoice) {
-        this(trials);
-        this.typeChoice = typeChoice;
     }
 
     public int getTrials() {
@@ -215,24 +202,24 @@ public class BracketBuster {
 
         // Hold on to your hat, this is where it gets a tad convoluted
 
+        // counter keeps track of what index of winnerPos we fill in next
+        int counter = 0;
         /**
          * Go through the bracket one round at a time
          */
         for (int round = 0; round < 6; round++) {
             /**
-             * value is how much each game in this round is worth
+             * (value / 2) is how much each game in this round is worth
              * value is also how many teams are vying for those points
              *     (i.e. in round 1 only 2 teams, in round 6 all 64 teams)
              */
             int value = (int)(Math.pow(2, round + 1));
             // compare houses the index of each team in the "match-up"
             int[] compare = new int[value];
-            // counter keeps track of what index of winnerPos we fill in next
-            int counter = 0;
             // For each "match-up" in this round
             for (int i = 0; i < (64 / value); i++) {
-                int maxScoreIndex = 0;
-                int maxWorthIndex = 0;
+                int maxScoreIndex = value * i;
+                int maxWorthIndex = value * i;
                 // For each team in this "match-up"
                 for (int j = 0; j < value; j++) {
                     // Find the index of the team
@@ -258,11 +245,107 @@ public class BracketBuster {
                  * If that team also had the biggest worth, then increase the pointsEarned
                  * There are only 63 games, so there are only 63 winners
                  */
-                if (counter < 63) {
+                if (counter < winnerPos.length) {
                     winnerPos[counter] = maxScoreIndex;
                 }
                 counter++;
                 if (maxScoreIndex == maxWorthIndex) {
+                    pointsEarned += value / 2;
+                }
+            }
+        }
+        return pointsEarned;
+    }
+
+    /**
+     * Scores a bracket of all high seeds based on the given year's actual results
+     * @return The number of points scored by picking all of the high seeds
+     */
+    public int highSeed() {
+        /**
+         * Sets up all of the arrays which will be used to score high-seed:
+         *     worths houses the number of games that team actually won
+         *         in that year's tournament (based on ESPN standard scoring)
+         *     seeds houses each team's seed (with the #1 overall seed getting
+         *         assigned a -1 and the #2 overall getting assigned a 0
+         */
+        double[] worths = new double[64];
+        double[] seeds =
+                    {-1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15,
+                    1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15,
+                    0, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15,
+                    1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15};
+        int pointsEarned = 0;
+
+        /**
+         * Reads in the worths from file and fills in the worths array
+         */
+        try {
+            File dataFile = new File("stats_" + Driver.YEAR + "_3" + ".txt");
+            Scanner fileScanner = new Scanner(dataFile);
+            int i = 0;
+            while (fileScanner.hasNext() && i < 64) {
+                String line = fileScanner.nextLine();
+                worths[i] = Double.parseDouble(
+                        (line.split(" "))[YEAR_TO_SIZE.get(Driver.YEAR) - 1]);
+                i++;
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("Data file does not exist, exiting.");
+            System.exit(0);
+        }
+
+        // Hold on to your hat, this is where it gets a tad convoluted
+
+        // counter keeps track of what index of winnerPos we fill in next
+        int counter = 0;
+        /**
+         * Go through the bracket one round at a time
+         */
+        for (int round = 0; round < 6; round++) {
+            /**
+             * (value / 2) is how much each game in this round is worth
+             * value is also how many teams are vying for those points
+             *     (i.e. in round 1 only 2 teams, in round 6 all 64 teams)
+             */
+            int value = (int)(Math.pow(2, round + 1));
+            // compare houses the index of each team in the "match-up"
+            int[] compare = new int[value];
+            // For each "match-up" in this round
+            for (int i = 0; i < (64 / value); i++) {
+                int minSeedIndex = value * i;
+                int maxWorthIndex = value * i;
+                // For each team in this "match-up"
+                for (int j = 0; j < value; j++) {
+                    // Find the index of the team
+                    compare[j] = (value * i) + j;
+                    /**
+                     * If the team's seed is the smallest in the "match-up"
+                     *     thus far, save its index in minSeedIndex
+                     */
+                    if (seeds[compare[j]] < seeds[minSeedIndex]) {
+                        minSeedIndex = compare[j];
+                    }
+                    /**
+                     * If the team's worth is the biggest in the "match-up"
+                     *     thus far, save it in maxWorth
+                     */
+                    if (worths[compare[j]] > worths[maxWorthIndex]) {
+                        maxWorthIndex = compare[j];
+                    }
+                }
+
+                /**
+                 * Put the index of the team with the smallest seed into winnerPos
+                 * If that team also had the biggest worth, then increase the pointsEarned
+                 * There are only 63 games, so there are only 63 winners
+                 */
+                if (counter < winnerPos.length) {
+                    winnerPos[counter] = minSeedIndex;
+                }
+                counter++;
+                if (minSeedIndex == maxWorthIndex) {
                     pointsEarned += value / 2;
                 }
             }

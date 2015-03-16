@@ -1,10 +1,13 @@
-package bracketbuster;
-
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * Driver for the BracketBuster application, allows for manual entry of both
@@ -15,7 +18,7 @@ import java.util.GregorianCalendar;
  *     column represents actual placement in the spreadsheets (called worth)
  * @author Ryan Burns
  */
-public class Driver {
+public class Driver extends Application {
     /**
      * The year to be simulated
      */
@@ -136,6 +139,14 @@ public class Driver {
                 2.6648971075, 3.15657328, 3.9399376075, 3.5194059325,
                -1.052736285, 9.11687863, -0.95274776, 2.5423920375, 0};
 
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("ScreenOneFXML.fxml"));
+        Scene scene = new Scene(root, 1200, 900);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     /**
      * To score a predefined formula, set the year and formula fields
      * To generate a new formula, use maxFind() and then score()
@@ -146,25 +157,27 @@ public class Driver {
      * @param args
      */
     public static void main(String[] args) {
-        YEAR = "2010";
-        //FORMULA = e3;
+        //YEAR = "2012(2)";
+        //FORMULA = f2010x1;
 
-        BracketBuster bb1 = new BracketBuster(100);
-        FileConverter fc1 = new FileConverter();
-        fc1.convert();
+        //BracketBuster bb1 = new BracketBuster(100);
+        //FileConverter fc1 = new FileConverter();
+        //fc1.convert();
 
-        int max = bb1.maxFind();
+        //int max = bb1.maxFind();
         //int score = bb1.score(bb1.getBest());
 
         //int score = bb1.score(FORMULA);
+        //int score = bb1.highSeed();
         //System.out.println("This formula scored a " + score);
 
         //printToFile(bb1.getTrials(), bb1.getBest(), max);
-        printToConsole(bb1.getBest(), max);
+        //printToConsole(bb1.getBest(), score);
 
         //BracketVisual bv = new BracketVisual(
         //        bb1.getWinnerPos(), getTime(), false);
         //bv.show();
+        launch(args);
     }
 
     /**
