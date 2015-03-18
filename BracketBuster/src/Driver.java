@@ -144,6 +144,7 @@ public class Driver extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("ScreenOneFXML.fxml"));
         Scene scene = new Scene(root, 1200, 900);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -183,8 +184,11 @@ public class Driver extends Application {
     /**
      * Prints the best coefficients found and their score to the log with a
      *     timestamp and the number of trials run
+     * @param trials Number of trials that were run
+     * @param best Best coefficients found
+     * @param max Best score found
      */
-    private static void printToFile(int trials, double[] best, int max) {
+    public static void printToFile(int trials, double[] best, int max) {
         try {
             PrintWriter toFile = new PrintWriter(new FileWriter(
                     "log.txt", true));
@@ -205,8 +209,10 @@ public class Driver extends Application {
 
     /**
      * Prints the best coefficients found and their score to the console
+     * @param best Best coefficients found
+     * @param max Best score found
      */
-    private static void printToConsole(double[] best, int max) {
+    public static void printToConsole(double[] best, int max) {
         for (int k = 0; k < best.length - 1; k++) {
             System.out.printf("%f ", best[k]);
         }
@@ -217,7 +223,7 @@ public class Driver extends Application {
      * Will get the current time and date in a predefined format whenever called
      * @return The current instance so that each formula is time stamped
      */
-    private static String getTime() {
+    public static String getTime() {
         StringBuilder timeStr = new StringBuilder();
         Calendar calendar = new GregorianCalendar();
         timeStr.append(Integer.toString(calendar.get(Calendar.MONTH) + 1));

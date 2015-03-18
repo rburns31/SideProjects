@@ -1,12 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ScreenOneController">
-    
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScreenOneController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="140.0" prefWidth="1200.0">
+         <children>
+            <Label prefHeight="25.0" prefWidth="40.0" text="Mode" />
+            <ChoiceBox fx:id="modeDropdown" prefHeight="25.0" prefWidth="150.0" />
+            <Label prefHeight="25.0" prefWidth="40.0" text="Year">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin></Label>
+            <ChoiceBox fx:id="yearDropdown" prefHeight="25.0" prefWidth="100.0" />
+            <Label prefHeight="25.0" prefWidth="40.0" text="Trials">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="trialsField" prefWidth="80.0" text="100" />
+            <Label prefHeight="25.0" prefWidth="40.0" text="Score">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="scoreField" editable="false" prefWidth="80.0" />
+            <Button fx:id="goButton" mnemonicParsing="false" onAction="#goButtonHandler" prefHeight="20.0" prefWidth="70.0" text="Go!">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="50.0" right="50.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="coeffRow" layoutY="140.0" prefHeight="60.0" prefWidth="1200.0" spacing="10.0">
+         <padding>
+            <Insets left="50.0" right="50.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="overflowCoeffRow" layoutY="200.0" prefHeight="60.0" prefWidth="830.0" spacing="10.0">
+         <padding>
+            <Insets left="50.0" right="50.0" />
+         </padding>
+      </HBox>
+      <TextField fx:id="bracketField" alignment="TOP_LEFT" layoutX="50.0" layoutY="310.0" prefHeight="540.0" prefWidth="1100.0">
+         <font>
+            <Font size="6.0" />
+         </font></TextField>
+      <HBox alignment="CENTER" layoutX="830.0" layoutY="200.0" prefHeight="60.0" prefWidth="370.0">
+         <children>
+            <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonHandler" prefHeight="20.0" prefWidth="70.0" text="Clear" />
+         </children>
+      </HBox>
+   </children>
 </AnchorPane>

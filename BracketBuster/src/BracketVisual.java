@@ -132,6 +132,7 @@ public class BracketVisual {
         } else {
             this.outputTxt = "bracket.txt";
         }
+        show();
     }
 
     /**
