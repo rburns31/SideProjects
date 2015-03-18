@@ -51,14 +51,28 @@
             <Insets left="50.0" right="50.0" />
          </padding>
       </HBox>
-      <TextField fx:id="bracketField" alignment="TOP_LEFT" layoutX="50.0" layoutY="310.0" prefHeight="540.0" prefWidth="1100.0">
-         <font>
-            <Font size="6.0" />
-         </font></TextField>
       <HBox alignment="CENTER" layoutX="830.0" layoutY="200.0" prefHeight="60.0" prefWidth="370.0">
          <children>
             <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonHandler" prefHeight="20.0" prefWidth="70.0" text="Clear" />
          </children>
       </HBox>
+      <HBox fx:id="fileNameRow" layoutY="275.0" prefHeight="25.0" prefWidth="1200.0" visible="false">
+         <children>
+            <Label prefHeight="25.0" prefWidth="60.0" text="File Name" />
+            <TextField fx:id="outputFileNameField" prefWidth="150.0" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonHandler" prefHeight="25.0" prefWidth="70.0" text="Save">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="60.0" />
+         </padding>
+      </HBox>
+      <TextArea fx:id="bracketField" layoutX="50.0" layoutY="310.0" prefHeight="540.0" prefWidth="1100.0">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font></TextArea>
    </children>
 </AnchorPane>
