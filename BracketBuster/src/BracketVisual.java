@@ -108,12 +108,39 @@ public class BracketVisual {
                         "St Louis", "NC St", "L'ville", "Manhattan",
                         "UMass", "Tenn", "Duke", "Mercer",
                         "Texas", "ASU", "Michigan", "Wofford"};
+    /**
+     * The teams in the 2015 tournament, in order of the bracket
+     */
+    public static final String[] TEAMS_2015 =
+                        {"Kentucky", "Hampton", "Cincy", "Purdue",
+                        "WVU", "Buffalo", "Maryland", "Valpo",
+                        "Butler", "Texas", "ND", "N eastern",
+                        "Wich St", "Indiana", "Kansas", "NM St",
+                        "Wisconsin", "Coast Car", "Oregon", "Okla St",
+                        "Arkansas", "Wofford", "UNC", "Harvard",
+                        "Xavier", "Ole Miss", "Baylor", "GA St",
+                        "VCU", "Ohio St", "Arizona", "Texas So",
+                        "Villanova", "Lafayette", "NC State", "LSU",
+                        "N Iowa", "Wyoming", "L'ville", "UC Irvine",
+                        "Providenc", "Dayton", "Oklahoma", "Albany",
+                        "Mich St", "Georgia", "Virginia", "Belmont",
+                        "Duke", "Rob Morr", "San D St", "St Johns",
+                        "Utah", "SF Austin", "G'town", "E Wash",
+                        "SMU", "UCLA", "Iowa St", "UAB",
+                        "Iowa", "Davidson", "Gonzaga", "N Dak St"};
 
     /**
-     * Defines the winners of each game in order, but it defines them in terms
-     *     of their index in the TEAMS_20XX array currently being used
+     * 
      */
     private final int[] winnerPos;
+    /**
+     * 
+     */
+    private final int max;
+    /**
+     * 
+     */
+    private final double[] best;
     /**
      * The current time as defined in Driver
      *     Allows for time stamping and easy differentiation of results
@@ -124,14 +151,12 @@ public class BracketVisual {
      */
     private final String outputTxt;
 
-    public BracketVisual(int[] winnerPos, String timeStr, boolean keepOnFile) {
+    public BracketVisual(int[] winnerPos, int max, double[] best, String timeStr) {
         this.winnerPos = winnerPos;
+        this.max = max;
+        this.best = best;
         this.timeStr = timeStr;
-        if (keepOnFile) {
-            this.outputTxt = timeStr + ".txt";
-        } else {
-            this.outputTxt = "bracket.txt";
-        }
+        this.outputTxt = "bracket.txt";
         show();
     }
 
@@ -164,7 +189,7 @@ public class BracketVisual {
      *     year and winners
      * Not ideal setup to have this hard-coded like it is, try to fix this
      */
-    public void show() {
+    public final void show() {
         PrintWriter outFile = null;
         try {
             outFile = new PrintWriter(outputTxt);
@@ -184,6 +209,15 @@ public class BracketVisual {
         // Headers which will be printed at the beginning of the output file
         String header = "Displaying bracket for year: " + Driver.YEAR;
         String header2 = "Generated: " + timeStr;
+        String header3 = "Scored: " + max + " points";
+        StringBuilder header4 = new StringBuilder("With constants: ");
+        for (int i = 0; i < best.length - 1; i++) {
+            if (i != 0) {
+                header4.append(", ");
+            }
+            String str = Double.toString(best[i]);
+            header4.append(str.indexOf(".") < 0 ? str : str.replaceAll("0*$", "").replaceAll("\\.$", ""));
+        }
 
         // Set the teams variable to the appropriate array for the year
         String[] teams = null;
@@ -199,6 +233,9 @@ public class BracketVisual {
         } else if (Driver.YEAR.equals("2014(1)")
                 || Driver.YEAR.equals("2014(3)")) {
             teams = TEAMS_2014;
+        } else if (Driver.YEAR.equals("2015(1)")
+                || Driver.YEAR.equals("2015(3)")) {
+            teams = TEAMS_2015;
         } else {
             System.out.println("I cannot yet make a "
                     + "bracket for that year. Exiting.");
@@ -217,6 +254,8 @@ public class BracketVisual {
         // Print headers to file
         outFile.println(header);
         outFile.println(header2);
+        outFile.println(header3);
+        outFile.println(header4);
         outFile.println();
 
         // Print the first octets of each side of the bracket

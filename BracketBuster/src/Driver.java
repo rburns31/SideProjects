@@ -158,65 +158,7 @@ public class Driver extends Application {
      * @param args
      */
     public static void main(String[] args) {
-        //YEAR = "2012(2)";
-        //FORMULA = f2010x1;
-
-        //BracketBuster bb1 = new BracketBuster(100);
-        //FileConverter fc1 = new FileConverter();
-        //fc1.convert();
-
-        //int max = bb1.maxFind();
-        //int score = bb1.score(bb1.getBest());
-
-        //int score = bb1.score(FORMULA);
-        //int score = bb1.highSeed();
-        //System.out.println("This formula scored a " + score);
-
-        //printToFile(bb1.getTrials(), bb1.getBest(), max);
-        //printToConsole(bb1.getBest(), score);
-
-        //BracketVisual bv = new BracketVisual(
-        //        bb1.getWinnerPos(), getTime(), false);
-        //bv.show();
         launch(args);
-    }
-
-    /**
-     * Prints the best coefficients found and their score to the log with a
-     *     timestamp and the number of trials run
-     * @param trials Number of trials that were run
-     * @param best Best coefficients found
-     * @param max Best score found
-     */
-    public static void printToFile(int trials, double[] best, int max) {
-        try {
-            PrintWriter toFile = new PrintWriter(new FileWriter(
-                    "log.txt", true));
-            toFile.println("Generated: " + getTime());
-            toFile.println("Year: " + YEAR + " with trials: " + trials);
-            for (int k = 0; k < best.length - 1; k++) {
-                toFile.printf("%f ", best[k]);
-            }
-            toFile.println();
-            toFile.println("Maximum: " + max);
-            toFile.println();
-            toFile.close();
-        } catch (IOException e) {
-            System.out.println("Some problem with writing to the log. "
-                    + "Decide if this is fatal or not.");
-        }
-    }
-
-    /**
-     * Prints the best coefficients found and their score to the console
-     * @param best Best coefficients found
-     * @param max Best score found
-     */
-    public static void printToConsole(double[] best, int max) {
-        for (int k = 0; k < best.length - 1; k++) {
-            System.out.printf("%f ", best[k]);
-        }
-        System.out.println("\n" + "Maximum: " + max + "\n" + "All done!");
     }
 
     /**

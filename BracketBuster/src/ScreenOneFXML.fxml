@@ -10,30 +10,57 @@
 
 <AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScreenOneController">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="140.0" prefWidth="1200.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="140.0" prefWidth="1200.0" spacing="50.0">
          <children>
-            <Label prefHeight="25.0" prefWidth="40.0" text="Mode" />
-            <ChoiceBox fx:id="modeDropdown" prefHeight="25.0" prefWidth="150.0" />
-            <Label prefHeight="25.0" prefWidth="40.0" text="Year">
-               <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin></Label>
-            <ChoiceBox fx:id="yearDropdown" prefHeight="25.0" prefWidth="100.0" />
-            <Label prefHeight="25.0" prefWidth="40.0" text="Trials">
-               <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="trialsField" prefWidth="80.0" text="100" />
-            <Label prefHeight="25.0" prefWidth="40.0" text="Score">
-               <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="scoreField" editable="false" prefWidth="80.0" />
+            <HBox alignment="CENTER" prefHeight="140.0" prefWidth="140.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="40.0" text="Year">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="yearDropdown" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </HBox>
+            <HBox fx:id="modeBox" alignment="CENTER" prefHeight="140.0" prefWidth="190.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="40.0" text="Mode" />
+                  <ChoiceBox fx:id="modeDropdown" prefHeight="25.0" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox fx:id="formulaBox" alignment="CENTER" prefHeight="140.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="50.0" text="Formula">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="formulaDropdown" prefHeight="25.0" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox fx:id="trialsBox" alignment="CENTER" prefHeight="140.0" prefWidth="120.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="40.0" text="Trials">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="trialsField" prefWidth="80.0" text="100" />
+               </children>
+            </HBox>
+            <HBox fx:id="scoreBox" alignment="CENTER" prefHeight="140.0" prefWidth="120.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="40.0" text="Score">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="scoreField" editable="false" prefWidth="80.0" />
+               </children>
+            </HBox>
             <Button fx:id="goButton" mnemonicParsing="false" onAction="#goButtonHandler" prefHeight="20.0" prefWidth="70.0" text="Go!">
                <HBox.margin>
-                  <Insets left="50.0" />
+                  <Insets />
                </HBox.margin>
             </Button>
          </children>
@@ -56,18 +83,32 @@
             <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonHandler" prefHeight="20.0" prefWidth="70.0" text="Clear" />
          </children>
       </HBox>
-      <HBox fx:id="fileNameRow" layoutY="275.0" prefHeight="25.0" prefWidth="1200.0" visible="false">
+      <HBox layoutY="275.0" prefHeight="25.0" prefWidth="1200.0" spacing="515.0">
          <children>
-            <Label prefHeight="25.0" prefWidth="60.0" text="File Name" />
-            <TextField fx:id="outputFileNameField" prefWidth="150.0" />
-            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonHandler" prefHeight="25.0" prefWidth="70.0" text="Save">
-               <HBox.margin>
-                  <Insets left="30.0" />
-               </HBox.margin>
-            </Button>
+            <HBox fx:id="fileNameRow" prefHeight="25.0" prefWidth="310.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="60.0" text="File Name" />
+                  <TextField fx:id="outputFileNameField" prefWidth="150.0" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonHandler" prefHeight="25.0" prefWidth="70.0" text="Save">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox fx:id="progressBox" prefHeight="25.0" prefWidth="255.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="55.0" text="Progress">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <ProgressBar maxHeight="25.0" prefWidth="200.0" progress="0.0" />
+               </children>
+            </HBox>
          </children>
          <padding>
-            <Insets left="60.0" />
+            <Insets left="60.0" right="60.0" />
          </padding>
       </HBox>
       <TextArea fx:id="bracketField" layoutX="50.0" layoutY="310.0" prefHeight="540.0" prefWidth="1100.0">
