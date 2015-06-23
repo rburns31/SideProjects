@@ -119,21 +119,21 @@ public class ScreenOneController implements Initializable {
      */
     private final String[] valid2014x1 = {"2010 1.0", "2010 2.0", "2011 1.0",
                     "2011 2.0", "2012(1) 1.0", "2012(1) 2.0", "2013 2.0",
-                    "Average 2014 2.0", "Everything(1)"};
+                    "2014(1) 2.0", "Average 2014 2.0", "Everything(1)"};
     /**
      * The formulas which are valid to be applied to the 2014(3) data
      */
-    private final String[] valid2014x3 = {"Everything(3)"};
+    private final String[] valid2014x3 = {"2014(3) 2.0", "Everything(3)"};
     /**
      * The formulas which are valid to be applied to the 2015(1) data
      */
     private final String[] valid2015x1 = {"2010 1.0", "2010 2.0", "2011 1.0",
                     "2011 2.0", "2012(1) 1.0", "2012(1) 2.0", "2013 2.0",
-                    "Everything(1)"};
+                    "2014(1) 2.0", "Everything(1)", "Average 2015 2.0"};
     /**
      * The formulas which are valid to be applied to the 2015(3) data
      */
-    private final String[] valid2015x3 = {"Everything(3)"};
+    private final String[] valid2015x3 = {"2014(3) 2.0", "Everything(3)"};
     /**
      * 
      */
