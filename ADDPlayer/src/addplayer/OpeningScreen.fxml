@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addplayer.OpeningScreenController">
+   <children>
+      <Label alignment="CENTER" minHeight="110.0" prefWidth="1000.0" text="A.D.D.">
+         <font>
+            <Font size="96.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutY="141.0" prefHeight="40.0" prefWidth="1000.0" text="Created by Ryan Burns and Max Rider">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" layoutX="345.0" layoutY="181.0" prefHeight="600.0" prefWidth="350.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0">
+               <children>
+                  <TextArea maxHeight="30.0" prefHeight="30.0" prefWidth="200.0" />
+                  <Button mnemonicParsing="false" onAction="#browseButtonAction" text="Browse">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="210.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="175.0" text="Number of Songs:">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="numSongsField" prefHeight="30.0" prefWidth="50.0" text="5">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="210.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="175.0" text="Length of Song (sec):">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="songLengthField" prefHeight="30.0" prefWidth="50.0" text="10">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#startButtonAction" prefWidth="100.0" text="Start">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
