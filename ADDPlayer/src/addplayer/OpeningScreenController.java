@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
  * 
@@ -23,15 +23,15 @@ public class OpeningScreenController implements Initializable {
     @FXML
     private ChoiceBox songLengthChoice;
     @FXML
-    private TextArea pathTextArea;
-
-    private String path;
+    private TextField pathField;
+    @FXML
+    private TextField playerNameField;
 
     @FXML
     private void startButtonAction(ActionEvent event) throws Exception {
-        if (isPathValid()) {
-            path = pathTextArea.getText();
-            ADDPlayer.walk(path);
+        if (isPathValid() && !playerNameField.getText().equals("")) {
+            ADDPlayer.PLAYER = playerNameField.getText();
+            ADDPlayer.walk(pathField.getText());
             ADDPlayer.NUM_SONGS = Integer.parseInt(
                     numSongsChoice.getValue().toString());
             ADDPlayer.SONG_LENGTH = Integer.parseInt(
@@ -42,7 +42,7 @@ public class OpeningScreenController implements Initializable {
             ADDPlayer.MAIN_STAGE.setScene(scene);
             ADDPlayer.MAIN_STAGE.show();
         } else {
-            // Wait for the user to input a valid path
+            // Wait for the user to input a valid path and player name
             
         }
     }

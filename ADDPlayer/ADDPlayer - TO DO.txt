@@ -17,3 +17,5 @@ As of: 6/25/2015
 - Utilizing Google Play Music for the library?
 - Support for .m4a files
 - Gracefully skip songs if fail to play them
+- Prompt to tell users why the game isn't starting if invalid input(s)
+- Fix the toggling of the correct and incorrect buttons

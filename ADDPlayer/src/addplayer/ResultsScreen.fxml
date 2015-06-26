@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addplayer.ResultsScreenController">
-    
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addplayer.ResultsScreenController">
+   <children>
+      <VBox layoutX="300.0" layoutY="300.0" prefHeight="200.0" prefWidth="400.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
+               <children>
+                  <Label text="Player:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="playerField" text="Player1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
+               <children>
+                  <Label text="Score:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="scoreField" text="0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
+               <children>
+                  <Button fx:id="playAgainButton" disable="true" mnemonicParsing="false" onAction="#playAgainButtonAction" text="Play Again" />
+                  <Button fx:id="mainMenuButton" disable="true" mnemonicParsing="false" onAction="#mainMenuButtonAction" text="Main Menu" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

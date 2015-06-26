@@ -120,7 +120,23 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="300.0">
                <children>
-                  <Button onAction="#playPauseButtonAction" prefWidth="100.0" text="Play/Pause" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="300.0" spacing="10.0">
+                     <children>
+                        <Button disable="true" prefHeight="30.0" prefWidth="80.0" text="Back" />
+                        <Button disable="true" onAction="#playPauseButtonAction" prefHeight="30.0" prefWidth="80.0" text="Play/Pause" />
+                        <Button disable="true" prefHeight="30.0" prefWidth="80.0" text="Forward" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="Volume">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="volumeSlider" disable="true" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="300.0">

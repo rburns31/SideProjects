@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
@@ -36,6 +37,18 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class GameplayScreenController implements Initializable {
     @FXML
+    private Label songPoints;
+    @FXML
+    private Label artistPoints;
+    @FXML
+    private Label albumPoints;
+    @FXML
+    private ToggleButton songCorrect;
+    @FXML
+    private ToggleButton artistCorrect;
+    @FXML
+    private ToggleButton albumCorrect;
+    @FXML
     private Label playerField;
     @FXML
     private Label librarySizeField;
@@ -49,6 +62,8 @@ public class GameplayScreenController implements Initializable {
     private Label artistField;
     @FXML
     private Label albumField;
+    @FXML
+    private Slider volumeSlider;
 
     private MediaPlayer currentSong;
     private int songLocation;
@@ -132,14 +147,16 @@ public class GameplayScreenController implements Initializable {
         }
         // Play the new song (until we hit the passed in number)
         if (songsPlayed < ADDPlayer.NUM_SONGS) {
-            songLocation = random.nextInt(ADDPlayer.library.size() + 1);
-            String songName = ADDPlayer.library.get(songLocation);
+            resetDisplay();
+            songLocation = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
+            String songName = ADDPlayer.LIBRARY.get(songLocation);
             Media test = new Media(new File(songName).toURI().toString());
             currentSong = new MediaPlayer(test);
             currentSong.play();
             displayMetadata(songName);
         } else {
             // Game is over, show end screen
+            ADDPlayer.POINTS = Integer.parseInt(pointsField.getText());
             try {
                 Parent root = FXMLLoader.load(
                         getClass().getResource("ResultsScreen.fxml"));
@@ -151,6 +168,23 @@ public class GameplayScreenController implements Initializable {
             }
         }
         songsPlayed++;
+        progressField.setText(Integer.toString(songsPlayed) + "/"
+                + Integer.toString(ADDPlayer.NUM_SONGS));
+    }
+
+    private void resetDisplay() {
+        songPoints.setVisible(false);
+        artistPoints.setVisible(false);
+        albumPoints.setVisible(false);
+        if (songCorrect.isSelected()) {
+            toggle(songCorrect);
+        }
+        if (artistCorrect.isSelected()) {
+            toggle(artistCorrect);
+        }
+        if (albumCorrect.isSelected()) {
+            toggle(albumCorrect);
+        }
     }
 
     private void displayMetadata(String song) {
@@ -179,6 +213,8 @@ public class GameplayScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         songsPlayed = 0;
         random = new Random();
+        librarySizeField.setText(Integer.toString(ADDPlayer.LIBRARY.size()));
+        playerField.setText(ADDPlayer.PLAYER);
         cycle();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(ADDPlayer.SONG_LENGTH * 1000),
