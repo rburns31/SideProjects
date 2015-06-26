@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -49,6 +50,12 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private ToggleButton albumCorrect;
     @FXML
+    private ToggleButton songIncorrect;
+    @FXML
+    private ToggleButton artistIncorrect;
+    @FXML
+    private ToggleButton albumIncorrect;
+    @FXML
     private Label playerField;
     @FXML
     private Label librarySizeField;
@@ -70,6 +77,7 @@ public class GameplayScreenController implements Initializable {
     //private boolean isPlaying = false;
     private int songsPlayed;
     private Random random;
+    private HashMap<ToggleButton, ToggleButton> corrButtons;
 
     @FXML
     private void playPauseButtonAction(ActionEvent event) {
@@ -86,7 +94,8 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private void correctButtonAction(ActionEvent event) {
         ToggleButton thisButton = (ToggleButton)event.getSource();
-        toggle(thisButton);
+        thisButton.setSelected(true);
+        corrButtons.get(thisButton).setSelected(false);
         List<Node> children = thisButton.getParent().getChildrenUnmodifiable();
         Label thisLabel = null;
         for (Node node : children) {
@@ -108,7 +117,8 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private void incorrectButtonAction(ActionEvent event) {
         ToggleButton thisButton = (ToggleButton)event.getSource();
-        toggle(thisButton);
+        thisButton.setSelected(true);
+        corrButtons.get(thisButton).setSelected(false);
         List<Node> children = thisButton.getParent().getChildrenUnmodifiable();
         Label thisLabel = null;
         for (Node node : children) {
@@ -128,15 +138,6 @@ public class GameplayScreenController implements Initializable {
             pointsField.setText(Integer.toString(
                     Integer.parseInt(pointsField.getText()) - 1));
             thisLabel.setVisible(false);
-        }
-    }
-
-    private void toggle(ToggleButton button) {
-        List<Node> children = button.getParent().getChildrenUnmodifiable();
-        for (Node node : children) {
-            if (node instanceof ToggleButton && !node.equals(button)) {
-                ((ToggleButton)node).setSelected(false);
-            }
         }
     }
 
@@ -177,13 +178,16 @@ public class GameplayScreenController implements Initializable {
         artistPoints.setVisible(false);
         albumPoints.setVisible(false);
         if (songCorrect.isSelected()) {
-            toggle(songCorrect);
+            songCorrect.setSelected(false);
+            songIncorrect.setSelected(true);
         }
         if (artistCorrect.isSelected()) {
-            toggle(artistCorrect);
+            artistCorrect.setSelected(false);
+            artistIncorrect.setSelected(true);
         }
         if (albumCorrect.isSelected()) {
-            toggle(albumCorrect);
+            albumCorrect.setSelected(false);
+            albumIncorrect.setSelected(true);
         }
     }
 
@@ -208,9 +212,20 @@ public class GameplayScreenController implements Initializable {
             e.printStackTrace();
         }
     }
-        
+
+    private void setUpButtonMapping() {
+        corrButtons = new HashMap<>();
+        corrButtons.put(songCorrect, songIncorrect);
+        corrButtons.put(songIncorrect, songCorrect);
+        corrButtons.put(artistCorrect, artistIncorrect);
+        corrButtons.put(artistIncorrect, artistCorrect);
+        corrButtons.put(albumCorrect, albumIncorrect);
+        corrButtons.put(albumIncorrect, albumCorrect);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setUpButtonMapping();
         songsPlayed = 0;
         random = new Random();
         librarySizeField.setText(Integer.toString(ADDPlayer.LIBRARY.size()));
