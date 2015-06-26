@@ -10,102 +10,181 @@
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addplayer.GameplayScreenController">
     <children>
-        <Button layoutX="463.0" layoutY="90.0" onAction="#playPauseButtonAction" text="Play/Pause" />
-        <Label fx:id="fileNameField" alignment="CENTER" layoutY="115.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="1000.0" textAlignment="CENTER" />
-      <HBox layoutY="250.0" prefHeight="200.0" prefWidth="1000.0">
+      <VBox layoutX="400.0" layoutY="200.0" prefHeight="600.0" prefWidth="600.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="300.0">
-               <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin>
+            <VBox prefHeight="200.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="songPoints" prefHeight="35.0" prefWidth="30.0" text="+1" visible="false">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
+                  <HBox prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <ToggleButton fx:id="songCorrect" mnemonicParsing="false" onAction="#correctButtonAction" prefHeight="30.0" prefWidth="100.0" text="Correct">
+                           <HBox.margin>
+                              <Insets left="250.0" />
+                           </HBox.margin>
+                        </ToggleButton>
+                        <Label fx:id="songPoints" prefHeight="35.0" prefWidth="30.0" text="+1" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
                      <VBox.margin>
-                        <Insets left="270.0" />
+                        <Insets top="45.0" />
                      </VBox.margin>
-                  </Label>
-                  <ToggleButton fx:id="songCorrect" mnemonicParsing="false" onAction="#correctButtonAction" prefHeight="30.0" prefWidth="100.0" text="Correct">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="100.0" />
-                     </VBox.margin></ToggleButton>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" text="Song">
+                  </HBox>
+                  <Label fx:id="songField" alignment="CENTER" prefHeight="50.0" prefWidth="560.0">
                      <font>
                         <Font size="24.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
                   </Label>
                   <ToggleButton fx:id="songIncorrect" mnemonicParsing="false" onAction="#incorrectButtonAction" prefHeight="30.0" prefWidth="100.0" selected="true" text="Incorrect">
                      <VBox.margin>
-                        <Insets bottom="35.0" left="100.0" top="10.0" />
+                        <Insets left="250.0" />
                      </VBox.margin>
                   </ToggleButton>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="300.0">
+            <VBox prefHeight="200.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="artistPoints" prefHeight="35.0" prefWidth="30.0" text="+1" visible="false">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
+                  <HBox prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <ToggleButton fx:id="artistCorrect" mnemonicParsing="false" onAction="#correctButtonAction" prefHeight="30.0" prefWidth="100.0" text="Correct">
+                           <HBox.margin>
+                              <Insets left="250.0" />
+                           </HBox.margin>
+                        </ToggleButton>
+                        <Label fx:id="artistPoints" prefHeight="35.0" prefWidth="30.0" text="+1" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
                      <VBox.margin>
-                        <Insets left="270.0" />
+                        <Insets top="45.0" />
                      </VBox.margin>
-                  </Label>
-                  <ToggleButton fx:id="artistCorrect" mnemonicParsing="false" onAction="#correctButtonAction" prefHeight="30.0" prefWidth="100.0" text="Correct">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="100.0" />
-                     </VBox.margin>
-                  </ToggleButton>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" text="Artist">
+                  </HBox>
+                  <Label fx:id="artistField" alignment="CENTER" prefHeight="50.0" prefWidth="560.0">
                      <font>
                         <Font size="24.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
                   </Label>
                   <ToggleButton fx:id="artistIncorrect" mnemonicParsing="false" onAction="#incorrectButtonAction" prefHeight="30.0" prefWidth="100.0" selected="true" text="Incorrect">
                      <VBox.margin>
-                        <Insets bottom="35.0" left="100.0" top="10.0" />
+                        <Insets left="250.0" />
                      </VBox.margin>
                   </ToggleButton>
-               </children></VBox>
-            <VBox prefHeight="200.0" prefWidth="300.0">
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="albumPoints" prefHeight="35.0" prefWidth="30.0" text="+1" visible="false">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
+                  <HBox prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <ToggleButton fx:id="albumCorrect" mnemonicParsing="false" onAction="#correctButtonAction" prefHeight="30.0" prefWidth="100.0" text="Correct">
+                           <HBox.margin>
+                              <Insets left="250.0" />
+                           </HBox.margin>
+                        </ToggleButton>
+                        <Label fx:id="albumPoints" prefHeight="35.0" prefWidth="30.0" text="+1" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
                      <VBox.margin>
-                        <Insets left="270.0" />
+                        <Insets top="45.0" />
                      </VBox.margin>
-                  </Label>
-                  <ToggleButton fx:id="albumCorrect" mnemonicParsing="false" onAction="#correctButtonAction" prefHeight="30.0" prefWidth="100.0" text="Correct">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="100.0" />
-                     </VBox.margin>
-                  </ToggleButton>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" text="Album">
+                  </HBox>
+                  <Label fx:id="albumField" alignment="CENTER" prefHeight="50.0" prefWidth="560.0">
                      <font>
                         <Font size="24.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
                   </Label>
                   <ToggleButton fx:id="albumIncorrect" mnemonicParsing="false" onAction="#incorrectButtonAction" prefHeight="30.0" prefWidth="100.0" selected="true" text="Incorrect">
                      <VBox.margin>
-                        <Insets bottom="35.0" left="100.0" top="10.0" />
+                        <Insets left="250.0" />
                      </VBox.margin>
                   </ToggleButton>
-               </children></VBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <HBox layoutX="400.0" prefHeight="200.0" prefWidth="600.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="300.0">
+               <children>
+                  <Button onAction="#playPauseButtonAction" prefWidth="100.0" text="Play/Pause" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="300.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="65.0" text="Player:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="playerField" maxWidth="235.0" prefHeight="30.0" text="Player1">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="145.0" text="Songs In Library:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="librarySizeField" prefHeight="30.0" text="0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="120.0" text="Current Song:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="progressField" prefHeight="30.0" text="0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="70.0" text="Points:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="pointsField" prefHeight="30.0" text="0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </HBox>
-      <Label layoutX="744.0" layoutY="55.0" prefHeight="30.0" prefWidth="80.0" text="Points:">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="pointsField" layoutX="824.0" layoutY="55.0" prefHeight="30.0" prefWidth="50.0" text="0">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
+      <ScrollPane prefHeight="800.0" prefWidth="300.0" />
     </children>
 </AnchorPane>

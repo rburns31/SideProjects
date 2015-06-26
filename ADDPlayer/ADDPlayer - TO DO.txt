@@ -1,0 +1,19 @@
+As of: 6/25/2015
+
+- Track accuracy data persistently for each user so they can see their weak and strong artists of all time
+- Support for distinguishing among users (credentials?)
+- Support for clearing statistics without creating a new user
+- Music controls (play, pause, volume, skip, back, etc.)
+- Closing screen (results)
+- More than one player in one game (same library? different libraries?)
+- Support for mulligans (choice on main screen, tracking them for easier scoring)
+- Support for quitting the game mid-game
+- A delay upon starting the game?
+- A preview panel before/during the round so the scorer can see the songs to come
+- Support for choice on main screen of not using all 3 categories when playing
+- UI DESIGN
+- Album art?
+- Importing iTunes playlists as library to play with?
+- Utilizing Google Play Music for the library?
+- Support for .m4a files
+- Gracefully skip songs if fail to play them

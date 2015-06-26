@@ -3,14 +3,15 @@ package addplayer;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 
 /**
  * 
@@ -18,31 +19,32 @@ import javafx.scene.control.TextField;
  */
 public class OpeningScreenController implements Initializable {
     @FXML
-    private TextField numSongsField;
+    private ChoiceBox numSongsChoice;
     @FXML
-    private TextField songLengthField;
+    private ChoiceBox songLengthChoice;
+    @FXML
+    private TextArea pathTextArea;
 
     private String path;
 
     @FXML
     private void startButtonAction(ActionEvent event) throws Exception {
-        if (isFieldValid(numSongsField) && isFieldValid(songLengthField) && isPathValid()) {
+        if (isPathValid()) {
+            path = pathTextArea.getText();
             ADDPlayer.walk(path);
-            ADDPlayer.NUM_SONGS = Integer.parseInt(numSongsField.getText());
-            ADDPlayer.SONG_LENGTH = Integer.parseInt(songLengthField.getText());
-            Parent root = FXMLLoader.load(getClass().getResource("GameplayScreen.fxml"));
+            ADDPlayer.NUM_SONGS = Integer.parseInt(
+                    numSongsChoice.getValue().toString());
+            ADDPlayer.SONG_LENGTH = Integer.parseInt(
+                    songLengthChoice.getValue().toString());
+            Parent root = FXMLLoader.load(
+                    getClass().getResource("GameplayScreen.fxml"));
             Scene scene = new Scene(root);
-            ADDPlayer.mainStage.setScene(scene);
-            ADDPlayer.mainStage.show();
+            ADDPlayer.MAIN_STAGE.setScene(scene);
+            ADDPlayer.MAIN_STAGE.show();
         } else {
-            // Wait for the user to input both fields and a valid path
+            // Wait for the user to input a valid path
             
         }
-    }
-
-    private boolean isFieldValid(TextField thisField) {
-        return thisField.getText().matches("^\\d+$")
-                && !thisField.getText().equals("");
     }
 
     private boolean isPathValid() {
@@ -61,6 +63,11 @@ public class OpeningScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        numSongsChoice.setItems(FXCollections.observableArrayList(
+                "1", "5", "10", "15", "20"));
+        numSongsChoice.setValue("5");
+        songLengthChoice.setItems(FXCollections.observableArrayList(
+                "5", "10", "15", "20", "30"));
+        songLengthChoice.setValue("5");
     }
 }

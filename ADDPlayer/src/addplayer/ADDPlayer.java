@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 /**
  * 
  * @author Ryan Burns
@@ -19,13 +18,13 @@ public class ADDPlayer extends Application {
      * 
      */
     public static ArrayList<String> library = new ArrayList<>();
-    public static Stage mainStage;
+    public static Stage MAIN_STAGE;
     public static int NUM_SONGS;
     public static int SONG_LENGTH;
 
     @Override
     public void start(Stage stage) throws Exception {
-        mainStage = stage;
+        MAIN_STAGE = stage;
         Parent root = FXMLLoader.load(getClass().getResource("OpeningScreen.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -73,8 +72,8 @@ public class ADDPlayer extends Application {
         for (File f : list) {
             if (f.isDirectory()) {
                 walk(f.getAbsolutePath());
-            } else if (!f.isHidden()) {
-                //System.out.println(f.getAbsoluteFile().toString());
+            } else if (f.toString().substring(f.toString().length() - 3).toLowerCase().equals("mp3")) {
+                System.out.println(f.getAbsoluteFile().toString());
                 library.add(f.getAbsoluteFile().toString());
             }
         }
