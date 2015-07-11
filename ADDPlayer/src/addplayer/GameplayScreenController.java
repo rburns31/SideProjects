@@ -75,7 +75,7 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private AnchorPane previewPane;
 
-    private MediaPlayer currentSong;
+    private MediaPlayer mediaPlayer;
     private int songLocation;
     //private boolean isPlaying = false;
     private int songsPlayed;
@@ -146,39 +146,60 @@ public class GameplayScreenController implements Initializable {
 
     private void cycle() {
         // Stop the previous song (if this isn't the first song)
-        if (currentSong != null) {
-            currentSong.pause();
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
         }
+
         // Play the new song (until we hit the passed in number)
         if (songsPlayed < ADDPlayer.NUM_SONGS) {
             resetDisplay();
 
+            // Pick the next random song
             songLocation = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
-            String songName = ADDPlayer.LIBRARY.get(songLocation);
-            Media test = new Media(new File(songName).toURI().toString());
-            currentSong = new MediaPlayer(test);
-            currentSong.play();
-            
-            PreviewHBox songPreview = new PreviewHBox();
+
+            // Play the new song
+            SongDetails song;
+            if (ADDPlayer.MODE == 1) {
+                // Create fake SongDetails objects from the metadata
+                String location = (String) ADDPlayer.LIBRARY.get(songLocation);
+                song = convertWithMetadata(location);
+            } else {
+                song = (SongDetails) ADDPlayer.LIBRARY.get(songLocation);
+            }
+            Media songFile = new Media(new File(song.location).toURI().toString());
+            mediaPlayer = new MediaPlayer(songFile);
+            mediaPlayer.play();
+
+            // Add the new song to the preview pane
+            PreviewHBox songPreview = new PreviewHBox(song);
             previewPane.getChildren().add(songPreview);
 
-            displayMetadata(songName);
+            // Set the text fields on this screen with the new song info
+            songField.setText(song.name);
+            artistField.setText(song.artist);
+            albumField.setText(song.album);
         } else {
-            // Game is over, set the final points value and show the end screen
-            ADDPlayer.POINTS = Integer.parseInt(pointsField.getText());
-            try {
-                Parent root = FXMLLoader.load(
-                        getClass().getResource("ResultsScreen.fxml"));
-                Scene scene = new Scene(root);
-                ADDPlayer.MAIN_STAGE.setScene(scene);
-                ADDPlayer.MAIN_STAGE.show();
-            } catch (IOException e) {
-                System.exit(1);
-            }
+            gameOver();
         }
         songsPlayed++;
         progressField.setText(Integer.toString(songsPlayed) + "/"
                 + Integer.toString(ADDPlayer.NUM_SONGS));
+    }
+
+    /**
+     * Game is over, set the final points value and show the end screen
+     */
+    private void gameOver() {
+        ADDPlayer.POINTS = Integer.parseInt(pointsField.getText());
+        try {
+            Parent root = FXMLLoader.load(
+                    getClass().getResource("ResultsScreen.fxml"));
+            Scene scene = new Scene(root);
+            ADDPlayer.MAIN_STAGE.setScene(scene);
+            ADDPlayer.MAIN_STAGE.show();
+        } catch (IOException e) {
+            System.exit(1);
+        }
     }
 
     private void resetDisplay() {
@@ -199,26 +220,21 @@ public class GameplayScreenController implements Initializable {
         }
     }
 
-    private void displayMetadata(String song) {
+    private SongDetails convertWithMetadata(String location) {
         try {
-            InputStream input = new FileInputStream(new File(song));
+            InputStream input = new FileInputStream(new File(location));
             Metadata metadata = new Metadata();
             new Mp3Parser().parse(
                     input, new DefaultHandler(), metadata, new ParseContext());
             input.close();
 
-            // List all metadata
-            //String[] metadataNames = metadata.names();
-            //for (String name : metadataNames) {
-            //    System.out.println(name + ": " + metadata.get(name));
-            //}
-
-            songField.setText(metadata.get("title"));
-            artistField.setText(metadata.get("xmpDM:artist"));
-            albumField.setText(metadata.get("xmpDM:album"));
+            return new SongDetails(metadata.get("title"),
+                    metadata.get("xmpDM:artist"), metadata.get("xmpDM:album"), 
+                    null, null, location);
         } catch (IOException | SAXException | TikaException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     private void setUpButtonMapping() {

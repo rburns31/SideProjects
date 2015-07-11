@@ -1,8 +1,11 @@
 package addplayer;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,11 +17,13 @@ import javafx.stage.Stage;
  * @author Ryan Burns
  */
 public class ADDPlayer extends Application {
-    public static ArrayList<String> LIBRARY = new ArrayList<>();
+    public static ArrayList LIBRARY;
     public static Stage MAIN_STAGE;
     public static int NUM_SONGS;
     public static int SONG_LENGTH;
     public static int POINTS;
+    // 0 if from export iTunes playlist, 1 if from folder on hard drive
+    public static int MODE;
     public static String PLAYER;
 
     @Override
@@ -37,6 +42,7 @@ public class ADDPlayer extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        System.exit(0);
     }
 
     /**
@@ -56,6 +62,40 @@ public class ADDPlayer extends Application {
                 .toLowerCase().equals("mp3")) {
                 LIBRARY.add(f.getAbsoluteFile().toString());
             }
+        }
+    }
+
+    /**
+     * 
+     * @param file 
+     */
+    public static void readInPlaylist(String file) {
+        LIBRARY = new ArrayList<SongDetails>();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                new FileInputStream(file), "UTF-16"))) {
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                storeSong(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 
+     * @param line 
+     */
+    private static void storeSong(String line) {
+        String[] info = line.split("\t");
+        if (info.length != 27) {
+            // iTunes doesn't know where this file is so don't add it
+            for (int i = 0; i < info.length; i++) {
+                System.out.println(i + " - " + info[i]);
+            }
+        } else {
+            LIBRARY.add(new SongDetails(info[0], info[1], info[3], info[7],
+                    info[18], info[26]));
         }
     }
 }

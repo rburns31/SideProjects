@@ -34,15 +34,6 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <TextField fx:id="pathField" prefHeight="30.0" prefWidth="200.0" text="E:\Users\Ryan\Music\Library" />
-                  <Button mnemonicParsing="false" onAction="#browseButtonAction" text="Browse">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin></Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="10.0">
-               <children>
                   <Label prefHeight="30.0" text="Number of Songs:">
                      <font>
                         <Font size="18.0" />
@@ -59,6 +50,25 @@
                      </font>
                   </Label>
                   <ChoiceBox fx:id="songLengthChoice" prefHeight="30.0" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="210.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="30.0" text="Library Input:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="libraryInputChoice" prefHeight="30.0" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="pathField" disable="true" prefHeight="30.0" prefWidth="200.0" text="E:\Users\Ryan\Music\Library" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#browseButtonAction" text="Browse">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
                </children>
             </HBox>
             <Button mnemonicParsing="false" onAction="#startButtonAction" prefWidth="100.0" text="Start">

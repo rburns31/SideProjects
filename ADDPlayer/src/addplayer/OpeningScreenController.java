@@ -1,7 +1,8 @@
 package addplayer;
 
-import java.io.IOException;
+import static addplayer.ADDPlayer.LIBRARY;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -23,42 +24,52 @@ public class OpeningScreenController implements Initializable {
     @FXML
     private ChoiceBox songLengthChoice;
     @FXML
-    private TextField pathField;
+    private ChoiceBox libraryInputChoice;
+    //@FXML
+    //private TextField pathField;
     @FXML
     private TextField playerNameField;
 
     @FXML
     private void startButtonAction(ActionEvent event) throws Exception {
-        if (isPathValid() && !playerNameField.getText().equals("")) {
+        if (!playerNameField.getText().equals("")) {
+            // If the inputs are valid, populate the selected values
             ADDPlayer.PLAYER = playerNameField.getText();
-            ADDPlayer.walk(pathField.getText());
             ADDPlayer.NUM_SONGS = Integer.parseInt(
                     numSongsChoice.getValue().toString());
             ADDPlayer.SONG_LENGTH = Integer.parseInt(
                     songLengthChoice.getValue().toString());
+
+            // Populate the library according to the library input choice
+            if (libraryInputChoice.getValue().toString().equals(
+                    "Exported iTunes playlist")) {
+                ADDPlayer.MODE = 0;
+                ADDPlayer.readInPlaylist("Music.txt");
+            } else {
+                ADDPlayer.MODE = 1;
+                LIBRARY = new ArrayList<String>();
+                ADDPlayer.walk("E:\\Users\\Ryan\\Music\\Library");
+            }
+
+            // Launch the gameplay screen
             Parent root = FXMLLoader.load(
                     getClass().getResource("GameplayScreen.fxml"));
             Scene scene = new Scene(root);
             ADDPlayer.MAIN_STAGE.setScene(scene);
             ADDPlayer.MAIN_STAGE.show();
         } else {
-            // Wait for the user to input a valid path and player name
+            // Wait for the user to input a valid player name
             
         }
     }
 
-    private boolean isPathValid() {
-        
-        return true;
-    }
-
     @FXML
     private void browseButtonAction(ActionEvent event) {
-        try {
+        /**try {
             Runtime.getRuntime().exec("explorer.exe /select,C:/");
         } catch (IOException e) {
-            System.out.println("Error attrempting to open Windows Explorer.");
-        }
+            System.out.println("Error attempting to open Windows Explorer.");
+        }*/
     }
 
     @Override
@@ -69,5 +80,8 @@ public class OpeningScreenController implements Initializable {
         songLengthChoice.setItems(FXCollections.observableArrayList(
                 "5", "10", "15", "20", "30"));
         songLengthChoice.setValue("5");
+        libraryInputChoice.setItems(FXCollections.observableArrayList(
+                "Exported iTunes playlist", "Folder on hard drive"));
+        libraryInputChoice.setValue("Exported iTunes playlist");
     }
 }

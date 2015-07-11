@@ -16,11 +16,11 @@ public class PreviewHBox extends HBox {
     @FXML
     private final Label previewAlbum;
 
-    public PreviewHBox() {
+    public PreviewHBox(SongDetails song) {
         super();
-        previewSong = new Label("Song Name Here");
-        previewArtist = new Label("Artist Name Here");
-        previewAlbum = new Label("Album Name Here");
+        previewSong = new Label(song.name);
+        previewArtist = new Label(song.artist);
+        previewAlbum = new Label(song.album);
         this.getChildren().add(previewSong);
     }
 }
