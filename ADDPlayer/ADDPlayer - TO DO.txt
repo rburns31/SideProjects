@@ -22,5 +22,4 @@ As of: 6/25/2015
 Cool Stuff To Do With Exported Library Information
 - Automate the year vs. songs graph
 - Use skips vs. plays to find songs to delete
-- Verify that all songs downloaded are in iTunes
 - Automatically backup library
