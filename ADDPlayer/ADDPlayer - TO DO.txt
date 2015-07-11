@@ -18,4 +18,9 @@ As of: 6/25/2015
 - Support for .m4a files
 - Gracefully skip songs if fail to play them
 - Prompt to tell users why the game isn't starting if invalid input(s)
-- Fix the toggling of the correct and incorrect buttons
+
+Cool Stuff To Do With Exported Library Information
+- Automate the year vs. songs graph
+- Use skips vs. plays to find songs to delete
+- Verify that all songs downloaded are in iTunes
+- Automatically backup library

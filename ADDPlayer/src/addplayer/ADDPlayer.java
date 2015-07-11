@@ -32,31 +32,11 @@ public class ADDPlayer extends Application {
     }
 
     /**
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
-        //extensionDiagnostics();
-        System.exit(0);
-    }
-
-    /**
-     * 
-     */
-    private static void extensionDiagnostics() {
-        HashMap<String, Integer> extensions = new HashMap<>();
-        for (int i = 0; i < LIBRARY.size(); i++) {
-            String song = LIBRARY.get(i);
-            String extension = song.substring(song.lastIndexOf("."));
-            if (extensions.containsKey(extension)) {
-                extensions.replace(extension, extensions.get(extension) + 1);
-            } else {
-                extensions.put(extension, 1);
-            }
-        }
-        for (String ext : extensions.keySet()) {
-            System.out.println(ext + " - " + extensions.get(ext));
-        }
     }
 
     /**
@@ -73,7 +53,7 @@ public class ADDPlayer extends Application {
             if (f.isDirectory()) {
                 walk(f.getAbsolutePath());
             } else if (f.toString().substring(f.toString().length() - 3)
-                    .toLowerCase().equals("mp3")) {
+                .toLowerCase().equals("mp3")) {
                 LIBRARY.add(f.getAbsoluteFile().toString());
             }
         }

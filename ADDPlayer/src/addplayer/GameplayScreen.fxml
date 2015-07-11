@@ -201,6 +201,9 @@
             </VBox>
          </children>
       </HBox>
-      <ScrollPane prefHeight="800.0" prefWidth="300.0" />
+      <ScrollPane prefHeight="800.0" prefWidth="300.0">
+         <content>
+            <AnchorPane fx:id="previewPane" prefHeight="800.0" prefWidth="280.0" />
+         </content></ScrollPane>
     </children>
 </AnchorPane>

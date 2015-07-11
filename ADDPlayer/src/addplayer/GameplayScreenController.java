@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -71,6 +72,8 @@ public class GameplayScreenController implements Initializable {
     private Label albumField;
     @FXML
     private Slider volumeSlider;
+    @FXML
+    private AnchorPane previewPane;
 
     private MediaPlayer currentSong;
     private int songLocation;
@@ -149,14 +152,19 @@ public class GameplayScreenController implements Initializable {
         // Play the new song (until we hit the passed in number)
         if (songsPlayed < ADDPlayer.NUM_SONGS) {
             resetDisplay();
+
             songLocation = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
             String songName = ADDPlayer.LIBRARY.get(songLocation);
             Media test = new Media(new File(songName).toURI().toString());
             currentSong = new MediaPlayer(test);
             currentSong.play();
+            
+            PreviewHBox songPreview = new PreviewHBox();
+            previewPane.getChildren().add(songPreview);
+
             displayMetadata(songName);
         } else {
-            // Game is over, show end screen
+            // Game is over, set the final points value and show the end screen
             ADDPlayer.POINTS = Integer.parseInt(pointsField.getText());
             try {
                 Parent root = FXMLLoader.load(
@@ -165,7 +173,7 @@ public class GameplayScreenController implements Initializable {
                 ADDPlayer.MAIN_STAGE.setScene(scene);
                 ADDPlayer.MAIN_STAGE.show();
             } catch (IOException e) {
-                System.exit(2);
+                System.exit(1);
             }
         }
         songsPlayed++;
