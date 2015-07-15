@@ -17,15 +17,27 @@ import javafx.stage.Stage;
  * @author Ryan Burns
  */
 public class ADDPlayer extends Application {
+    /**
+     * Will either hold the library as Strings of the file locations or as
+     *     SongDetails objects of the song information depending on the
+     *     method of library input selected by the user
+     */
     public static ArrayList LIBRARY;
+    /**
+     * 0 if from export iTunes play-list, 1 if from folder on hard drive
+     */
+    public static int MODE;
     public static Stage MAIN_STAGE;
     public static int NUM_SONGS;
     public static int SONG_LENGTH;
     public static int POINTS;
-    // 0 if from export iTunes playlist, 1 if from folder on hard drive
-    public static int MODE;
     public static String PLAYER;
 
+    /**
+     * 
+     * @param stage
+     * @throws Exception 
+     */
     @Override
     public void start(Stage stage) throws Exception {
         MAIN_STAGE = stage;

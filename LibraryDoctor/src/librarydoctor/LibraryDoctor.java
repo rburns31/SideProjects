@@ -23,9 +23,9 @@ public class LibraryDoctor {
     public static void main(String[] args) {
         walk("E:\\Users\\Ryan\\Music\\Library");
         readInPlaylist("Music.txt");
-        System.out.println(LIBRARYFROMITUNES.get(1));
+        //System.out.println(LIBRARYFROMITUNES.get(1));
 
-        //extensionDiagnostics();
+        extensionDiagnostics();
         //findHidingSongs();
     }
 
@@ -127,11 +127,11 @@ public class LibraryDoctor {
                 walk(f.getAbsolutePath());
             //} else if (f.toString().substring(f.toString().length() - 3)
             //    .toLowerCase().equals("mp3")) {
-            //} else if (!f.isHidden()) {
-            //    LIBRARYFROMFILE.add(f.getAbsoluteFile().toString());
-            } else if (f.toString().substring(f.toString().length() - 3)
-                .toLowerCase().equals("m4a")) {
-                System.out.println(f.getAbsoluteFile().toString());
+            } else if (!f.isHidden()) {
+                LIBRARYFROMFILE.add(f.getAbsoluteFile().toString());
+            //} else if (f.toString().substring(f.toString().length() - 3)
+                //.toLowerCase().equals("m4a")) {
+                //System.out.println(f.getAbsoluteFile().toString());
             }
         }
     }

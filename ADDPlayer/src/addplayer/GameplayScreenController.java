@@ -20,6 +20,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -65,7 +67,7 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private Label pointsField;
     @FXML
-    private Label songField;
+    private TextField songField;
     @FXML
     private Label artistField;
     @FXML
@@ -153,25 +155,11 @@ public class GameplayScreenController implements Initializable {
         // Play the new song (until we hit the passed in number)
         if (songsPlayed < ADDPlayer.NUM_SONGS) {
             resetDisplay();
-
-            // Pick the next random song
-            songLocation = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
-
-            // Play the new song
-            SongDetails song;
-            if (ADDPlayer.MODE == 1) {
-                // Create fake SongDetails objects from the metadata
-                String location = (String) ADDPlayer.LIBRARY.get(songLocation);
-                song = convertWithMetadata(location);
-            } else {
-                song = (SongDetails) ADDPlayer.LIBRARY.get(songLocation);
-            }
-            Media songFile = new Media(new File(song.location).toURI().toString());
-            mediaPlayer = new MediaPlayer(songFile);
-            mediaPlayer.play();
+            SongDetails song = playNextSong();
 
             // Add the new song to the preview pane
-            PreviewHBox songPreview = new PreviewHBox(song);
+            PreviewVBox songPreview = new PreviewVBox(song);
+            songPreview.setLayoutY(800 / ADDPlayer.NUM_SONGS * songsPlayed);
             previewPane.getChildren().add(songPreview);
 
             // Set the text fields on this screen with the new song info
@@ -184,6 +172,23 @@ public class GameplayScreenController implements Initializable {
         songsPlayed++;
         progressField.setText(Integer.toString(songsPlayed) + "/"
                 + Integer.toString(ADDPlayer.NUM_SONGS));
+    }
+
+    private SongDetails playNextSong() {
+        songLocation = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
+
+        SongDetails song;
+        if (ADDPlayer.MODE == 1) {
+            // Create fake SongDetails objects from the metadata
+            String location = (String) ADDPlayer.LIBRARY.get(songLocation);
+            song = convertWithMetadata(location);
+        } else {
+            song = (SongDetails) ADDPlayer.LIBRARY.get(songLocation);
+        }
+        Media songFile = new Media(new File(song.location).toURI().toString());
+        mediaPlayer = new MediaPlayer(songFile);
+        mediaPlayer.play();
+        return song;
     }
 
     /**

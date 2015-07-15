@@ -1,6 +1,7 @@
 package addplayer;
 
 import static addplayer.ADDPlayer.LIBRARY;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -13,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * 
@@ -83,5 +86,9 @@ public class OpeningScreenController implements Initializable {
         libraryInputChoice.setItems(FXCollections.observableArrayList(
                 "Exported iTunes playlist", "Folder on hard drive"));
         libraryInputChoice.setValue("Exported iTunes playlist");
+        
+        //Media songFile = new Media(new File("E:\\Users\\Ryan\\Music\\Library\\Various Artists\\Avengers Assemble\\12 - From Out Of Nowhere.m4a").toURI().toString());
+        //MediaPlayer mediaPlayer = new MediaPlayer(songFile);
+        //mediaPlayer.play();
     }
 }
