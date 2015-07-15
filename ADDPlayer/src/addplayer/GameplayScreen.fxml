@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addplayer.GameplayScreenController">
     <children>
-      <VBox layoutX="400.0" layoutY="200.0" prefHeight="600.0" prefWidth="600.0">
+      <VBox layoutX="300.0" layoutY="200.0" prefHeight="600.0" prefWidth="700.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="600.0">
                <children>
@@ -52,37 +52,36 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="600.0">
                <children>
-                  <HBox prefHeight="30.0" prefWidth="200.0" spacing="10.0">
-                     <children>
-                        <ToggleButton fx:id="artistCorrect" mnemonicParsing="false" onAction="#correctButtonAction" prefHeight="30.0" prefWidth="100.0" text="Correct">
-                           <HBox.margin>
-                              <Insets left="250.0" />
-                           </HBox.margin>
-                        </ToggleButton>
-                        <Label fx:id="artistPoints" prefHeight="35.0" prefWidth="30.0" text="+1" visible="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="45.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <Label fx:id="artistField" alignment="CENTER" prefHeight="50.0" prefWidth="560.0">
+                  <Label prefHeight="50.0" prefWidth="580.0" text="Artist">
                      <font>
                         <Font size="24.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="20.0" />
+                        <Insets top="25.0" />
                      </VBox.margin>
                   </Label>
-                  <ToggleButton fx:id="artistIncorrect" mnemonicParsing="false" onAction="#incorrectButtonAction" prefHeight="30.0" prefWidth="100.0" selected="true" text="Incorrect">
+                  <TextField fx:id="artistField" alignment="CENTER" editable="false" prefHeight="50.0" prefWidth="620.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <HBox alignment="CENTER" prefHeight="75.0" prefWidth="580.0" spacing="10.0">
+                     <children>
+                        <ToggleButton fx:id="artistCorrect" mnemonicParsing="false" onAction="#correctButtonAction" prefHeight="30.0" prefWidth="100.0" text="Correct">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ToggleButton>
+                        <ToggleButton fx:id="artistIncorrect" mnemonicParsing="false" onAction="#incorrectButtonAction" prefHeight="30.0" prefWidth="100.0" selected="true" text="Incorrect" />
+                     </children>
                      <VBox.margin>
-                        <Insets left="250.0" />
+                        <Insets />
                      </VBox.margin>
-                  </ToggleButton>
+                  </HBox>
                </children>
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" />
+               </VBox.margin>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="600.0">
                <children>

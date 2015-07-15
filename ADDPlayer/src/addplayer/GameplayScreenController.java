@@ -42,8 +42,8 @@ import org.xml.sax.helpers.DefaultHandler;
 public class GameplayScreenController implements Initializable {
     @FXML
     private Label songPoints;
-    @FXML
-    private Label artistPoints;
+    //@FXML
+    //private Label artistPoints;
     @FXML
     private Label albumPoints;
     @FXML
@@ -69,7 +69,7 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private TextField songField;
     @FXML
-    private Label artistField;
+    private TextField artistField;
     @FXML
     private Label albumField;
     @FXML
@@ -209,7 +209,7 @@ public class GameplayScreenController implements Initializable {
 
     private void resetDisplay() {
         songPoints.setVisible(false);
-        artistPoints.setVisible(false);
+        //artistPoints.setVisible(false);
         albumPoints.setVisible(false);
         if (songCorrect.isSelected()) {
             songCorrect.setSelected(false);
