@@ -1,0 +1,17 @@
+/* 
+    Created on : Jul 19, 2015, 3:48:39 PM
+    Author     : Ryan Burns
+*/
+
+.hbox {
+    -fx-border-color: #000000;
+    -fx-border-width: 10;
+}
+
+.redlabel {
+    -fx-background-color: #FF0000;
+}
+
+.greenlabel {
+    -fx-background-color: #00FF00;
+}

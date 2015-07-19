@@ -20,7 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
@@ -40,12 +39,6 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Ryan Burns
  */
 public class GameplayScreenController implements Initializable {
-    @FXML
-    private Label songPoints;
-    //@FXML
-    //private Label artistPoints;
-    @FXML
-    private Label albumPoints;
     @FXML
     private ToggleButton songCorrect;
     @FXML
@@ -71,18 +64,18 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private TextField artistField;
     @FXML
-    private Label albumField;
+    private TextField albumField;
     @FXML
     private Slider volumeSlider;
     @FXML
-    private AnchorPane previewPane;
+    public AnchorPane previewPane;
 
     private MediaPlayer mediaPlayer;
-    private int songLocation;
-    //private boolean isPlaying = false;
+    private boolean isPlaying = false;
     private int songsPlayed;
-    private Random random;
     private HashMap<ToggleButton, ToggleButton> corrButtons;
+    private int[] songsInRound;
+    private PreviewHBox[] previewBoxes;
 
     @FXML
     private void playPauseButtonAction(ActionEvent event) {
@@ -99,51 +92,47 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private void correctButtonAction(ActionEvent event) {
         ToggleButton thisButton = (ToggleButton)event.getSource();
-        thisButton.setSelected(true);
-        corrButtons.get(thisButton).setSelected(false);
-        List<Node> children = thisButton.getParent().getChildrenUnmodifiable();
-        Label thisLabel = null;
-        for (Node node : children) {
-            if (node instanceof Label
-                    && ((Label) node).getText().equals("+1")) {
-                thisLabel = (Label) node;
-            }
-        }
-        if (thisLabel == null) {
-            System.exit(1);
-        }
-        if (!thisLabel.isVisible()) {
+        if (thisButton.isSelected()) {
             pointsField.setText(Integer.toString(
                     Integer.parseInt(pointsField.getText()) + 1));
-            thisLabel.setVisible(true);
+
+            // Update the correct color in the preview pane
+            if (thisButton.getId().equals("songCorrect")) {
+               previewBoxes[songsPlayed - 1].songColor.getStyleClass()
+                       .add("greenlabel");
+            } else if (thisButton.getId().equals("artistCorrect")) {
+                previewBoxes[songsPlayed - 1].artistColor.getStyleClass()
+                        .add("greenlabel");
+            } else if (thisButton.getId().equals("albumCorrect")) {
+                previewBoxes[songsPlayed - 1].albumColor.getStyleClass()
+                        .add("greenlabel");
+            }
         }
+        thisButton.setSelected(true);
+        corrButtons.get(thisButton).setSelected(false);
     }
 
     @FXML
     private void incorrectButtonAction(ActionEvent event) {
         ToggleButton thisButton = (ToggleButton)event.getSource();
-        thisButton.setSelected(true);
-        corrButtons.get(thisButton).setSelected(false);
-        List<Node> children = thisButton.getParent().getChildrenUnmodifiable();
-        Label thisLabel = null;
-        for (Node node : children) {
-            if (node instanceof HBox) {
-                for (Node child : ((HBox) node).getChildrenUnmodifiable()) {
-                    if (child instanceof Label
-                            && ((Label) child).getText().equals("+1")) {
-                        thisLabel = (Label) child;
-                    }
-                }            
-            }
-        }
-        if (thisLabel == null) {
-            System.exit(1);
-        }
-        if (thisLabel.isVisible()) {
+        if (thisButton.isSelected()) {
             pointsField.setText(Integer.toString(
                     Integer.parseInt(pointsField.getText()) - 1));
-            thisLabel.setVisible(false);
+
+            // Update the correct color in the preview pane
+            if (thisButton.getId().equals("songIncorrect")) {
+               previewBoxes[songsPlayed - 1].songColor.getStyleClass()
+                       .remove("greenlabel");
+            } else if (thisButton.getId().equals("artistIncorrect")) {
+                previewBoxes[songsPlayed - 1].artistColor.getStyleClass()
+                        .remove("greenlabel");
+            } else if (thisButton.getId().equals("albumIncorrect")) {
+                previewBoxes[songsPlayed - 1].albumColor.getStyleClass()
+                        .remove("greenlabel");
+            }
         }
+        thisButton.setSelected(true);
+        corrButtons.get(thisButton).setSelected(false);
     }
 
     private void cycle() {
@@ -153,14 +142,9 @@ public class GameplayScreenController implements Initializable {
         }
 
         // Play the new song (until we hit the passed in number)
-        if (songsPlayed < ADDPlayer.NUM_SONGS) {
+        if (songsPlayed < songsInRound.length) {
             resetDisplay();
             SongDetails song = playNextSong();
-
-            // Add the new song to the preview pane
-            PreviewVBox songPreview = new PreviewVBox(song);
-            songPreview.setLayoutY(800 / ADDPlayer.NUM_SONGS * songsPlayed);
-            previewPane.getChildren().add(songPreview);
 
             // Set the text fields on this screen with the new song info
             songField.setText(song.name);
@@ -175,19 +159,25 @@ public class GameplayScreenController implements Initializable {
     }
 
     private SongDetails playNextSong() {
-        songLocation = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
+        SongDetails song = packageIntoSongDetails();
 
-        SongDetails song;
-        if (ADDPlayer.MODE == 1) {
-            // Create fake SongDetails objects from the metadata
-            String location = (String) ADDPlayer.LIBRARY.get(songLocation);
-            song = convertWithMetadata(location);
-        } else {
-            song = (SongDetails) ADDPlayer.LIBRARY.get(songLocation);
-        }
         Media songFile = new Media(new File(song.location).toURI().toString());
         mediaPlayer = new MediaPlayer(songFile);
         mediaPlayer.play();
+        return song;
+    }
+
+    private SongDetails packageIntoSongDetails() {
+        SongDetails song;
+        if (ADDPlayer.MODE == 1) {
+            // Create fake SongDetails objects from the metadata
+            String location = (String) ADDPlayer.LIBRARY.get(
+                    songsInRound[songsPlayed]);
+            song = convertWithMetadata(location);
+        } else {
+            song = (SongDetails) ADDPlayer.LIBRARY.get(
+                    songsInRound[songsPlayed]);
+        }
         return song;
     }
 
@@ -208,9 +198,6 @@ public class GameplayScreenController implements Initializable {
     }
 
     private void resetDisplay() {
-        songPoints.setVisible(false);
-        //artistPoints.setVisible(false);
-        albumPoints.setVisible(false);
         if (songCorrect.isSelected()) {
             songCorrect.setSelected(false);
             songIncorrect.setSelected(true);
@@ -254,11 +241,27 @@ public class GameplayScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //songField.setStyle("-fx-focus-color: transparent;");
         setUpButtonMapping();
         songsPlayed = 0;
-        random = new Random();
+        Random random = new Random();
         librarySizeField.setText(Integer.toString(ADDPlayer.LIBRARY.size()));
         playerField.setText(ADDPlayer.PLAYER);
+        songsInRound = new int[ADDPlayer.NUM_SONGS];
+        previewBoxes = new PreviewHBox[ADDPlayer.NUM_SONGS];
+        for (int i = 0; i < songsInRound.length; i++) {
+            songsInRound[i] = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
+
+            // Add the next song to the preview pane
+            SongDetails song = packageIntoSongDetails();
+            PreviewHBox songPreview = new PreviewHBox(
+                    song, 800 / ADDPlayer.NUM_SONGS);
+            previewBoxes[i] = songPreview;
+            songPreview.setLayoutY(800 / ADDPlayer.NUM_SONGS * i);
+            previewPane.getChildren().add(songPreview);
+            songsPlayed++;
+        }
+        songsPlayed = 0;
         cycle();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(ADDPlayer.SONG_LENGTH * 1000),

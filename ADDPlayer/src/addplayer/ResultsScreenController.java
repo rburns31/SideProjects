@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 
 /**
  *
@@ -21,6 +22,8 @@ public class ResultsScreenController implements Initializable {
     private Button playAgainButton;
     @FXML
     private Button mainMenuButton;
+    @FXML
+    private ScrollPane previewPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

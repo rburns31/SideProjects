@@ -26,7 +26,7 @@ public class LibraryDoctor {
         //System.out.println(LIBRARYFROMITUNES.get(1));
 
         extensionDiagnostics();
-        //findHidingSongs();
+        findHidingSongs();
     }
 
     /**
