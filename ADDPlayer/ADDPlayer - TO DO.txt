@@ -7,7 +7,6 @@ ADDPlayer
 - Music controls (play, pause, volume, skip, back, etc.)
 - Closing screen (results)
 - More than one player in one game (same library? different libraries?)
-- Support for mulligans? (choice on main screen, tracking them for easier scoring)
 - Support for quitting the game mid-game
 - A delay upon starting the game?
 - Support for choice on main screen of not using all 3 categories when playing
@@ -19,7 +18,6 @@ ADDPlayer
 - Prompt to tell users why the game isn't starting if invalid input(s)
 - Make long data values scroll every once in a while
 - Denote which song is currently being played in the preview pane
-- Do not allow the user to score via the preview pane when that song is currently playing
 - Play/Pause Button on preview pane of ResultsScreen to play back songs
 - Put countdown on last song on screen
 - Key scoring support (1, 2, 3, arrows)
@@ -29,6 +27,7 @@ ADDPlayer
 - Sudden death mode
 - Practice mode
 - Documentation
+- Only 2 preview pane element heights {1 song, 5 songs} = big, {any larger number of songs} = small
 
 LibraryDoctor
 - Automate the year vs. songs graph

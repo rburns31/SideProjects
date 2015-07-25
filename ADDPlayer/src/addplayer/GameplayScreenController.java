@@ -32,7 +32,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * 
+ * The main game-play screen of ADDPlayer
  * @author Ryan Burns
  */
 public class GameplayScreenController implements Initializable {
@@ -73,7 +73,7 @@ public class GameplayScreenController implements Initializable {
     private int songsPlayed;
 
     /**
-     * 
+     * Whether or not a song is currently playing (could be paused)
      */
     //private boolean isPlaying;
 
@@ -83,7 +83,7 @@ public class GameplayScreenController implements Initializable {
     private int[] songsInRound;
 
     /**
-     * 
+     * Actually plays/pauses the songs
      */
     private MediaPlayer mediaPlayer;
 
@@ -92,6 +92,7 @@ public class GameplayScreenController implements Initializable {
      *  - setting up the corresponding buttons map
      *  - initializing instance variables
      *  - setting the library size and player name text fields
+     *  - randomly selecting the songs that will be played this round
      *  - setting up the preview pane
      *  - playing the first song
      *  - setting the timer to switch songs
@@ -110,6 +111,11 @@ public class GameplayScreenController implements Initializable {
         librarySizeField.setText(Integer.toString(ADDPlayer.LIBRARY.size()));
         playerField.setText(ADDPlayer.PLAYER);
 
+        Random random = new Random();
+        for (int i = 0; i < songsInRound.length; i++) {
+            songsInRound[i] = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
+        }
+
         setupPreviewPane();
 
         cycleSongs();
@@ -121,8 +127,198 @@ public class GameplayScreenController implements Initializable {
     }
 
     /**
+     * Iterates through each song in the round, adding a tile to the preview
+     *     pane for each one
+     */
+    private void setupPreviewPane() {
+        for (int i = 0; i < songsInRound.length; i++) {
+            SongDetails song = packageIntoSongDetails();
+
+            PreviewHBox songPreview = new PreviewHBox(
+                    song, 800 / ADDPlayer.NUM_SONGS);
+
+            songPreview.colorBoxes[0].setOnMouseClicked(
+                    new ColoredLabelClickHandler(pointsField, songCorrect));
+            songPreview.colorBoxes[1].setOnMouseClicked(
+                    new ColoredLabelClickHandler(pointsField, artistCorrect));
+            songPreview.colorBoxes[2].setOnMouseClicked(
+                    new ColoredLabelClickHandler(pointsField, albumCorrect));
+
+            songPreview.setLayoutY(800 / ADDPlayer.NUM_SONGS * i);
+
+            ADDPlayer.PREVIEW_BOXES[i] = songPreview;
+        }
+        previewPane.getChildren().addAll(ADDPlayer.PREVIEW_BOXES);
+    }
+
+    /**
+     * Handles all actions to be taken when the song should be switched:
+     *  - Stop playing the last song if this isn't the first song
+     *  - Apply new handlers to the colored boxes of the last song so that they
+     *        do not affect the button states any longer
+     *  - Reset the buttons selected values
+     *  - Change this song's color boxes from gray to red
+     *  - Play the next song
+     *  - Display the new song's values to the user
+     *  - Increment the number of songs played and display that to the user
+     */
+    private void cycleSongs() {
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+
+            ColoredLabelClickHandler handler =
+                    new ColoredLabelClickHandler(pointsField);
+            for (Label colorBox :
+                    ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].colorBoxes) {
+                colorBox.setOnMouseClicked(handler);
+            }
+        }
+
+        // Keep going until we hit the passed in number of songs
+        if (songsPlayed < ADDPlayer.NUM_SONGS) {
+            resetButtons();
+            for (int i = 0; i < 3; i++) {
+                changeColorBox(songsPlayed, "graylabel", "redlabel", i);
+            }
+            SongDetails song = playNextSong();
+
+            // Set the text fields on this screen with the new song info
+            songField.setText(song.name);
+            artistField.setText(song.artist);
+            albumField.setText(song.album);
+        } else {
+            gameOver();
+        }
+        songsPlayed++;
+
+        progressField.setText(songsPlayed + "/" + ADDPlayer.NUM_SONGS);
+    }
+
+    /**
+     * Reset all of the buttons as they may have changed during the last song
+     */
+    private void resetButtons() {
+        if (songCorrect.isSelected()) {
+            songCorrect.setSelected(false);
+            songIncorrect.setSelected(true);
+        }
+        if (artistCorrect.isSelected()) {
+            artistCorrect.setSelected(false);
+            artistIncorrect.setSelected(true);
+        }
+        if (albumCorrect.isSelected()) {
+            albumCorrect.setSelected(false);
+            albumIncorrect.setSelected(true);
+        }
+    }
+
+    /**
+     * Changes the color of a passed in colored box
+     * @param index Which preview box to alter
+     * @param oldColor The old color of the colored box
+     * @param newColor The new color of the colored box
+     * @param whichBox Which colored box to alter (song, artist or album)
+     */
+    private void changeColorBox(int index, String oldColor,
+            String newColor, int whichBox) {
+
+        ADDPlayer.PREVIEW_BOXES[index].colorBoxes[whichBox].getStyleClass()
+                .remove(oldColor);
+        ADDPlayer.PREVIEW_BOXES[index].colorBoxes[whichBox].getStyleClass()
+                .add(newColor);
+    }
+
+    /**
+     * Plays the next song
+     * @return The song that is now being played
+     */
+    private SongDetails playNextSong() {
+        SongDetails song = packageIntoSongDetails();
+
+        Media songFile = new Media(new File(song.location).toURI().toString());
+        mediaPlayer = new MediaPlayer(songFile);
+        mediaPlayer.play();
+        return song;
+    }
+
+    /**
+     * This method handles standardizing the format of the songs regardless
+     *     of whether the library came from on file or from an iTunes play-list
+     * @return The song packaged into a SongDetails object
+     */
+    private SongDetails packageIntoSongDetails() {
+        SongDetails song;
+        if (ADDPlayer.MODE == 1) {
+            // Create fake SongDetails objects from the metadata
+            String location = (String) ADDPlayer.LIBRARY.get(
+                    songsInRound[songsPlayed]);
+            song = convertWithMetadata(location);
+        } else {
+            song = (SongDetails) ADDPlayer.LIBRARY.get(
+                    songsInRound[songsPlayed]);
+        }
+        return song;
+    }
+
+    /**
+     * Uses a MP3 parser to pull the relevant meta-data (song, artist and album)
+     *     out of the song file at the passed in location on disk
+     * @param location The location of the song file
+     * @return The song packaged into a SongDetails object
+     */
+    private SongDetails convertWithMetadata(String location) {
+        try (InputStream input = new FileInputStream(new File(location))) {
+            Metadata metadata = new Metadata();
+            new Mp3Parser().parse(
+                    input, new DefaultHandler(), metadata, new ParseContext());
+            input.close();
+
+            return new SongDetails(metadata.get("title"),
+                    metadata.get("xmpDM:artist"), metadata.get("xmpDM:album"), 
+                    null, null, location);
+        } catch (IOException | SAXException | TikaException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    /**
+     * When the game is over set the global points value and show the end screen
+     */
+    private void gameOver() {
+        ADDPlayer.POINTS = Integer.parseInt(pointsField.getText());
+        try {
+            Parent root = FXMLLoader.load(
+                    getClass().getResource("ResultsScreen.fxml"));
+            Scene scene = new Scene(root);
+            ADDPlayer.MAIN_STAGE.setScene(scene);
+            ADDPlayer.MAIN_STAGE.show();
+        } catch (IOException e) {
+            System.exit(1);
+        }
+    }
+
+    /**
+     * Sets up a mapping in the form of a HashMap from each correct and
+     *     incorrect button to its partner button (allows for easy toggling)
+     */
+    private void setUpButtonMapping() {
+        ADDPlayer.CORR_BUTTONS = new HashMap<>();
+        ADDPlayer.CORR_BUTTONS.put(songCorrect, songIncorrect);
+        ADDPlayer.CORR_BUTTONS.put(songIncorrect, songCorrect);
+        ADDPlayer.CORR_BUTTONS.put(artistCorrect, artistIncorrect);
+        ADDPlayer.CORR_BUTTONS.put(artistIncorrect, artistCorrect);
+        ADDPlayer.CORR_BUTTONS.put(albumCorrect, albumIncorrect);
+        ADDPlayer.CORR_BUTTONS.put(albumIncorrect, albumCorrect);
+    }
+
+    /**
+     * Button handlers below here
+     */
+
+    /**
      * 
-     * @param event 
+     * @param event The pushing of the "play/pause" button
      */
     @FXML
     private void playPauseButtonAction(ActionEvent event) {
@@ -137,8 +333,12 @@ public class GameplayScreenController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     * Handles whenever a correct button is pushed by:
+     *  - verifying that this button was not already selected
+     *  - incrementing the points text field
+     *  - updating the correct color box to green in the preview pane
+     *  - toggling the buttons' selected state
+     * @param event The pushing of any "correct" button
      */
     @FXML
     private void correctButtonAction(ActionEvent event) {
@@ -161,8 +361,12 @@ public class GameplayScreenController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     * Handles whenever an incorrect button is pushed by:
+     *  - verifying that this button was not already selected
+     *  - decrementing the points text field
+     *  - updating the correct color box to red in the preview pane
+     *  - toggling the buttons' selected state
+     * @param event The pushing of any "incorrect" button
      */
     @FXML
     private void incorrectButtonAction(ActionEvent event) {
@@ -182,182 +386,5 @@ public class GameplayScreenController implements Initializable {
         }
         thisButton.setSelected(true);
         ADDPlayer.CORR_BUTTONS.get(thisButton).setSelected(false);
-    }
-
-    /**
-     * 
-     */
-    private void cycleSongs() {
-        // Stop the previous song (if this isn't the first song)
-        if (mediaPlayer != null) {
-            mediaPlayer.pause();
-            ColoredLabelClickHandler handler =
-                    new ColoredLabelClickHandler(pointsField);
-            for (Label colorBox :
-                    ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].colorBoxes) {
-                colorBox.setOnMouseClicked(handler);
-            }
-        }
-
-        // Play the new song (until we hit the passed in number)
-        if (songsPlayed < ADDPlayer.NUM_SONGS) {
-            resetDisplay();
-            for (int i = 0; i < 3; i++) {
-                changeColorBox(songsPlayed, "graylabel", "redlabel", i);
-            }
-            SongDetails song = playNextSong();
-
-            // Set the text fields on this screen with the new song info
-            songField.setText(song.name);
-            artistField.setText(song.artist);
-            albumField.setText(song.album);
-        } else {
-            gameOver();
-        }
-        songsPlayed++;
-
-        progressField.setText(songsPlayed + "/" + ADDPlayer.NUM_SONGS);
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    private SongDetails playNextSong() {
-        SongDetails song = packageIntoSongDetails();
-
-        Media songFile = new Media(new File(song.location).toURI().toString());
-        mediaPlayer = new MediaPlayer(songFile);
-        mediaPlayer.play();
-        return song;
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    private SongDetails packageIntoSongDetails() {
-        SongDetails song;
-        if (ADDPlayer.MODE == 1) {
-            // Create fake SongDetails objects from the metadata
-            String location = (String) ADDPlayer.LIBRARY.get(
-                    songsInRound[songsPlayed]);
-            song = convertWithMetadata(location);
-        } else {
-            song = (SongDetails) ADDPlayer.LIBRARY.get(
-                    songsInRound[songsPlayed]);
-        }
-        return song;
-    }
-
-    /**
-     * Game is over, set the final points value and show the end screen
-     */
-    private void gameOver() {
-        ADDPlayer.POINTS = Integer.parseInt(pointsField.getText());
-        try {
-            Parent root = FXMLLoader.load(
-                    getClass().getResource("ResultsScreen.fxml"));
-            Scene scene = new Scene(root);
-            ADDPlayer.MAIN_STAGE.setScene(scene);
-            ADDPlayer.MAIN_STAGE.show();
-        } catch (IOException e) {
-            System.exit(1);
-        }
-    }
-
-    /**
-     * 
-     */
-    private void resetDisplay() {
-        if (songCorrect.isSelected()) {
-            songCorrect.setSelected(false);
-            songIncorrect.setSelected(true);
-        }
-        if (artistCorrect.isSelected()) {
-            artistCorrect.setSelected(false);
-            artistIncorrect.setSelected(true);
-        }
-        if (albumCorrect.isSelected()) {
-            albumCorrect.setSelected(false);
-            albumIncorrect.setSelected(true);
-        }
-    }
-
-    /**
-     * 
-     * @param index
-     * @param oldColor
-     * @param newColor
-     * @param whichBox 
-     */
-    private void changeColorBox(int index, String oldColor,
-            String newColor, int whichBox) {
-
-        ADDPlayer.PREVIEW_BOXES[index].colorBoxes[whichBox].getStyleClass()
-                .remove(oldColor);
-        ADDPlayer.PREVIEW_BOXES[index].colorBoxes[whichBox].getStyleClass()
-                .add(newColor);
-    }
-
-    /**
-     * 
-     * @param location
-     * @return 
-     */
-    private SongDetails convertWithMetadata(String location) {
-        try (InputStream input = new FileInputStream(new File(location))) {
-            Metadata metadata = new Metadata();
-            new Mp3Parser().parse(
-                    input, new DefaultHandler(), metadata, new ParseContext());
-            input.close();
-
-            return new SongDetails(metadata.get("title"),
-                    metadata.get("xmpDM:artist"), metadata.get("xmpDM:album"), 
-                    null, null, location);
-        } catch (IOException | SAXException | TikaException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
-
-    /**
-     * Sets up a mapping in the form of a HashMap from each correct and
-     *     incorrect button to its partner button (allows for easy toggling)
-     */
-    private void setUpButtonMapping() {
-        ADDPlayer.CORR_BUTTONS = new HashMap<>();
-        ADDPlayer.CORR_BUTTONS.put(songCorrect, songIncorrect);
-        ADDPlayer.CORR_BUTTONS.put(songIncorrect, songCorrect);
-        ADDPlayer.CORR_BUTTONS.put(artistCorrect, artistIncorrect);
-        ADDPlayer.CORR_BUTTONS.put(artistIncorrect, artistCorrect);
-        ADDPlayer.CORR_BUTTONS.put(albumCorrect, albumIncorrect);
-        ADDPlayer.CORR_BUTTONS.put(albumIncorrect, albumCorrect);
-    }
-
-    /**
-     * 
-     */
-    private void setupPreviewPane() {
-        Random random = new Random();
-        for (int i = 0; i < songsInRound.length; i++) {
-            songsInRound[i] = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
-
-            // Add the next song to the preview pane
-            SongDetails song = packageIntoSongDetails();
-            PreviewHBox songPreview = new PreviewHBox(
-                    song, 800 / ADDPlayer.NUM_SONGS);
-            songPreview.colorBoxes[0].setOnMouseClicked(
-                    new ColoredLabelClickHandler(pointsField, songCorrect));
-            songPreview.colorBoxes[1].setOnMouseClicked(
-                    new ColoredLabelClickHandler(pointsField, artistCorrect));
-            songPreview.colorBoxes[2].setOnMouseClicked(
-                    new ColoredLabelClickHandler(pointsField, albumCorrect));
-            songPreview.setLayoutY(800 / ADDPlayer.NUM_SONGS * i);
-            ADDPlayer.PREVIEW_BOXES[i] = songPreview;
-            previewPane.getChildren().add(songPreview);
-            songsPlayed++;
-        }
-        songsPlayed = 0;
     }
 }
