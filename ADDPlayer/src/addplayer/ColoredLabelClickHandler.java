@@ -10,13 +10,29 @@ import javafx.scene.input.MouseEvent;
  * @author Ryan Burns
  */
 public class ColoredLabelClickHandler implements EventHandler<MouseEvent> {
+    /**
+     * 
+     */
     private final Label pointsField;
+
+    /**
+     * 
+     */
     private ToggleButton correctButton;
 
+    /**
+     * 
+     * @param pointsField 
+     */
     public ColoredLabelClickHandler(Label pointsField) {
         this.pointsField = pointsField;
     }
 
+    /**
+     * 
+     * @param pointsField
+     * @param correctButton 
+     */
     public ColoredLabelClickHandler(Label pointsField,
             ToggleButton correctButton) {
         this(pointsField);

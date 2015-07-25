@@ -20,12 +20,22 @@ public class PreviewHBox extends HBox {
     @FXML
     private Label previewAlbum;
     @FXML
-    public Label songColor;
+    private Label songColor;
     @FXML
-    public Label artistColor;
+    private Label artistColor;
     @FXML
-    public Label albumColor;
+    private Label albumColor;
 
+    /**
+     * 
+     */
+    public Label[] colorBoxes;
+
+    /**
+     * 
+     * @param song
+     * @param height 
+     */
     public PreviewHBox(SongDetails song, int height) {
         super();
         
@@ -42,6 +52,11 @@ public class PreviewHBox extends HBox {
         this.getChildren().addAll(infoBox, colorsBox);
     }
 
+    /**
+     * 
+     * @param infoBox
+     * @param song 
+     */
     private void setupInfoBox(VBox infoBox, SongDetails song) {
         infoBox.setAlignment(Pos.CENTER_LEFT);
         infoBox.setPadding(new Insets(0, 0, 0, 10));
@@ -64,6 +79,10 @@ public class PreviewHBox extends HBox {
         infoBox.getChildren().addAll(previewSong, previewArtist, previewAlbum);
     }
 
+    /**
+     * 
+     * @param colorsBox 
+     */
     private void setupColorsBox(VBox colorsBox) {
         songColor = new Label();
         songColor.setPrefWidth(15);
@@ -80,6 +99,7 @@ public class PreviewHBox extends HBox {
         albumColor.setPrefHeight(54);
         albumColor.getStyleClass().add("graylabel");
 
+        colorBoxes = new Label[] {songColor, artistColor, albumColor};
         colorsBox.getChildren().addAll(songColor, artistColor, albumColor);
     }
 }

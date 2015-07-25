@@ -27,6 +27,8 @@ ADDPlayer
 - Handle repeats when shuffling
 - Test UI elements (like preview pane) on all numbers of songs
 - Sudden death mode
+- Practice mode
+- Documentation
 
 LibraryDoctor
 - Automate the year vs. songs graph

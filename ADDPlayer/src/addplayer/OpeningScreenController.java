@@ -30,6 +30,11 @@ public class OpeningScreenController implements Initializable {
     @FXML
     private TextField playerNameField;
 
+    /**
+     * 
+     * @param event
+     * @throws Exception 
+     */
     @FXML
     private void startButtonAction(ActionEvent event) throws Exception {
         if (!playerNameField.getText().equals("")) {
@@ -64,6 +69,10 @@ public class OpeningScreenController implements Initializable {
         }
     }
 
+    /**
+     * 
+     * @param event 
+     */
     @FXML
     private void browseButtonAction(ActionEvent event) {
         /**try {
@@ -73,6 +82,11 @@ public class OpeningScreenController implements Initializable {
         }*/
     }
 
+    /**
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         numSongsChoice.setItems(FXCollections.observableArrayList(
@@ -84,9 +98,5 @@ public class OpeningScreenController implements Initializable {
         libraryInputChoice.setItems(FXCollections.observableArrayList(
                 "Exported iTunes playlist", "Folder on hard drive"));
         libraryInputChoice.setValue("Exported iTunes playlist");
-        
-        //Media songFile = new Media(new File("E:\\Users\\Ryan\\Music\\Library\\Various Artists\\Avengers Assemble\\12 - From Out Of Nowhere.m4a").toURI().toString());
-        //MediaPlayer mediaPlayer = new MediaPlayer(songFile);
-        //mediaPlayer.play();
     }
 }

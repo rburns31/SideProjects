@@ -5,13 +5,34 @@ package addplayer;
  * @author Ryan Burns
  */
 public class SongDetails {
+    /**
+     * 
+     */
     protected final String name;
+
+    /**
+     * 
+     */
     protected final String artist;
+
+    /**
+     * 
+     */
     protected final String album;
-    // This is given in seconds
+
+    /**
+     * This is given in seconds
+     */
     protected final String length;
-    // MPEG audio file = mp3
+
+    /**
+     * MPEG audio file = mp3
+     */
     protected final String fileType;
+
+    /**
+     * 
+     */
     protected final String location;
 
     public SongDetails(String name, String artist, String album, String length,

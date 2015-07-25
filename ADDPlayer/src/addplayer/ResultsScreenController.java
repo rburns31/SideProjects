@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -23,12 +22,13 @@ public class ResultsScreenController implements Initializable {
     @FXML
     private Label pointsField;
     @FXML
-    private Button playAgainButton;
-    @FXML
-    private Button mainMenuButton;
-    @FXML
     private AnchorPane previewPane;
 
+    /**
+     * 
+     * @param url Not used
+     * @param rb Not used
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         playerField.setText(ADDPlayer.PLAYER);
@@ -37,13 +37,18 @@ public class ResultsScreenController implements Initializable {
         ColoredLabelClickHandler handler =
                 new ColoredLabelClickHandler(pointsField);
         for (PreviewHBox previewBox : ADDPlayer.PREVIEW_BOXES) {
-            previewBox.songColor.setOnMouseClicked(handler);
-            previewBox.artistColor.setOnMouseClicked(handler);
-            previewBox.albumColor.setOnMouseClicked(handler);
+            for (Label colorBox : previewBox.colorBoxes) {
+                colorBox.setOnMouseClicked(handler);
+            }
             previewPane.getChildren().add(previewBox);
         }
     }
 
+    /**
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void playAgainButtonAction(ActionEvent event) throws IOException {
         // TO DO
@@ -54,6 +59,11 @@ public class ResultsScreenController implements Initializable {
         ADDPlayer.MAIN_STAGE.show();
     }
 
+    /**
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void mainMenuButtonAction(ActionEvent event) throws IOException {
         // TO DO

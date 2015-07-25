@@ -25,16 +25,45 @@ public class ADDPlayer extends Application {
      *     method of library input selected by the user
      */
     public static ArrayList LIBRARY;
+
     /**
      * 0 if from export iTunes play-list, 1 if from folder on hard drive
      */
     public static int MODE;
+
+    /**
+     * 
+     */
     public static Stage MAIN_STAGE;
+
+    /**
+     * 
+     */
     public static int NUM_SONGS;
+
+    /**
+     * 
+     */
     public static int SONG_LENGTH;
+
+    /**
+     * 
+     */
     public static int POINTS;
+
+    /**
+     * 
+     */
     public static String PLAYER;
+
+    /**
+     * 
+     */
     public static PreviewHBox[] PREVIEW_BOXES;
+
+    /**
+     * 
+     */
     public static HashMap<ToggleButton, ToggleButton> CORR_BUTTONS;
 
     /**
