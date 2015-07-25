@@ -45,7 +45,11 @@ public class PreviewHBox extends HBox {
     private void setupInfoBox(VBox infoBox, SongDetails song) {
         infoBox.setAlignment(Pos.CENTER_LEFT);
         infoBox.setPadding(new Insets(0, 0, 0, 10));
-        infoBox.setSpacing(10);
+        if (ADDPlayer.NUM_SONGS == 5) {
+            infoBox.setSpacing(10);
+        } else {
+            infoBox.setSpacing(5);
+        }
         infoBox.setPrefWidth(265);
 
         previewSong = new Label("Song: " + song.name);
@@ -64,20 +68,17 @@ public class PreviewHBox extends HBox {
         songColor = new Label();
         songColor.setPrefWidth(15);
         songColor.setPrefHeight(53);
-        songColor.getStyleClass().add("redlabel");
-        
+        songColor.getStyleClass().add("graylabel");        
 
         artistColor = new Label();
         artistColor.setPrefWidth(15);
         artistColor.setPrefHeight(53);
-        artistColor.getStyleClass().add("redlabel");
+        artistColor.getStyleClass().add("graylabel");
         
-
         albumColor = new Label();
         albumColor.setPrefWidth(15);
         albumColor.setPrefHeight(54);
-        albumColor.getStyleClass().add("redlabel");
-        
+        albumColor.getStyleClass().add("graylabel");
 
         colorsBox.getChildren().addAll(songColor, artistColor, albumColor);
     }

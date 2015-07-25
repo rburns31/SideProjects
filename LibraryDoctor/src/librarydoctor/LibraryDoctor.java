@@ -43,12 +43,12 @@ public class LibraryDoctor {
             }
         }
         // Print out any songs that are in the iTunes library only
-        for (int i = 0; i < LIBRARYFROMITUNES.size(); i++) {
-            System.out.println(LIBRARYFROMITUNES.get(i));
+        for (SongDetails songFromItunes : LIBRARYFROMITUNES) {
+            System.out.println(songFromItunes);
         }
         // Print out any songs that are on file only
-        for (int i = 0; i < LIBRARYFROMFILE.size(); i++) {
-            System.out.println(LIBRARYFROMFILE.get(i));
+        for (String songFromFile : LIBRARYFROMFILE) {
+            System.out.println(songFromFile);
         }
         System.out.println("In iTunes, not on file: " + LIBRARYFROMITUNES.size());
         System.out.println("On file, not in iTunes: " + LIBRARYFROMFILE.size());
@@ -67,7 +67,7 @@ public class LibraryDoctor {
                 storeSong(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 
@@ -94,8 +94,7 @@ public class LibraryDoctor {
      */
     private static void extensionDiagnostics() {
         HashMap<String, Integer> extensions = new HashMap<>();
-        for (int i = 0; i < LIBRARYFROMFILE.size(); i++) {
-            String song = LIBRARYFROMFILE.get(i);
+        for (String song : LIBRARYFROMFILE) {
             String extension = song.substring(song.lastIndexOf("."));
             if (extensions.containsKey(extension)) {
                 extensions.replace(extension, extensions.get(extension) + 1);

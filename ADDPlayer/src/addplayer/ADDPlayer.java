@@ -6,10 +6,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 
 /**
@@ -32,6 +34,8 @@ public class ADDPlayer extends Application {
     public static int SONG_LENGTH;
     public static int POINTS;
     public static String PLAYER;
+    public static PreviewHBox[] PREVIEW_BOXES;
+    public static HashMap<ToggleButton, ToggleButton> CORR_BUTTONS;
 
     /**
      * 
@@ -90,7 +94,7 @@ public class ADDPlayer extends Application {
                 storeSong(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 

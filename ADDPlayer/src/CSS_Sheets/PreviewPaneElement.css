@@ -15,3 +15,7 @@
 .greenlabel {
     -fx-background-color: #00FF00;
 }
+
+.graylabel {
+    -fx-background-color: #808080;
+}

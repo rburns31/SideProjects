@@ -1,15 +1,15 @@
-As of: 6/25/2015
+As of: 7/19/2015
 
+ADDPlayer
 - Track accuracy data persistently for each user so they can see their weak and strong artists of all time
 - Support for distinguishing among users (credentials?)
 - Support for clearing statistics without creating a new user
 - Music controls (play, pause, volume, skip, back, etc.)
 - Closing screen (results)
 - More than one player in one game (same library? different libraries?)
-- Support for mulligans (choice on main screen, tracking them for easier scoring)
+- Support for mulligans? (choice on main screen, tracking them for easier scoring)
 - Support for quitting the game mid-game
 - A delay upon starting the game?
-- A preview panel during/after the round so the scorer can see the songs to play/that played
 - Support for choice on main screen of not using all 3 categories when playing
 - UI DESIGN
 - Album art?
@@ -17,8 +17,18 @@ As of: 6/25/2015
 - Support for .m4a files
 - Gracefully skip songs if fail to play them
 - Prompt to tell users why the game isn't starting if invalid input(s)
+- Make long data values scroll every once in a while
+- Denote which song is currently being played in the preview pane
+- Do not allow the user to score via the preview pane when that song is currently playing
+- Play/Pause Button on preview pane of ResultsScreen to play back songs
+- Put countdown on last song on screen
+- Key scoring support (1, 2, 3, arrows)
+- Get the song field to not be highlighted at the beginning of the game
+- Handle repeats when shuffling
+- Test UI elements (like preview pane) on all numbers of songs
+- Sudden death mode
 
-Cool Stuff To Do With Exported Library Information
+LibraryDoctor
 - Automate the year vs. songs graph
 - Use skips vs. plays to find songs to delete
 - Automatically backup library

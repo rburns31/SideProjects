@@ -1,7 +1,6 @@
 package addplayer;
 
 import static addplayer.ADDPlayer.LIBRARY;
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -14,8 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 /**
  * 
@@ -47,7 +44,8 @@ public class OpeningScreenController implements Initializable {
             if (libraryInputChoice.getValue().toString().equals(
                     "Exported iTunes playlist")) {
                 ADDPlayer.MODE = 0;
-                ADDPlayer.readInPlaylist("Music.txt");
+                //ADDPlayer.readInPlaylist("Music.txt");
+                ADDPlayer.readInPlaylist("Mutual.txt");
             } else {
                 ADDPlayer.MODE = 1;
                 LIBRARY = new ArrayList<String>();

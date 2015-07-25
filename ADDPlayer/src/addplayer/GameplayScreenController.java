@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -15,15 +14,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+//import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -65,17 +62,43 @@ public class GameplayScreenController implements Initializable {
     private TextField artistField;
     @FXML
     private TextField albumField;
-    @FXML
-    private Slider volumeSlider;
+    //@FXML
+    //private Slider volumeSlider;
     @FXML
     public AnchorPane previewPane;
 
-    private MediaPlayer mediaPlayer;
-    private boolean isPlaying = false;
     private int songsPlayed;
-    private HashMap<ToggleButton, ToggleButton> corrButtons;
+    //private boolean isPlaying;
+    private MediaPlayer mediaPlayer;
     private int[] songsInRound;
-    private PreviewHBox[] previewBoxes;
+
+    /**
+     * Sets up the game-play scene by
+     *   - setting up the corresponding buttons map
+     *   - initializin
+     * @param url Not used
+     * @param rb Not used
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {        
+        setUpButtonMapping();
+        songsPlayed = 0;
+        //isPlaying = false;
+
+        librarySizeField.setText(Integer.toString(ADDPlayer.LIBRARY.size()));
+        playerField.setText(ADDPlayer.PLAYER);
+        songsInRound = new int[ADDPlayer.NUM_SONGS];
+        ADDPlayer.PREVIEW_BOXES = new PreviewHBox[ADDPlayer.NUM_SONGS];
+        setupPreviewPane();
+
+        songsPlayed = 0;
+        cycle();
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.millis(ADDPlayer.SONG_LENGTH * 1000),
+                        ae -> cycle()));
+        timeline.setCycleCount(ADDPlayer.NUM_SONGS);
+        timeline.play();
+    }
 
     @FXML
     private void playPauseButtonAction(ActionEvent event) {
@@ -98,18 +121,24 @@ public class GameplayScreenController implements Initializable {
 
             // Update the correct color in the preview pane
             if (thisButton.getId().equals("songCorrect")) {
-               previewBoxes[songsPlayed - 1].songColor.getStyleClass()
-                       .add("greenlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].songColor
+                        .getStyleClass().remove("redlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].songColor
+                        .getStyleClass().add("greenlabel");
             } else if (thisButton.getId().equals("artistCorrect")) {
-                previewBoxes[songsPlayed - 1].artistColor.getStyleClass()
-                        .add("greenlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].artistColor
+                        .getStyleClass().remove("redlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].artistColor
+                        .getStyleClass().add("greenlabel");
             } else if (thisButton.getId().equals("albumCorrect")) {
-                previewBoxes[songsPlayed - 1].albumColor.getStyleClass()
-                        .add("greenlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].albumColor
+                        .getStyleClass().remove("redlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].albumColor
+                        .getStyleClass().add("greenlabel");
             }
         }
         thisButton.setSelected(true);
-        corrButtons.get(thisButton).setSelected(false);
+        ADDPlayer.CORR_BUTTONS.get(thisButton).setSelected(false);
     }
 
     @FXML
@@ -121,24 +150,38 @@ public class GameplayScreenController implements Initializable {
 
             // Update the correct color in the preview pane
             if (thisButton.getId().equals("songIncorrect")) {
-               previewBoxes[songsPlayed - 1].songColor.getStyleClass()
-                       .remove("greenlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].songColor
+                        .getStyleClass().remove("greenlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].songColor
+                        .getStyleClass().add("redlabel");
             } else if (thisButton.getId().equals("artistIncorrect")) {
-                previewBoxes[songsPlayed - 1].artistColor.getStyleClass()
-                        .remove("greenlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].artistColor
+                        .getStyleClass().remove("greenlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].artistColor
+                        .getStyleClass().add("redlabel");
             } else if (thisButton.getId().equals("albumIncorrect")) {
-                previewBoxes[songsPlayed - 1].albumColor.getStyleClass()
-                        .remove("greenlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].albumColor
+                        .getStyleClass().remove("greenlabel");
+                ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].albumColor
+                        .getStyleClass().add("redlabel");
             }
         }
         thisButton.setSelected(true);
-        corrButtons.get(thisButton).setSelected(false);
+        ADDPlayer.CORR_BUTTONS.get(thisButton).setSelected(false);
     }
 
     private void cycle() {
         // Stop the previous song (if this isn't the first song)
         if (mediaPlayer != null) {
             mediaPlayer.pause();
+            ColoredLabelClickHandler handler =
+                    new ColoredLabelClickHandler(pointsField);
+            ADDPlayer.PREVIEW_BOXES[songsPlayed - 1]
+                    .songColor.setOnMouseClicked(handler);
+            ADDPlayer.PREVIEW_BOXES[songsPlayed - 1]
+                    .artistColor.setOnMouseClicked(handler);
+            ADDPlayer.PREVIEW_BOXES[songsPlayed - 1]
+                    .albumColor.setOnMouseClicked(handler);
         }
 
         // Play the new song (until we hit the passed in number)
@@ -154,8 +197,8 @@ public class GameplayScreenController implements Initializable {
             gameOver();
         }
         songsPlayed++;
-        progressField.setText(Integer.toString(songsPlayed) + "/"
-                + Integer.toString(ADDPlayer.NUM_SONGS));
+
+        progressField.setText(songsPlayed + "/" + ADDPlayer.NUM_SONGS);
     }
 
     private SongDetails playNextSong() {
@@ -210,11 +253,23 @@ public class GameplayScreenController implements Initializable {
             albumCorrect.setSelected(false);
             albumIncorrect.setSelected(true);
         }
+
+        ADDPlayer.PREVIEW_BOXES[songsPlayed].songColor.getStyleClass()
+                .remove("graylabel");
+        ADDPlayer.PREVIEW_BOXES[songsPlayed].songColor.getStyleClass()
+                .add("redlabel");
+        ADDPlayer.PREVIEW_BOXES[songsPlayed].artistColor.getStyleClass()
+                .remove("graylabel");
+        ADDPlayer.PREVIEW_BOXES[songsPlayed].artistColor.getStyleClass()
+                .add("redlabel");
+        ADDPlayer.PREVIEW_BOXES[songsPlayed].albumColor.getStyleClass()
+                .remove("graylabel");
+        ADDPlayer.PREVIEW_BOXES[songsPlayed].albumColor.getStyleClass()
+                .add("redlabel");
     }
 
     private SongDetails convertWithMetadata(String location) {
-        try {
-            InputStream input = new FileInputStream(new File(location));
+        try (InputStream input = new FileInputStream(new File(location))) {
             Metadata metadata = new Metadata();
             new Mp3Parser().parse(
                     input, new DefaultHandler(), metadata, new ParseContext());
@@ -224,31 +279,27 @@ public class GameplayScreenController implements Initializable {
                     metadata.get("xmpDM:artist"), metadata.get("xmpDM:album"), 
                     null, null, location);
         } catch (IOException | SAXException | TikaException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return null;
     }
 
+    /**
+     * Sets up a mapping in the form of a HashMap from each correct and
+     *     incorrect button to its partner button (allows for easy toggling)
+     */
     private void setUpButtonMapping() {
-        corrButtons = new HashMap<>();
-        corrButtons.put(songCorrect, songIncorrect);
-        corrButtons.put(songIncorrect, songCorrect);
-        corrButtons.put(artistCorrect, artistIncorrect);
-        corrButtons.put(artistIncorrect, artistCorrect);
-        corrButtons.put(albumCorrect, albumIncorrect);
-        corrButtons.put(albumIncorrect, albumCorrect);
+        ADDPlayer.CORR_BUTTONS = new HashMap<>();
+        ADDPlayer.CORR_BUTTONS.put(songCorrect, songIncorrect);
+        ADDPlayer.CORR_BUTTONS.put(songIncorrect, songCorrect);
+        ADDPlayer.CORR_BUTTONS.put(artistCorrect, artistIncorrect);
+        ADDPlayer.CORR_BUTTONS.put(artistIncorrect, artistCorrect);
+        ADDPlayer.CORR_BUTTONS.put(albumCorrect, albumIncorrect);
+        ADDPlayer.CORR_BUTTONS.put(albumIncorrect, albumCorrect);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //songField.setStyle("-fx-focus-color: transparent;");
-        setUpButtonMapping();
-        songsPlayed = 0;
+    private void setupPreviewPane() {
         Random random = new Random();
-        librarySizeField.setText(Integer.toString(ADDPlayer.LIBRARY.size()));
-        playerField.setText(ADDPlayer.PLAYER);
-        songsInRound = new int[ADDPlayer.NUM_SONGS];
-        previewBoxes = new PreviewHBox[ADDPlayer.NUM_SONGS];
         for (int i = 0; i < songsInRound.length; i++) {
             songsInRound[i] = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
 
@@ -256,17 +307,16 @@ public class GameplayScreenController implements Initializable {
             SongDetails song = packageIntoSongDetails();
             PreviewHBox songPreview = new PreviewHBox(
                     song, 800 / ADDPlayer.NUM_SONGS);
-            previewBoxes[i] = songPreview;
+            songPreview.songColor.setOnMouseClicked(
+                    new ColoredLabelClickHandler(pointsField, songCorrect));
+            songPreview.artistColor.setOnMouseClicked(
+                    new ColoredLabelClickHandler(pointsField, artistCorrect));
+            songPreview.albumColor.setOnMouseClicked(
+                    new ColoredLabelClickHandler(pointsField, albumCorrect));
             songPreview.setLayoutY(800 / ADDPlayer.NUM_SONGS * i);
+            ADDPlayer.PREVIEW_BOXES[i] = songPreview;
             previewPane.getChildren().add(songPreview);
             songsPlayed++;
         }
-        songsPlayed = 0;
-        cycle();
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.millis(ADDPlayer.SONG_LENGTH * 1000),
-                        ae -> cycle()));
-        timeline.setCycleCount(ADDPlayer.NUM_SONGS);
-        timeline.play();
     }
 }
