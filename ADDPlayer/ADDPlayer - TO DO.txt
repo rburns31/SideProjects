@@ -19,7 +19,7 @@ ADDPlayer
 - Make long data values scroll every once in a while
 - Denote which song is currently being played in the preview pane
 - Play/Pause Button on preview pane of ResultsScreen to play back songs
-- Put countdown on last song on screen
+- Put countdown on last song (or all songs?)
 - Key scoring support (1, 2, 3, arrows)
 - Get the song field to not be highlighted at the beginning of the game
 - Handle repeats when shuffling

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addplayer.ResultsScreenController">
    <children>
-      <VBox layoutX="300.0" layoutY="300.0" prefHeight="200.0" prefWidth="400.0">
+      <VBox layoutX="500.0" layoutY="300.0" prefHeight="200.0" prefWidth="400.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
                <children>
@@ -47,9 +48,9 @@
             </HBox>
          </children>
       </VBox>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="800.0" prefWidth="300.0" vbarPolicy="NEVER">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="800.0" prefWidth="350.0" vbarPolicy="NEVER">
          <content>
-            <AnchorPane fx:id="previewPane" prefHeight="800.0" prefWidth="300.0" />
+            <AnchorPane fx:id="previewPane" prefHeight="800.0" prefWidth="350.0" />
          </content></ScrollPane>
    </children>
 </AnchorPane>

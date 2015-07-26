@@ -38,29 +38,25 @@ public class PreviewHBox extends HBox {
      */
     public PreviewHBox(SongDetails song, int height) {
         super();
-        
-        this.setPrefWidth(300);
-        this.setPrefHeight(height);
-        
+
+        this.setPrefSize(300, height);
         this.getStyleClass().add("hbox");
         this.getStylesheets().add("CSS_Sheets/PreviewPaneElement.css");
-
-        VBox infoBox = new VBox();
-        setupInfoBox(infoBox, song);
-        VBox colorsBox = new VBox();
-        setupColorsBox(colorsBox);
-        this.getChildren().addAll(infoBox, colorsBox);
+        this.getChildren().addAll(createInfoBox(song), createColorsBox());
     }
 
     /**
      * 
      * @param infoBox
      * @param song 
+     * @return 
      */
-    private void setupInfoBox(VBox infoBox, SongDetails song) {
+    private VBox createInfoBox(SongDetails song) {
+        VBox infoBox = new VBox();
         infoBox.setAlignment(Pos.CENTER_LEFT);
         infoBox.setPadding(new Insets(0, 0, 0, 10));
-        if (ADDPlayer.NUM_SONGS == 5) {
+
+        if (ADDPlayer.NUM_SONGS <= 5) {
             infoBox.setSpacing(10);
         } else {
             infoBox.setSpacing(5);
@@ -77,29 +73,30 @@ public class PreviewHBox extends HBox {
         previewAlbum.setFont(Font.font(14));
 
         infoBox.getChildren().addAll(previewSong, previewArtist, previewAlbum);
+        return infoBox;
     }
 
     /**
      * 
-     * @param colorsBox 
+     * @return 
      */
-    private void setupColorsBox(VBox colorsBox) {
+    private VBox createColorsBox() {
         songColor = new Label();
-        songColor.setPrefWidth(15);
-        songColor.setPrefHeight(53);
+        songColor.setPrefSize(15, 53);
         songColor.getStyleClass().add("graylabel");        
 
         artistColor = new Label();
-        artistColor.setPrefWidth(15);
-        artistColor.setPrefHeight(53);
+        artistColor.setPrefSize(15, 53);
         artistColor.getStyleClass().add("graylabel");
         
         albumColor = new Label();
-        albumColor.setPrefWidth(15);
-        albumColor.setPrefHeight(54);
+        albumColor.setPrefSize(15, 54);
         albumColor.getStyleClass().add("graylabel");
 
         colorBoxes = new Label[] {songColor, artistColor, albumColor};
-        colorsBox.getChildren().addAll(songColor, artistColor, albumColor);
+
+        VBox colorsBox = new VBox();
+        colorsBox.getChildren().addAll(colorBoxes);
+        return colorsBox;
     }
 }

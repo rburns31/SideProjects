@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.mp3.Mp3Parser;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * 
@@ -142,5 +149,46 @@ public class ADDPlayer extends Application {
             LIBRARY.add(new SongDetails(info[0], info[1], info[3], info[7],
                     info[18], info[26]));
         }
+    }
+
+    /**
+     * This method handles standardizing the format of the songs regardless
+     *     of whether the library came from on file or from an iTunes play-list
+     * @param songIndex The index of this song into the library data structure
+     * @return The song packaged into a SongDetails object
+     */
+    public static SongDetails packageIntoSongDetails(int songIndex) {
+        SongDetails song;
+        if (ADDPlayer.MODE == 1) {
+            // Create fake SongDetails objects from the metadata
+            String location = (String) ADDPlayer.LIBRARY.get(
+                    songIndex);
+            song = convertWithMetadata(location);
+        } else {
+            song = (SongDetails) ADDPlayer.LIBRARY.get(songIndex);
+        }
+        return song;
+    }
+
+    /**
+     * Uses a MP3 parser to pull the relevant meta-data (song, artist and album)
+     *     out of the song file at the passed in location on disk
+     * @param location The location of the song file
+     * @return The song packaged into a SongDetails object
+     */
+    private static SongDetails convertWithMetadata(String location) {
+        try (InputStream input = new FileInputStream(new File(location))) {
+            Metadata metadata = new Metadata();
+            new Mp3Parser().parse(
+                    input, new DefaultHandler(), metadata, new ParseContext());
+            input.close();
+
+            return new SongDetails(metadata.get("title"),
+                    metadata.get("xmpDM:artist"), metadata.get("xmpDM:album"), 
+                    null, null, location);
+        } catch (IOException | SAXException | TikaException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 }

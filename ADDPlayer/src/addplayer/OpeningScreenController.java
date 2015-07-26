@@ -1,6 +1,5 @@
 package addplayer;
 
-import static addplayer.ADDPlayer.LIBRARY;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -15,7 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 /**
- * 
+ * The opening screen of ADDPlayer
  * @author Ryan Burns
  */
 public class OpeningScreenController implements Initializable {
@@ -31,8 +30,32 @@ public class OpeningScreenController implements Initializable {
     private TextField playerNameField;
 
     /**
+     * Sets the options and default values for the three drop-down choices
+     *     that the user has on this screen
+     * @param url Not used
+     * @param rb Not used
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        numSongsChoice.setItems(FXCollections.observableArrayList(
+                "1", "5", "10", "15", "20"));
+        numSongsChoice.setValue("5");
+
+        /**
+         * TODO: Remove 1 as an option here, it's just for debugging
+         */
+        songLengthChoice.setItems(FXCollections.observableArrayList(
+                "1", "5", "10", "15", "20", "30"));
+        songLengthChoice.setValue("1");
+
+        libraryInputChoice.setItems(FXCollections.observableArrayList(
+                "Exported iTunes playlist", "Folder on hard drive"));
+        libraryInputChoice.setValue("Exported iTunes playlist");
+    }
+
+    /**
      * 
-     * @param event
+     * @param event Not used
      * @throws Exception 
      */
     @FXML
@@ -53,7 +76,7 @@ public class OpeningScreenController implements Initializable {
                 ADDPlayer.readInPlaylist("Mutual.txt");
             } else {
                 ADDPlayer.MODE = 1;
-                LIBRARY = new ArrayList<String>();
+                ADDPlayer.LIBRARY = new ArrayList<String>();
                 ADDPlayer.walk("E:\\Users\\Ryan\\Music\\Library");
             }
 
@@ -71,7 +94,7 @@ public class OpeningScreenController implements Initializable {
 
     /**
      * 
-     * @param event 
+     * @param event Not used
      */
     @FXML
     private void browseButtonAction(ActionEvent event) {
@@ -80,23 +103,5 @@ public class OpeningScreenController implements Initializable {
         } catch (IOException e) {
             System.out.println("Error attempting to open Windows Explorer.");
         }*/
-    }
-
-    /**
-     * 
-     * @param url
-     * @param rb 
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        numSongsChoice.setItems(FXCollections.observableArrayList(
-                "1", "5", "10", "15", "20"));
-        numSongsChoice.setValue("5");
-        songLengthChoice.setItems(FXCollections.observableArrayList(
-                "5", "10", "15", "20", "30"));
-        songLengthChoice.setValue("5");
-        libraryInputChoice.setItems(FXCollections.observableArrayList(
-                "Exported iTunes playlist", "Folder on hard drive"));
-        libraryInputChoice.setValue("Exported iTunes playlist");
     }
 }

@@ -132,7 +132,8 @@ public class GameplayScreenController implements Initializable {
      */
     private void setupPreviewPane() {
         for (int i = 0; i < songsInRound.length; i++) {
-            SongDetails song = packageIntoSongDetails();
+            SongDetails song = ADDPlayer.packageIntoSongDetails(
+                    songsInRound[i]);
 
             PreviewHBox songPreview = new PreviewHBox(
                     song, 800 / ADDPlayer.NUM_SONGS);
@@ -233,53 +234,13 @@ public class GameplayScreenController implements Initializable {
      * @return The song that is now being played
      */
     private SongDetails playNextSong() {
-        SongDetails song = packageIntoSongDetails();
+        SongDetails song = ADDPlayer.packageIntoSongDetails(
+                songsInRound[songsPlayed]);
 
         Media songFile = new Media(new File(song.location).toURI().toString());
         mediaPlayer = new MediaPlayer(songFile);
         mediaPlayer.play();
         return song;
-    }
-
-    /**
-     * This method handles standardizing the format of the songs regardless
-     *     of whether the library came from on file or from an iTunes play-list
-     * @return The song packaged into a SongDetails object
-     */
-    private SongDetails packageIntoSongDetails() {
-        SongDetails song;
-        if (ADDPlayer.MODE == 1) {
-            // Create fake SongDetails objects from the metadata
-            String location = (String) ADDPlayer.LIBRARY.get(
-                    songsInRound[songsPlayed]);
-            song = convertWithMetadata(location);
-        } else {
-            song = (SongDetails) ADDPlayer.LIBRARY.get(
-                    songsInRound[songsPlayed]);
-        }
-        return song;
-    }
-
-    /**
-     * Uses a MP3 parser to pull the relevant meta-data (song, artist and album)
-     *     out of the song file at the passed in location on disk
-     * @param location The location of the song file
-     * @return The song packaged into a SongDetails object
-     */
-    private SongDetails convertWithMetadata(String location) {
-        try (InputStream input = new FileInputStream(new File(location))) {
-            Metadata metadata = new Metadata();
-            new Mp3Parser().parse(
-                    input, new DefaultHandler(), metadata, new ParseContext());
-            input.close();
-
-            return new SongDetails(metadata.get("title"),
-                    metadata.get("xmpDM:artist"), metadata.get("xmpDM:album"), 
-                    null, null, location);
-        } catch (IOException | SAXException | TikaException e) {
-            System.out.println(e);
-        }
-        return null;
     }
 
     /**
