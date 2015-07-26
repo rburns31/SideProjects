@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 //import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -56,6 +58,8 @@ public class GameplayScreenController implements Initializable {
     //private Slider volumeSlider;
     @FXML
     private AnchorPane previewPane;
+    @FXML
+    private ScrollPane scrollPane;
 
     /**
      * The number of songs that have been played in the round so far
@@ -102,6 +106,15 @@ public class GameplayScreenController implements Initializable {
                     random.nextInt(ADDPlayer.LIBRARY.size() + 1);
         }
 
+        // temp
+        previewPane.parentProperty().addListener(
+                (ObservableValue<? extends Parent> ov, Parent oldP, Parent newP) -> {
+
+            if (newP != null && oldP == null) {
+                System.out.println("my parent is " + newP);
+            }
+        });
+
         setupPreviewPane();
 
         cycleSongs();
@@ -121,8 +134,7 @@ public class GameplayScreenController implements Initializable {
             SongDetails song = ADDPlayer.packageIntoSongDetails(
                     ADDPlayer.SONGS_IN_ROUND[i]);
 
-            PreviewHBox songPreview = new PreviewHBox(
-                    song, 800 / ADDPlayer.NUM_SONGS);
+            PreviewHBox songPreview = new PreviewHBox(song);
 
             songPreview.colorBoxes[0].setOnMouseClicked(
                     new ColoredLabelClickHandler(pointsField, songCorrect));
@@ -131,11 +143,15 @@ public class GameplayScreenController implements Initializable {
             songPreview.colorBoxes[2].setOnMouseClicked(
                     new ColoredLabelClickHandler(pointsField, albumCorrect));
 
-            songPreview.setLayoutY(800 / ADDPlayer.NUM_SONGS * i);
+            songPreview.setLayoutY(160 * i);
 
             ADDPlayer.PREVIEW_BOXES[i] = songPreview;
         }
         previewPane.getChildren().addAll(ADDPlayer.PREVIEW_BOXES);
+        if (ADDPlayer.NUM_SONGS > 5) {
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setPrefWidth(315);
+        }
     }
 
     /**
@@ -321,5 +337,15 @@ public class GameplayScreenController implements Initializable {
         }
         thisButton.setSelected(true);
         ADDPlayer.CORR_BUTTONS.get(thisButton).setSelected(false);
+    }
+
+    /**
+     * 
+     * @param event Not used
+     */
+    @FXML
+    private void quitRoundButtonAction(ActionEvent event) {
+        // TODO: Define preview pane state when skipping to the results screen
+        gameOver();
     }
 }

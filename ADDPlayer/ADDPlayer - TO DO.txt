@@ -18,16 +18,15 @@ ADDPlayer
 - Prompt to tell users why the game isn't starting if invalid input(s)
 - Make long data values scroll every once in a while
 - Denote which song is currently being played in the preview pane
-- Play/Pause Button on preview pane of ResultsScreen to play back songs
 - Put countdown on last song (or all songs?)
 - Key scoring support (1, 2, 3, arrows)
-- Get the song field to not be highlighted at the beginning of the game
 - Handle repeats when shuffling
 - Test UI elements (like preview pane) on all numbers of songs
 - Sudden death mode
 - Practice mode
 - Documentation
-- Only 2 preview pane element heights {1 song, 5 songs} = big, {any larger number of songs} = small
+- What happens when the song gets to the end? It stops fine but does not change the icon back to play
+- Should I cut it at the same length that it was in the round?
 
 LibraryDoctor
 - Automate the year vs. songs graph

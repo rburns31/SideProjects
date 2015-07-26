@@ -31,36 +31,32 @@ public class PreviewHBox extends HBox {
      */
     public Label[] colorBoxes;
 
+    private final SongDetails song;
+
     /**
      * 
-     * @param song
-     * @param height 
+     * @param song 
      */
-    public PreviewHBox(SongDetails song, int height) {
+    public PreviewHBox(SongDetails song) {
         super();
+        this.song = song;
 
-        this.setPrefSize(300, height);
+        this.setPrefSize(300, 160);
         this.getStyleClass().add("hbox");
         this.getStylesheets().add("CSS_Sheets/PreviewPaneElement.css");
-        this.getChildren().addAll(createInfoBox(song), createColorsBox());
+        this.getChildren().addAll(createInfoBox(), createColorsBox());
     }
 
     /**
      * 
-     * @param infoBox
-     * @param song 
      * @return 
      */
-    private VBox createInfoBox(SongDetails song) {
+    private VBox createInfoBox() {
         VBox infoBox = new VBox();
         infoBox.setAlignment(Pos.CENTER_LEFT);
         infoBox.setPadding(new Insets(0, 0, 0, 10));
 
-        if (ADDPlayer.NUM_SONGS <= 5) {
-            infoBox.setSpacing(10);
-        } else {
-            infoBox.setSpacing(5);
-        }
+        infoBox.setSpacing(10);
         infoBox.setPrefWidth(265);
 
         previewSong = new Label("Song: " + song.name);

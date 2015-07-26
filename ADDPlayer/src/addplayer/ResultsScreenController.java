@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,14 +30,17 @@ public class ResultsScreenController implements Initializable {
     private Label pointsField;
     @FXML
     private AnchorPane previewPane;
+    @FXML
+    private ScrollPane scrollPane;
 
     /**
-     * 
+     * The index into the preview boxes array of the currently playing song,
+     *     set to -1 if there is not a song currently playing
      */
     private int indexPlaying;
 
     /**
-     * 
+     * Holds all of the play/pause buttons on this screen
      */
     private Button[] playPauseButtons;
 
@@ -99,10 +103,18 @@ public class ResultsScreenController implements Initializable {
 
             previewPane.getChildren().add(previewBox);
         }
+        if (ADDPlayer.NUM_SONGS > 5) {
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setPrefWidth(365);
+        }
     }
 
     /**
-     * 
+     * Handles any play/pause button in the preview pane being pressed by:
+     *  - checking if the button's image is currently set to play or pause
+     *  - setting this and the other button's graphics appropriately
+     *  - playing or pausing the selected song
+     *  - stopping the last song that was playing if there was one
      * @param index 
      */
     private void playPauseButtonAction(int index) {
@@ -138,10 +150,11 @@ public class ResultsScreenController implements Initializable {
     }
 
     /**
-     * 
-     * @param playImgView
-     * @param playPause
-     * @return 
+     * Tests whether the passed in button has a play icon, if it doesn't then
+     *     it has a pause icon
+     * @param playImgView A copy of the play icon to be compared against
+     * @param playPause The button whose graphic is to be tested
+     * @return Whether or not the button's graphic is the play icon
      */
     private boolean isPlayImage(ImageView playImgView, Button playPause) {
         Image currentImg = ((ImageView) playPause.getGraphic()).getImage();
@@ -163,7 +176,8 @@ public class ResultsScreenController implements Initializable {
      */
 
     /**
-     * 
+     * Stops any songs currently playing and re-launches the game-play screen
+     *     with whatever rule choices were used in the last round
      * @param event Not used
      */
     @FXML
@@ -183,7 +197,7 @@ public class ResultsScreenController implements Initializable {
     }
 
     /**
-     * 
+     * Stops any songs currently playing and launches the opening screen
      * @param event Not used
      */
     @FXML
