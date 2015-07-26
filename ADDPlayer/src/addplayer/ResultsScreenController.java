@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * The results screen of ADDPlayer
@@ -38,6 +39,11 @@ public class ResultsScreenController implements Initializable {
      * 
      */
     private Button[] playPauseButtons;
+
+    /**
+     * Actually plays/pauses the songs
+     */
+    private MediaPlayer mediaPlayer;
 
     /**
      * Sets up the results scene by:
@@ -110,14 +116,23 @@ public class ResultsScreenController implements Initializable {
 
         boolean isPlayImage = isPlayImage(playImgView, playPauseButtons[index]);
 
+        // Play the selected song
         if (isPlayImage) {
+            // Stop the last song if there was one
             if (indexPlaying != -1) {
                 playPauseButtons[indexPlaying].setGraphic(playImgView);
+                mediaPlayer.pause();
             }
+
             playPauseButtons[index].setGraphic(pauseImgView);
+            SongDetails song = ADDPlayer.packageIntoSongDetails(
+                    ADDPlayer.SONGS_IN_ROUND[index]);
+            mediaPlayer = ADDPlayer.playNextSong(song);
             indexPlaying = index;
+        // Stop playing the selected song
         } else {
             playPauseButtons[indexPlaying].setGraphic(playImgView);
+            mediaPlayer.pause();
             indexPlaying = -1;
         }
     }
@@ -153,6 +168,9 @@ public class ResultsScreenController implements Initializable {
      */
     @FXML
     private void playAgainButtonAction(ActionEvent event) {
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
         try {
             Parent root = FXMLLoader.load(
                     getClass().getResource("GameplayScreen.fxml"));
@@ -170,6 +188,9 @@ public class ResultsScreenController implements Initializable {
      */
     @FXML
     private void mainMenuButtonAction(ActionEvent event) {
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
         try {
             Parent root = FXMLLoader.load(
                     getClass().getResource("OpeningScreen.fxml"));

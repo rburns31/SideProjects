@@ -1,9 +1,6 @@
 package addplayer;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Random;
@@ -21,15 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import org.apache.tika.exception.TikaException;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.mp3.Mp3Parser;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * The main game-play screen of ADDPlayer
@@ -78,11 +68,6 @@ public class GameplayScreenController implements Initializable {
     //private boolean isPlaying;
 
     /**
-     * The indices of the songs in the library that will be played this round
-     */
-    private int[] songsInRound;
-
-    /**
      * Actually plays/pauses the songs
      */
     private MediaPlayer mediaPlayer;
@@ -105,15 +90,16 @@ public class GameplayScreenController implements Initializable {
 
         songsPlayed = 0;
         //isPlaying = false;
-        songsInRound = new int[ADDPlayer.NUM_SONGS];
+        ADDPlayer.SONGS_IN_ROUND = new int[ADDPlayer.NUM_SONGS];
         ADDPlayer.PREVIEW_BOXES = new PreviewHBox[ADDPlayer.NUM_SONGS];
 
         librarySizeField.setText(Integer.toString(ADDPlayer.LIBRARY.size()));
         playerField.setText(ADDPlayer.PLAYER);
 
         Random random = new Random();
-        for (int i = 0; i < songsInRound.length; i++) {
-            songsInRound[i] = random.nextInt(ADDPlayer.LIBRARY.size() + 1);
+        for (int i = 0; i < ADDPlayer.NUM_SONGS; i++) {
+            ADDPlayer.SONGS_IN_ROUND[i] =
+                    random.nextInt(ADDPlayer.LIBRARY.size() + 1);
         }
 
         setupPreviewPane();
@@ -131,9 +117,9 @@ public class GameplayScreenController implements Initializable {
      *     pane for each one
      */
     private void setupPreviewPane() {
-        for (int i = 0; i < songsInRound.length; i++) {
+        for (int i = 0; i < ADDPlayer.NUM_SONGS; i++) {
             SongDetails song = ADDPlayer.packageIntoSongDetails(
-                    songsInRound[i]);
+                    ADDPlayer.SONGS_IN_ROUND[i]);
 
             PreviewHBox songPreview = new PreviewHBox(
                     song, 800 / ADDPlayer.NUM_SONGS);
@@ -181,7 +167,9 @@ public class GameplayScreenController implements Initializable {
             for (int i = 0; i < 3; i++) {
                 changeColorBox(songsPlayed, "graylabel", "redlabel", i);
             }
-            SongDetails song = playNextSong();
+            SongDetails song = ADDPlayer.packageIntoSongDetails(
+                    ADDPlayer.SONGS_IN_ROUND[songsPlayed]);
+            mediaPlayer = ADDPlayer.playNextSong(song);
 
             // Set the text fields on this screen with the new song info
             songField.setText(song.name);
@@ -227,20 +215,6 @@ public class GameplayScreenController implements Initializable {
                 .remove(oldColor);
         ADDPlayer.PREVIEW_BOXES[index].colorBoxes[whichBox].getStyleClass()
                 .add(newColor);
-    }
-
-    /**
-     * Plays the next song
-     * @return The song that is now being played
-     */
-    private SongDetails playNextSong() {
-        SongDetails song = ADDPlayer.packageIntoSongDetails(
-                songsInRound[songsPlayed]);
-
-        Media songFile = new Media(new File(song.location).toURI().toString());
-        mediaPlayer = new MediaPlayer(songFile);
-        mediaPlayer.play();
-        return song;
     }
 
     /**

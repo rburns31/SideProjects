@@ -13,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
@@ -74,6 +76,11 @@ public class ADDPlayer extends Application {
     public static HashMap<ToggleButton, ToggleButton> CORR_BUTTONS;
 
     /**
+     * The indices of the songs in the library that will be played this round
+     */
+    public static int[] SONGS_IN_ROUND;
+
+    /**
      * 
      * @param stage
      * @throws Exception 
@@ -98,7 +105,7 @@ public class ADDPlayer extends Application {
     }
 
     /**
-     * 
+     * Recursively pulls all music files from a directory on file 
      * @param path 
      */
     public static void walk(String path) {
@@ -118,8 +125,9 @@ public class ADDPlayer extends Application {
     }
 
     /**
-     * 
-     * @param file 
+     * Reads in an exported play-list from iTunes and stores all of the songs
+     *     in the play-list into the user's library
+     * @param file The exported iTunes play-list as a text file
      */
     public static void readInPlaylist(String file) {
         LIBRARY = new ArrayList<SongDetails>();
@@ -135,8 +143,9 @@ public class ADDPlayer extends Application {
     }
 
     /**
-     * 
-     * @param line 
+     * Parses a single line from an exported iTunes play-list and adds it to
+     *     the user's library
+     * @param line The line which contains all of the song's data from iTunes
      */
     private static void storeSong(String line) {
         String[] info = line.split("\t");
@@ -190,5 +199,17 @@ public class ADDPlayer extends Application {
             System.out.println(e);
         }
         return null;
+    }
+
+    /**
+     * Plays the next song
+     * @param song The song to be played
+     * @return The media player which is now playing this song
+     */
+    public static MediaPlayer playNextSong(SongDetails song) {
+        Media songFile = new Media(new File(song.location).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(songFile);
+        mediaPlayer.play();
+        return mediaPlayer;
     }
 }
