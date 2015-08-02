@@ -25,8 +25,10 @@ ADDPlayer
 - Sudden death mode
 - Practice mode
 - Documentation
-- What happens when the song gets to the end? It stops fine but does not change the icon back to play
-- Should I cut it at the same length that it was in the round?
+- Cut the song replays at the same length that they were in the round
+- Scroll bar in preview pane only works during the first song during game-play (threading?)
+- Automatically scrolling the songs in preview pane as they are played
+- Score to beat in game-play
 
 LibraryDoctor
 - Automate the year vs. songs graph

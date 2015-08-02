@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ADDPlayer.jar" size="30811" download="eager" />
+    <jar href="ADDPlayer.jar" size="32297" download="eager" />
     <jar href="lib/jaad-0.8.4.jar" size="669013" download="eager" />
     <jar href="lib/tika-app-1.9.jar" size="46192894" download="eager" />
   </resources>

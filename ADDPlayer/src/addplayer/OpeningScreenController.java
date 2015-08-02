@@ -23,11 +23,17 @@ public class OpeningScreenController implements Initializable {
     @FXML
     private ChoiceBox songLengthChoice;
     @FXML
-    private ChoiceBox libraryInputChoice;
-    //@FXML
-    //private TextField pathField;
+    private ChoiceBox libraryInputChoice1;
     @FXML
-    private TextField playerNameField;
+    private ChoiceBox libraryInputChoice2;
+    //@FXML
+    //private TextField pathField1;
+    //@FXML
+    //private TextField pathField2;
+    @FXML
+    private TextField player1NameField;
+    @FXML
+    private TextField player2NameField;
 
     /**
      * Sets the options and default values for the three drop-down choices
@@ -39,7 +45,7 @@ public class OpeningScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         numSongsChoice.setItems(FXCollections.observableArrayList(
                 "1", "5", "10", "15", "20"));
-        numSongsChoice.setValue("5");
+        numSongsChoice.setValue("1");
 
         /**
          * TODO: Remove 1 as an option here, it's just for debugging
@@ -48,9 +54,13 @@ public class OpeningScreenController implements Initializable {
                 "1", "5", "10", "15", "20", "30"));
         songLengthChoice.setValue("1");
 
-        libraryInputChoice.setItems(FXCollections.observableArrayList(
+        libraryInputChoice1.setItems(FXCollections.observableArrayList(
                 "Exported iTunes playlist", "Folder on hard drive"));
-        libraryInputChoice.setValue("Exported iTunes playlist");
+        libraryInputChoice1.setValue("Exported iTunes playlist");
+
+        libraryInputChoice2.setItems(FXCollections.observableArrayList(
+                "Exported iTunes playlist", "Folder on hard drive"));
+        libraryInputChoice2.setValue("Exported iTunes playlist");
     }
 
     /**
@@ -60,25 +70,20 @@ public class OpeningScreenController implements Initializable {
      */
     @FXML
     private void startButtonAction(ActionEvent event) throws Exception {
-        if (!playerNameField.getText().equals("")) {
+        if (!player1NameField.getText().equals("")
+                && !player2NameField.getText().equals("")) {
+
             // If the inputs are valid, populate the selected values
-            ADDPlayer.PLAYER = playerNameField.getText();
+            ADDPlayer.CUR_PLAYER.name = player1NameField.getText();
+            ADDPlayer.OTHER_PLAYER.name = player2NameField.getText();
             ADDPlayer.NUM_SONGS = Integer.parseInt(
                     numSongsChoice.getValue().toString());
             ADDPlayer.SONG_LENGTH = Integer.parseInt(
                     songLengthChoice.getValue().toString());
 
-            // Populate the library according to the library input choice
-            if (libraryInputChoice.getValue().toString().equals(
-                    "Exported iTunes playlist")) {
-                ADDPlayer.MODE = 0;
-                //ADDPlayer.readInPlaylist("Music.txt");
-                ADDPlayer.readInPlaylist("Mutual.txt");
-            } else {
-                ADDPlayer.MODE = 1;
-                ADDPlayer.LIBRARY = new ArrayList<String>();
-                ADDPlayer.walk("E:\\Users\\Ryan\\Music\\Library");
-            }
+            // Populate the libraries according to the library input choice
+            populateLibrary(libraryInputChoice1, ADDPlayer.CUR_PLAYER);
+            populateLibrary(libraryInputChoice2, ADDPlayer.OTHER_PLAYER);
 
             // Launch the gameplay screen
             Parent root = FXMLLoader.load(
@@ -87,8 +92,26 @@ public class OpeningScreenController implements Initializable {
             ADDPlayer.MAIN_STAGE.setScene(scene);
             ADDPlayer.MAIN_STAGE.show();
         } else {
-            // Wait for the user to input a valid player name
+            // Wait for the user to input valid player names
             
+        }
+    }
+
+    /**
+     * 
+     * @param libraryChoice
+     * @param player 
+     */
+    private void populateLibrary(ChoiceBox libraryChoice, Player player) {
+        if (libraryChoice.getValue().toString().equals(
+                "Exported iTunes playlist")) {
+
+            player.mode = 0;
+            ADDPlayer.readInPlaylist("Mutual.txt", player);
+        } else {
+            player.mode = 1;
+            player.library = new ArrayList<String>();
+            ADDPlayer.walk("E:\\Users\\Ryan\\Music\\Library", player);
         }
     }
 

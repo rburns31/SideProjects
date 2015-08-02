@@ -13,17 +13,11 @@ import javafx.scene.text.Font;
  * @author Ryan Burns
  */
 public class PreviewHBox extends HBox {
-    @FXML
     private Label previewSong;
-    @FXML
     private Label previewArtist;
-    @FXML
     private Label previewAlbum;
-    @FXML
     private Label songColor;
-    @FXML
     private Label artistColor;
-    @FXML
     private Label albumColor;
 
     /**

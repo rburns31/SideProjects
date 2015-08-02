@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -10,11 +11,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addplayer.ResultsScreenController">
    <children>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="800.0" prefWidth="350.0" vbarPolicy="NEVER">
+      <ScrollPane fx:id="previewScroller" focusTraversable="false" hbarPolicy="NEVER" prefHeight="800.0" prefWidth="350.0" vbarPolicy="NEVER">
          <content>
             <AnchorPane fx:id="previewPane" prefHeight="800.0" prefWidth="350.0" />
          </content></ScrollPane>
-      <VBox layoutX="500.0" layoutY="300.0" prefHeight="200.0" prefWidth="400.0">
+      <VBox layoutX="500.0" layoutY="40.0" prefHeight="200.0" prefWidth="400.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
                <children>
@@ -23,7 +24,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="playerField" text="Player1">
+                  <Label fx:id="lastPlayerField" text="Player">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -46,11 +47,41 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
                <children>
-                  <Button fx:id="playAgainButton" mnemonicParsing="false" onAction="#playAgainButtonAction" text="Play Again" />
-                  <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#mainMenuButtonAction" text="Main Menu" />
+                  <Button mnemonicParsing="false" onAction="#nextRoundButtonAction" text="Next Round">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#mainMenuButtonAction" text="Main Menu">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
                </children>
             </HBox>
          </children>
       </VBox>
+      <ScrollPane fx:id="scoresScroller" focusTraversable="false" hbarPolicy="NEVER" layoutX="500.0" layoutY="340.0" prefHeight="360.0" prefWidth="400.0" vbarPolicy="NEVER">
+         <content>
+            <AnchorPane fx:id="scoresPane" prefHeight="360.0" prefWidth="400.0" />
+         </content>
+      </ScrollPane>
+      <Label alignment="CENTER" layoutX="500.0" layoutY="300.0" prefHeight="40.0" prefWidth="100.0" text="Round">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="player1Field" alignment="CENTER" layoutX="600.0" layoutY="300.0" prefHeight="40.0" prefWidth="150.0" text="Player1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="player2Field" alignment="CENTER" layoutX="750.0" layoutY="300.0" prefHeight="40.0" prefWidth="150.0" text="Player2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Line endX="300.0" layoutX="600.0" layoutY="340.0" startX="-100.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="400.0" layoutX="600.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="400.0" layoutX="750.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="400.0" layoutX="500.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
    </children>
 </AnchorPane>

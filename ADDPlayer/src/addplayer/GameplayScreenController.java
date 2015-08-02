@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-//import javafx.scene.control.Slider;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
@@ -54,8 +53,10 @@ public class GameplayScreenController implements Initializable {
     private TextField artistField;
     @FXML
     private TextField albumField;
-    //@FXML
-    //private Slider volumeSlider;
+    @FXML
+    private Slider volumeSlider;
+    @FXML
+    private Slider songProgressSlider;
     @FXML
     private AnchorPane previewPane;
     @FXML
@@ -90,30 +91,22 @@ public class GameplayScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
-        setUpButtonMapping();
+        setupButtonMapping();
 
         songsPlayed = 0;
         //isPlaying = false;
         ADDPlayer.SONGS_IN_ROUND = new int[ADDPlayer.NUM_SONGS];
         ADDPlayer.PREVIEW_BOXES = new PreviewHBox[ADDPlayer.NUM_SONGS];
 
-        librarySizeField.setText(Integer.toString(ADDPlayer.LIBRARY.size()));
-        playerField.setText(ADDPlayer.PLAYER);
+        librarySizeField.setText(Integer.toString(
+                ADDPlayer.CUR_PLAYER.library.size()));
+        playerField.setText(ADDPlayer.CUR_PLAYER.name);
 
         Random random = new Random();
         for (int i = 0; i < ADDPlayer.NUM_SONGS; i++) {
             ADDPlayer.SONGS_IN_ROUND[i] =
-                    random.nextInt(ADDPlayer.LIBRARY.size() + 1);
+                    random.nextInt(ADDPlayer.CUR_PLAYER.library.size() + 1);
         }
-
-        // temp
-        previewPane.parentProperty().addListener(
-                (ObservableValue<? extends Parent> ov, Parent oldP, Parent newP) -> {
-
-            if (newP != null && oldP == null) {
-                System.out.println("my parent is " + newP);
-            }
-        });
 
         setupPreviewPane();
 
@@ -132,7 +125,7 @@ public class GameplayScreenController implements Initializable {
     private void setupPreviewPane() {
         for (int i = 0; i < ADDPlayer.NUM_SONGS; i++) {
             SongDetails song = ADDPlayer.packageIntoSongDetails(
-                    ADDPlayer.SONGS_IN_ROUND[i]);
+                    ADDPlayer.SONGS_IN_ROUND[i], ADDPlayer.CUR_PLAYER);
 
             PreviewHBox songPreview = new PreviewHBox(song);
 
@@ -184,7 +177,7 @@ public class GameplayScreenController implements Initializable {
                 changeColorBox(songsPlayed, "graylabel", "redlabel", i);
             }
             SongDetails song = ADDPlayer.packageIntoSongDetails(
-                    ADDPlayer.SONGS_IN_ROUND[songsPlayed]);
+                    ADDPlayer.SONGS_IN_ROUND[songsPlayed], ADDPlayer.CUR_PLAYER);
             mediaPlayer = ADDPlayer.playNextSong(song);
 
             // Set the text fields on this screen with the new song info
@@ -242,6 +235,9 @@ public class GameplayScreenController implements Initializable {
             Parent root = FXMLLoader.load(
                     getClass().getResource("ResultsScreen.fxml"));
             Scene scene = new Scene(root);
+            //if (ADDPlayer.RESULTS_SCENE == null) {
+            //    ADDPlayer.RESULTS_SCENE = scene;
+            //}
             ADDPlayer.MAIN_STAGE.setScene(scene);
             ADDPlayer.MAIN_STAGE.show();
         } catch (IOException e) {
@@ -253,7 +249,7 @@ public class GameplayScreenController implements Initializable {
      * Sets up a mapping in the form of a HashMap from each correct and
      *     incorrect button to its partner button (allows for easy toggling)
      */
-    private void setUpButtonMapping() {
+    private void setupButtonMapping() {
         ADDPlayer.CORR_BUTTONS = new HashMap<>();
         ADDPlayer.CORR_BUTTONS.put(songCorrect, songIncorrect);
         ADDPlayer.CORR_BUTTONS.put(songIncorrect, songCorrect);

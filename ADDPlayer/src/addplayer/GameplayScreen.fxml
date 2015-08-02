@@ -19,14 +19,14 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="300.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="300.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="300.0" spacing="10.0">
                      <children>
                         <Button disable="true" prefHeight="30.0" prefWidth="80.0" text="Back" />
                         <Button disable="true" onAction="#playPauseButtonAction" prefHeight="30.0" prefWidth="80.0" text="Play/Pause" />
                         <Button disable="true" prefHeight="30.0" prefWidth="80.0" text="Forward" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <Label text="Volume">
                            <font>
@@ -36,60 +36,87 @@
                         <Slider fx:id="volumeSlider" disable="true" />
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="0:00">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="songProgressSlider" disable="true" />
+                     </children>
+                  </HBox>
                </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="300.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0">
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="65.0" text="Player:">
+                        <Label text="Player:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="playerField" maxWidth="235.0" prefHeight="30.0" text="Player1">
+                        <Label fx:id="playerField" text="Player1">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0">
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="145.0" text="Songs In Library:">
+                        <Label text="Songs In Library:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="librarySizeField" prefHeight="30.0" text="0">
+                        <Label fx:id="librarySizeField" text="0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0">
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="120.0" text="Current Song:">
+                        <Label text="Current Song:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="progressField" prefHeight="30.0" text="0">
+                        <Label fx:id="progressField" text="0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0">
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="70.0" text="Points:">
+                        <Label text="Points:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="pointsField" prefHeight="30.0" text="0">
+                        <Label fx:id="pointsField" text="0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0">
+                     <children>
+                        <Label text="Score To Beat:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="pointsField1" text="--">
                            <font>
                               <Font size="18.0" />
                            </font>

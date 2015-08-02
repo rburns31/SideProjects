@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -20,19 +21,95 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <VBox alignment="CENTER" layoutX="300.0" layoutY="181.0" prefHeight="600.0" prefWidth="400.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="250.0" layoutX="50.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="100.0" layoutY="185.0" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: black;" text="Player 1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="250.0" layoutX="50.0" layoutY="510.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="100.0" layoutY="495.0" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: black;" text="Player 2">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="250.0" layoutX="550.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="600.0" layoutY="235.0" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: black;" text="Settings">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <VBox layoutX="50.0" layoutY="215.0" prefHeight="235.0" prefWidth="400.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
                <children>
-                  <Label prefHeight="30.0" text="Player Name:">
+                  <Label prefHeight="30.0" text="Name:">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="playerNameField" prefHeight="30.0" prefWidth="150.0" text="Ryan" />
+                  <TextField fx:id="player1NameField" prefHeight="30.0" prefWidth="150.0" text="Ryan" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="30.0" text="Library Input:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="libraryInputChoice1" prefHeight="30.0" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="pathField1" disable="true" prefHeight="30.0" prefWidth="200.0" text="E:\Users\Ryan\Music\Library" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#browseButtonAction" text="Browse">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="50.0" layoutY="525.0" prefHeight="235.0" prefWidth="400.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="30.0" text="Name:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="player2NameField" prefHeight="30.0" prefWidth="150.0" text="Max" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="30.0" text="Library Input:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="libraryInputChoice2" prefHeight="30.0" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="pathField2" disable="true" prefHeight="30.0" prefWidth="200.0" text="E:\Users\Ryan\Music\Library" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#browseButtonAction" text="Browse">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="550.0" layoutY="265.0" prefHeight="235.0" prefWidth="400.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
                <children>
                   <Label prefHeight="30.0" text="Number of Songs:">
                      <font>
@@ -42,7 +119,7 @@
                   <ChoiceBox fx:id="numSongsChoice" prefHeight="30.0" prefWidth="150.0" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="210.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
                <children>
                   <Label prefHeight="30.0" text="Length of Song (sec):">
                      <font>
@@ -52,34 +129,12 @@
                   <ChoiceBox fx:id="songLengthChoice" prefHeight="30.0" prefWidth="150.0" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="210.0" spacing="10.0">
-               <children>
-                  <Label prefHeight="30.0" text="Library Input:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox fx:id="libraryInputChoice" prefHeight="30.0" prefWidth="150.0" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <TextField fx:id="pathField" disable="true" prefHeight="30.0" prefWidth="200.0" text="E:\Users\Ryan\Music\Library" />
-                  <Button disable="true" mnemonicParsing="false" onAction="#browseButtonAction" text="Browse">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin></Button>
-               </children>
-            </HBox>
-            <Button mnemonicParsing="false" onAction="#startButtonAction" prefWidth="100.0" text="Start">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Button>
          </children>
       </VBox>
+      <Button layoutX="700.0" layoutY="623.0" mnemonicParsing="false" onAction="#startButtonAction" prefWidth="100.0" text="Start">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

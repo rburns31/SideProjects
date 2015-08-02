@@ -29,21 +29,14 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class ADDPlayer extends Application {
     /**
-     * Will either hold the library as Strings of the file locations or as
-     *     SongDetails objects of the song information depending on the
-     *     method of library input selected by the user
+     * 
      */
-    public static ArrayList LIBRARY;
-
-    /**
-     * 0 if from export iTunes play-list, 1 if from folder on hard drive
-     */
-    public static int MODE;
+    public static Stage MAIN_STAGE;
 
     /**
      * 
      */
-    public static Stage MAIN_STAGE;
+    //public static Scene RESULTS_SCENE;
 
     /**
      * 
@@ -61,9 +54,14 @@ public class ADDPlayer extends Application {
     public static int POINTS;
 
     /**
-     * 
+     * Holds the Player object who is not guessing in this round
      */
-    public static String PLAYER;
+    public static Player OTHER_PLAYER;
+
+    /**
+     * Holds the Player object who is guessing in this round
+     */
+    public static Player CUR_PLAYER;
 
     /**
      * 
@@ -100,6 +98,9 @@ public class ADDPlayer extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        CUR_PLAYER = new Player(true);
+        OTHER_PLAYER = new Player(false);
+
         launch(args);
         System.exit(0);
     }
@@ -107,8 +108,9 @@ public class ADDPlayer extends Application {
     /**
      * Recursively pulls all music files from a directory on file 
      * @param path 
+     * @param player 
      */
-    public static void walk(String path) {
+    public static void walk(String path, Player player) {
         File root = new File(path);
         File[] list = root.listFiles();
         if (list == null) {
@@ -116,10 +118,10 @@ public class ADDPlayer extends Application {
         }
         for (File f : list) {
             if (f.isDirectory()) {
-                walk(f.getAbsolutePath());
+                walk(f.getAbsolutePath(), player);
             } else if (f.toString().substring(f.toString().length() - 3)
                 .toLowerCase().equals("mp3")) {
-                LIBRARY.add(f.getAbsoluteFile().toString());
+                player.library.add(f.getAbsoluteFile().toString());
             }
         }
     }
@@ -128,14 +130,15 @@ public class ADDPlayer extends Application {
      * Reads in an exported play-list from iTunes and stores all of the songs
      *     in the play-list into the user's library
      * @param file The exported iTunes play-list as a text file
+     * @param player 
      */
-    public static void readInPlaylist(String file) {
-        LIBRARY = new ArrayList<SongDetails>();
+    public static void readInPlaylist(String file, Player player) {
+        player.library = new ArrayList<SongDetails>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(file), "UTF-16"))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
-                storeSong(line);
+                storeSong(line, player);
             }
         } catch (IOException e) {
             System.out.println(e);
@@ -146,8 +149,9 @@ public class ADDPlayer extends Application {
      * Parses a single line from an exported iTunes play-list and adds it to
      *     the user's library
      * @param line The line which contains all of the song's data from iTunes
+     * @param player 
      */
-    private static void storeSong(String line) {
+    private static void storeSong(String line, Player player) {
         String[] info = line.split("\t");
         if (info.length != 27) {
             // iTunes doesn't know where this file is so don't add it
@@ -155,8 +159,8 @@ public class ADDPlayer extends Application {
                 System.out.println(i + " - " + info[i]);
             }
         } else {
-            LIBRARY.add(new SongDetails(info[0], info[1], info[3], info[7],
-                    info[18], info[26]));
+            player.library.add(new SongDetails(info[0], info[1], info[3],
+                    info[7], info[18], info[26]));
         }
     }
 
@@ -164,17 +168,19 @@ public class ADDPlayer extends Application {
      * This method handles standardizing the format of the songs regardless
      *     of whether the library came from on file or from an iTunes play-list
      * @param songIndex The index of this song into the library data structure
+     * @param player 
      * @return The song packaged into a SongDetails object
      */
-    public static SongDetails packageIntoSongDetails(int songIndex) {
+    public static SongDetails packageIntoSongDetails(
+            int songIndex, Player player) {
+
         SongDetails song;
-        if (ADDPlayer.MODE == 1) {
+        if (player.mode == 1) {
             // Create fake SongDetails objects from the metadata
-            String location = (String) ADDPlayer.LIBRARY.get(
-                    songIndex);
+            String location = (String) player.library.get(songIndex);
             song = convertWithMetadata(location);
         } else {
-            song = (SongDetails) ADDPlayer.LIBRARY.get(songIndex);
+            song = (SongDetails) player.library.get(songIndex);
         }
         return song;
     }
