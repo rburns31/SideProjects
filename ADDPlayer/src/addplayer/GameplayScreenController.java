@@ -48,6 +48,8 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private Label pointsField;
     @FXML
+    private Label scoreToBeatField;
+    @FXML
     private TextField songField;
     @FXML
     private TextField artistField;
@@ -101,6 +103,11 @@ public class GameplayScreenController implements Initializable {
         librarySizeField.setText(Integer.toString(
                 ADDPlayer.CUR_PLAYER.library.size()));
         playerField.setText(ADDPlayer.CUR_PLAYER.name);
+        if (!ADDPlayer.CUR_PLAYER.isPlayerOne) {
+            scoreToBeatField.setText(Integer.toString(
+                    ADDPlayer.OTHER_PLAYER.scores.get(
+                            ADDPlayer.OTHER_PLAYER.scores.size() - 1)));
+        }
 
         Random random = new Random();
         for (int i = 0; i < ADDPlayer.NUM_SONGS; i++) {

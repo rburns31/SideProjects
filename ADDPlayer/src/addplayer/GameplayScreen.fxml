@@ -116,7 +116,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="pointsField1" text="--">
+                        <Label fx:id="scoreToBeatField" text="--">
                            <font>
                               <Font size="18.0" />
                            </font>

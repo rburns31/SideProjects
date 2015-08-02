@@ -152,13 +152,17 @@ public class ResultsScreenController implements Initializable {
      * @param index 
      */
     private void addPointsToScoreboard(int points, Player player, int index) {
-        System.out.println(player.isPlayerOne);
         if (player.isPlayerOne) {
             lastScoreBoardEntry = new ScoreBoardEntry(points, index);
             scoresPane.getChildren().add(lastScoreBoardEntry);
         } else {
             lastScoreBoardEntry.playerTwoLabel.setText(
                     Integer.toString(points));
+
+            if (player.scores.size() > 7) {
+                scoresScroller.setPrefWidth(415);
+                scoresScroller.setVvalue(1);
+            }
         }
     }
 
