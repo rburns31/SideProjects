@@ -28,7 +28,7 @@ ADDPlayer
 - Cut the song replays at the same length that they were in the round
 - Scroll bar in preview pane only works during the first song during game-play (threading?)
 - Automatically scrolling the songs in preview pane as they are played
-- Score to beat in game-play
+- Bold the winner of each round in the scoreboard
 
 LibraryDoctor
 - Automate the year vs. songs graph

@@ -60,6 +60,8 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private Slider songProgressSlider;
     @FXML
+    private Label songProgressField;
+    @FXML
     private AnchorPane previewPane;
     @FXML
     private ScrollPane scrollPane;
@@ -78,6 +80,11 @@ public class GameplayScreenController implements Initializable {
      * Actually plays/pauses the songs
      */
     private MediaPlayer mediaPlayer;
+
+    /**
+     * 
+     */
+    private static int counter;
 
     /**
      * Sets up the game-play scene by:
@@ -109,6 +116,8 @@ public class GameplayScreenController implements Initializable {
                             ADDPlayer.OTHER_PLAYER.scores.size() - 1)));
         }
 
+        songProgressSlider.setMax(ADDPlayer.SONG_LENGTH);
+
         Random random = new Random();
         for (int i = 0; i < ADDPlayer.NUM_SONGS; i++) {
             ADDPlayer.SONGS_IN_ROUND[i] =
@@ -120,9 +129,31 @@ public class GameplayScreenController implements Initializable {
         cycleSongs();
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(
-                ADDPlayer.SONG_LENGTH * 1000), ae -> cycleSongs()));
-        timeline.setCycleCount(ADDPlayer.NUM_SONGS);
+                1000), ae -> tick(ae)));
+        timeline.setCycleCount(ADDPlayer.NUM_SONGS * ADDPlayer.SONG_LENGTH);
         timeline.play();
+
+        //Timeline timeline = new Timeline(new KeyFrame(Duration.millis(
+        //        ADDPlayer.SONG_LENGTH * 1000), ae -> cycleSongs()));
+        //timeline.setCycleCount(ADDPlayer.NUM_SONGS);
+        //timeline.play();
+    }
+
+    private void tick(ActionEvent ae) {
+        counter++;
+        if (counter % ADDPlayer.SONG_LENGTH == 0) {
+            cycleSongs();
+            counter = 0;
+            songProgressSlider.setValue(counter);
+            songProgressField.setText("0:0" + counter);
+        } else {
+            songProgressSlider.setValue(counter);
+            if (counter < 10) {
+                songProgressField.setText("0:0" + counter);
+            } else {
+                songProgressField.setText("0:" + counter);
+            }
+        }
     }
 
     /**

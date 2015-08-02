@@ -38,12 +38,15 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Label text="0:00">
+                        <Label fx:id="songProgressField" text="0:00">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="songProgressSlider" disable="true" />
+                        <Slider fx:id="songProgressSlider" blockIncrement="0.0" focusTraversable="false" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="30.0" showTickMarks="true">
+                           <padding>
+                              <Insets top="6.0" />
+                           </padding></Slider>
                      </children>
                   </HBox>
                </children>
