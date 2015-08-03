@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addplayer.GameplayScreenController">
     <children>
-      <ScrollPane fx:id="scrollPane" focusTraversable="false" hbarPolicy="NEVER" prefHeight="800.0" prefWidth="300.0" vbarPolicy="NEVER">
+      <ScrollPane fx:id="previewScroller" focusTraversable="false" hbarPolicy="NEVER" prefHeight="800.0" prefWidth="300.0" vbarPolicy="NEVER">
          <content>
             <AnchorPane fx:id="previewPane" prefHeight="800.0" prefWidth="300.0" />
          </content></ScrollPane>
@@ -130,7 +130,7 @@
             </VBox>
          </children>
       </HBox>
-      <VBox layoutX="300.0" layoutY="200.0" prefHeight="600.0" prefWidth="700.0" spacing="10.0">
+      <VBox layoutX="315.0" layoutY="200.0" prefHeight="600.0" prefWidth="645.0" spacing="10.0">
          <children>
             <VBox prefHeight="175.0" prefWidth="620.0">
                <children>

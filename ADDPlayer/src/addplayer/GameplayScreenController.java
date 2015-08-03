@@ -20,6 +20,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
 /**
@@ -64,7 +66,7 @@ public class GameplayScreenController implements Initializable {
     @FXML
     private AnchorPane previewPane;
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane previewScroller;
 
     /**
      * The number of songs that have been played in the round so far
@@ -180,8 +182,8 @@ public class GameplayScreenController implements Initializable {
         }
         previewPane.getChildren().addAll(ADDPlayer.PREVIEW_BOXES);
         if (ADDPlayer.NUM_SONGS > 5) {
-            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-            scrollPane.setPrefWidth(315);
+            previewScroller.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            previewScroller.setPrefWidth(315);
         }
     }
 
@@ -206,6 +208,13 @@ public class GameplayScreenController implements Initializable {
                     ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].colorBoxes) {
                 colorBox.setOnMouseClicked(handler);
             }
+
+            ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].previewSong.setFont(
+                    Font.font("System", FontWeight.NORMAL, 14));
+            ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].previewArtist.setFont(
+                    Font.font("System", FontWeight.NORMAL, 14));
+            ADDPlayer.PREVIEW_BOXES[songsPlayed - 1].previewAlbum.setFont(
+                    Font.font("System", FontWeight.NORMAL, 14));
         }
 
         // Keep going until we hit the passed in number of songs
@@ -214,8 +223,17 @@ public class GameplayScreenController implements Initializable {
             for (int i = 0; i < 3; i++) {
                 changeColorBox(songsPlayed, "graylabel", "redlabel", i);
             }
+
+            ADDPlayer.PREVIEW_BOXES[songsPlayed].previewSong.setFont(
+                    Font.font("System", FontWeight.BOLD, 14));
+            ADDPlayer.PREVIEW_BOXES[songsPlayed].previewArtist.setFont(
+                    Font.font("System", FontWeight.BOLD, 14));
+            ADDPlayer.PREVIEW_BOXES[songsPlayed].previewAlbum.setFont(
+                    Font.font("System", FontWeight.BOLD, 14));
+
             SongDetails song = ADDPlayer.packageIntoSongDetails(
-                    ADDPlayer.SONGS_IN_ROUND[songsPlayed], ADDPlayer.CUR_PLAYER);
+                    ADDPlayer.SONGS_IN_ROUND[songsPlayed],
+                    ADDPlayer.CUR_PLAYER);
             mediaPlayer = ADDPlayer.playNextSong(song);
 
             // Set the text fields on this screen with the new song info

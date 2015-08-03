@@ -5,8 +5,9 @@ ADDPlayer
 - Support for distinguishing among users (credentials?)
 - Support for clearing statistics without creating a new user
 - Music controls (play, pause, volume, skip, back, etc.)
-- Closing screen (results)
-- More than one player in one game (same library? different libraries?)
+- Combine the round scores into an overall game score
+- Clicking on a round will bring up the songs in that round
+- Add back in support for one player
 - Support for quitting the game mid-game
 - A delay upon starting the game?
 - Support for choice on main screen of not using all 3 categories when playing
@@ -17,8 +18,7 @@ ADDPlayer
 - Gracefully skip songs if fail to play them
 - Prompt to tell users why the game isn't starting if invalid input(s)
 - Make long data values scroll every once in a while
-- Denote which song is currently being played in the preview pane
-- Put countdown on last song (or all songs?)
+- Should countdown go up or down in seconds?
 - Key scoring support (1, 2, 3, arrows)
 - Handle repeats when shuffling
 - Test UI elements (like preview pane) on all numbers of songs
@@ -26,7 +26,6 @@ ADDPlayer
 - Practice mode
 - Documentation
 - Cut the song replays at the same length that they were in the round
-- Scroll bar in preview pane only works during the first song during game-play (threading?)
 - Automatically scrolling the songs in preview pane as they are played
 - Bold the winner of each round in the scoreboard
 

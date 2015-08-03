@@ -22,24 +22,24 @@
          </font>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="250.0" layoutX="50.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="100.0" layoutY="185.0" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: black;" text="Player 1">
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="100.0" layoutY="184.0" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: black;" text="Player 1">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="250.0" layoutX="50.0" layoutY="510.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="100.0" layoutY="495.0" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: black;" text="Player 2">
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="100.0" layoutY="494.0" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: black;" text="Player 2">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="250.0" layoutX="550.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="600.0" layoutY="235.0" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: black;" text="Settings">
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="600.0" layoutY="234.0" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: black;" text="Settings">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <VBox layoutX="50.0" layoutY="215.0" prefHeight="235.0" prefWidth="400.0">
+      <VBox layoutX="50.0" layoutY="216.0" prefHeight="234.0" prefWidth="400.0">
          <children>
             <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
                <children>
@@ -73,7 +73,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox layoutX="50.0" layoutY="525.0" prefHeight="235.0" prefWidth="400.0">
+      <VBox layoutX="50.0" layoutY="526.0" prefHeight="234.0" prefWidth="400.0">
          <children>
             <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
                <children>
@@ -107,7 +107,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="550.0" layoutY="265.0" prefHeight="235.0" prefWidth="400.0">
+      <VBox alignment="CENTER" layoutX="550.0" layoutY="266.0" prefHeight="234.0" prefWidth="400.0">
          <children>
             <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
                <children>

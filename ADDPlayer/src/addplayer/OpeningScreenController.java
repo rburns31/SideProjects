@@ -65,6 +65,24 @@ public class OpeningScreenController implements Initializable {
 
     /**
      * 
+     * @param libraryChoice
+     * @param player 
+     */
+    private void populateLibrary(ChoiceBox libraryChoice, Player player) {
+        if (libraryChoice.getValue().toString().equals(
+                "Exported iTunes playlist")) {
+
+            player.mode = 0;
+            ADDPlayer.readInPlaylist("Mutual.txt", player);
+        } else {
+            player.mode = 1;
+            player.library = new ArrayList<>();
+            ADDPlayer.walk("E:\\Users\\Ryan\\Music\\Library", player);
+        }
+    }
+
+    /**
+     * 
      * @param event Not used
      * @throws Exception 
      */
@@ -94,24 +112,6 @@ public class OpeningScreenController implements Initializable {
         } else {
             // Wait for the user to input valid player names
             
-        }
-    }
-
-    /**
-     * 
-     * @param libraryChoice
-     * @param player 
-     */
-    private void populateLibrary(ChoiceBox libraryChoice, Player player) {
-        if (libraryChoice.getValue().toString().equals(
-                "Exported iTunes playlist")) {
-
-            player.mode = 0;
-            ADDPlayer.readInPlaylist("Mutual.txt", player);
-        } else {
-            player.mode = 1;
-            player.library = new ArrayList<String>();
-            ADDPlayer.walk("E:\\Users\\Ryan\\Music\\Library", player);
         }
     }
 

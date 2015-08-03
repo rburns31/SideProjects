@@ -1,6 +1,5 @@
 package addplayer;
 
-import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -13,9 +12,9 @@ import javafx.scene.text.Font;
  * @author Ryan Burns
  */
 public class PreviewHBox extends HBox {
-    private Label previewSong;
-    private Label previewArtist;
-    private Label previewAlbum;
+    public Label previewSong;
+    public Label previewArtist;
+    public Label previewAlbum;
     private Label songColor;
     private Label artistColor;
     private Label albumColor;

@@ -133,10 +133,11 @@ public class ADDPlayer extends Application {
      * @param player 
      */
     public static void readInPlaylist(String file, Player player) {
-        player.library = new ArrayList<SongDetails>();
+        player.library = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(file), "UTF-16"))) {
-            String line = br.readLine();
+            br.readLine();
+            String line;
             while ((line = br.readLine()) != null) {
                 storeSong(line, player);
             }

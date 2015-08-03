@@ -15,9 +15,21 @@
          <content>
             <AnchorPane fx:id="previewPane" prefHeight="800.0" prefWidth="350.0" />
          </content></ScrollPane>
-      <VBox layoutX="500.0" layoutY="40.0" prefHeight="200.0" prefWidth="400.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="80.0" layoutX="500.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="550.0" layoutY="34.0" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-color: black;" text="Last Round">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="104.0" layoutX="500.0" layoutY="171.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="560.0" layoutY="155.0" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-color: black;" text="Game Score">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <HBox alignment="CENTER" layoutX="500.0" layoutY="66.0" prefHeight="64.0" prefWidth="400.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
+            <HBox alignment="CENTER" prefWidth="200.0" spacing="10.0">
                <children>
                   <Label text="Player:">
                      <font>
@@ -31,7 +43,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
+            <HBox alignment="CENTER" prefWidth="200.0" spacing="10.0">
                <children>
                   <Label text="Score:">
                      <font>
@@ -45,20 +57,8 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#nextRoundButtonAction" text="Next Round">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Button>
-                  <Button mnemonicParsing="false" onAction="#mainMenuButtonAction" text="Main Menu">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Button>
-               </children>
-            </HBox>
          </children>
-      </VBox>
+      </HBox>
       <ScrollPane fx:id="scoresScroller" focusTraversable="false" hbarPolicy="NEVER" layoutX="500.0" layoutY="340.0" prefHeight="360.0" prefWidth="400.0">
          <content>
             <AnchorPane fx:id="scoresPane" prefHeight="358.0" prefWidth="400.0" />
@@ -83,5 +83,48 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="400.0" layoutX="600.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="400.0" layoutX="750.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="400.0" layoutX="500.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+      <HBox alignment="CENTER" layoutX="500.0" layoutY="725.0" prefHeight="50.0" prefWidth="400.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#mainMenuButtonAction" text="Main Menu">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#nextRoundButtonAction" text="Next Round">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="500.0" layoutY="187.0" prefHeight="88.0" prefWidth="400.0" spacing="20.0">
+         <children>
+            <Label fx:id="playerOneField" text="Player1">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="playerOneGameScore" text="0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefWidth="20.0" text="--">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="playerTwoGameScore" text="0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="playerTwoField" text="Player2">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
