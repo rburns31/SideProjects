@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  * The results screen of ADDPlayer
@@ -34,6 +35,10 @@ public class ResultsScreenController implements Initializable {
     @FXML
     private Label player2Field;
     @FXML
+    private Label playerOneField;
+    @FXML
+    private Label playerTwoField;
+    @FXML
     private Label pointsField;
     @FXML
     private AnchorPane previewPane;
@@ -43,6 +48,10 @@ public class ResultsScreenController implements Initializable {
     private AnchorPane scoresPane;
     @FXML
     private ScrollPane scoresScroller;
+    @FXML
+    private Label playerOneGameScore;
+    @FXML
+    private Label playerTwoGameScore;
 
     /**
      * 
@@ -99,9 +108,13 @@ public class ResultsScreenController implements Initializable {
         if (ADDPlayer.CUR_PLAYER.isPlayerOne) {
             player1Field.setText(ADDPlayer.CUR_PLAYER.name);
             player2Field.setText(ADDPlayer.OTHER_PLAYER.name);
+            playerOneField.setText(ADDPlayer.CUR_PLAYER.name);
+            playerTwoField.setText(ADDPlayer.OTHER_PLAYER.name);
         } else {
             player1Field.setText(ADDPlayer.OTHER_PLAYER.name);
             player2Field.setText(ADDPlayer.CUR_PLAYER.name);
+            playerOneField.setText(ADDPlayer.OTHER_PLAYER.name);
+            playerTwoField.setText(ADDPlayer.CUR_PLAYER.name);
         }
 
         pointsField.setText(Integer.toString(ADDPlayer.POINTS));
@@ -266,6 +279,8 @@ public class ResultsScreenController implements Initializable {
             if (indexPlaying != -1) {
                 playPauseButtons[indexPlaying].setGraphic(playImgView);
                 mediaPlayer.pause();
+
+                embolden(false);
             }
 
             playPauseButtons[index].setGraphic(pauseImgView);
@@ -273,13 +288,43 @@ public class ResultsScreenController implements Initializable {
                     ADDPlayer.SONGS_IN_ROUND[index], ADDPlayer.CUR_PLAYER);
             mediaPlayer = ADDPlayer.playNextSong(song);
             indexPlaying = index;
+
+            embolden(true);
         // Stop playing the selected song
         } else {
+            embolden(false);
+
             playPauseButtons[indexPlaying].setGraphic(playImgView);
             mediaPlayer.pause();
             indexPlaying = -1;
         }
     }
+
+    /**
+     * 
+     * @param bold If true make bold, if false make normal
+     */
+    private void embolden(boolean bold) {
+        if (bold) {
+            ADDPlayer.PREVIEW_BOXES[indexPlaying].previewSong.setFont(
+                    Font.font("System", FontWeight.BOLD, 14));
+            ADDPlayer.PREVIEW_BOXES[indexPlaying].previewArtist.setFont(
+                    Font.font("System", FontWeight.BOLD, 14));
+            ADDPlayer.PREVIEW_BOXES[indexPlaying].previewAlbum.setFont(
+                    Font.font("System", FontWeight.BOLD, 14));
+        } else {
+            ADDPlayer.PREVIEW_BOXES[indexPlaying].previewSong.setFont(
+                    Font.font("System", FontWeight.NORMAL, 14));
+            ADDPlayer.PREVIEW_BOXES[indexPlaying].previewArtist.setFont(
+                    Font.font("System", FontWeight.NORMAL, 14));
+            ADDPlayer.PREVIEW_BOXES[indexPlaying].previewAlbum.setFont(
+                    Font.font("System", FontWeight.NORMAL, 14));
+        }
+    }
+
+    /**
+     * Button handlers and private classes below here
+     */
 
     /**
      * Stops any songs currently playing and re-launches the game-play screen
