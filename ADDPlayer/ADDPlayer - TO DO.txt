@@ -1,11 +1,10 @@
-As of: 7/19/2015
+As of: 11/6/2015
 
 ADDPlayer
 - Track accuracy data persistently for each user so they can see their weak and strong artists of all time
 - Support for distinguishing among users (credentials?)
 - Support for clearing statistics without creating a new user
 - Music controls (play, pause, volume, skip, back, etc.)
-- Combine the round scores into an overall game score
 - Clicking on a round will bring up the songs in that round
 - Add back in support for one player
 - Support for quitting the game mid-game
@@ -27,7 +26,7 @@ ADDPlayer
 - Documentation
 - Cut the song replays at the same length that they were in the round
 - Automatically scrolling the songs in preview pane as they are played
-- Bold the winner of each round in the scoreboard
+- Mobile version?
 
 LibraryDoctor
 - Automate the year vs. songs graph

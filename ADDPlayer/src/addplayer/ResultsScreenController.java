@@ -89,6 +89,7 @@ public class ResultsScreenController implements Initializable {
 
         setupTextFields();
 
+        // If this wasn't the first round of the game
         if (!ADDPlayer.CUR_PLAYER.isPlayerOne
                 || ADDPlayer.CUR_PLAYER.scores.size() > 0) {
             populateScoreboard();
@@ -101,10 +102,13 @@ public class ResultsScreenController implements Initializable {
     }
 
     /**
-     * 
+     * Sets the last round's player, and updates the scoreboard every time
+     *     the last round's score is changed
      */
     private void setupTextFields() {
         lastPlayerField.setText(ADDPlayer.CUR_PLAYER.name);
+
+        // Just puts the players' names in the appropriate locations
         if (ADDPlayer.CUR_PLAYER.isPlayerOne) {
             player1Field.setText(ADDPlayer.CUR_PLAYER.name);
             player2Field.setText(ADDPlayer.OTHER_PLAYER.name);
@@ -131,9 +135,10 @@ public class ResultsScreenController implements Initializable {
     }
 
     /**
-     * 
+     * Just fills in the scoreboard with all of the finished scores
      */
     private void populateScoreboard() {
+        // Decide which player is player 1
         Player playerOne;
         Player playerTwo;
         if (ADDPlayer.CUR_PLAYER.isPlayerOne) {
@@ -144,12 +149,12 @@ public class ResultsScreenController implements Initializable {
             playerTwo = ADDPlayer.CUR_PLAYER;
         }
 
-        for (int i = 0; i < playerOne.scores.size() - 1; i++) {
+        int p1Size = playerOne.scores.size();
+        int p2Size = playerTwo.scores.size();
+        for (int i = 0; i < p1Size - 1; i++) {
             addPointsToScoreboard(playerOne.scores.get(i), playerOne, i);
             addPointsToScoreboard(playerTwo.scores.get(i), playerTwo, i);
         }
-        int p1Size = playerOne.scores.size();
-        int p2Size = playerTwo.scores.size();
         addPointsToScoreboard(
                 playerOne.scores.get(p1Size - 1), playerOne, p1Size - 1);
         if (p1Size == p2Size) {
@@ -159,12 +164,13 @@ public class ResultsScreenController implements Initializable {
     }
 
     /**
-     * 
-     * @param points
-     * @param player 
-     * @param index 
+     * Adds the round's points to the scoreboard
+     * @param points The points to be added to the scoreboard
+     * @param player The player whose points need to be added
+     * @param index Which round these points belong in
      */
     private void addPointsToScoreboard(int points, Player player, int index) {
+        // If player 1, create a new entry on the scoreboard for this round
         if (player.isPlayerOne) {
             lastScoreBoardEntry = new ScoreBoardEntry(points, index);
             scoresPane.getChildren().add(lastScoreBoardEntry);
@@ -172,6 +178,7 @@ public class ResultsScreenController implements Initializable {
             lastScoreBoardEntry.playerTwoLabel.setText(
                     Integer.toString(points));
 
+            // Keep the scoreboard scrolled to the bottom
             if (player.scores.size() > 7) {
                 scoresScroller.setPrefWidth(415);
                 scoresScroller.setVvalue(1);
@@ -280,7 +287,7 @@ public class ResultsScreenController implements Initializable {
                 playPauseButtons[indexPlaying].setGraphic(playImgView);
                 mediaPlayer.pause();
 
-                embolden(false);
+                emboldenSong(false);
             }
 
             playPauseButtons[index].setGraphic(pauseImgView);
@@ -289,10 +296,10 @@ public class ResultsScreenController implements Initializable {
             mediaPlayer = ADDPlayer.playNextSong(song);
             indexPlaying = index;
 
-            embolden(true);
+            emboldenSong(true);
         // Stop playing the selected song
         } else {
-            embolden(false);
+            emboldenSong(false);
 
             playPauseButtons[indexPlaying].setGraphic(playImgView);
             mediaPlayer.pause();
@@ -304,7 +311,7 @@ public class ResultsScreenController implements Initializable {
      * 
      * @param bold If true make bold, if false make normal
      */
-    private void embolden(boolean bold) {
+    private void emboldenSong(boolean bold) {
         if (bold) {
             ADDPlayer.PREVIEW_BOXES[indexPlaying].previewSong.setFont(
                     Font.font("System", FontWeight.BOLD, 14));
@@ -375,6 +382,9 @@ public class ResultsScreenController implements Initializable {
         }
     }
 
+    /**
+     * 
+     */
     private class ScoreBoardEntry extends HBox {
         private final Label roundLabel;
         private final Label playerOneLabel;
@@ -401,8 +411,82 @@ public class ResultsScreenController implements Initializable {
             playerTwoLabel.setFont(Font.font(18));
             playerTwoLabel.setAlignment(Pos.CENTER);
 
+            scoreBoardUpdate();
+
             this.getChildren().addAll(new Label[]
                     {roundLabel, playerOneLabel, playerTwoLabel});
+        }
+
+        /**
+         * Bold the winner of each round and count the wins (in real-time)
+         */
+        private void scoreBoardUpdate() {
+            playerTwoLabel.textProperty().addListener(
+                (ObservableValue<? extends String> a, String oldValue,
+                        String newValue) -> {
+
+                // Convenience variables for the scores in question
+                int P1 = Integer.parseInt(playerOneLabel.getText());
+                int newP2 = Integer.parseInt(newValue);
+
+                // Handles the initial scoreboard load
+                if (oldValue.equals("--")) {
+                    if (newP2 > P1) {
+                        playerTwoLabel.setFont(
+                                Font.font("System", FontWeight.BOLD, 18));
+                        playerTwoGameScore.setText(Integer.toString(
+                                Integer.parseInt(
+                                        playerTwoGameScore.getText()) + 1));
+                    } else if (newP2 < P1) {
+                        playerOneLabel.setFont(
+                                Font.font("System", FontWeight.BOLD, 18));
+                        playerOneGameScore.setText(Integer.toString(
+                                Integer.parseInt(
+                                        playerOneGameScore.getText()) + 1));
+                    }
+
+                // Handles keeping the bolding and game score updated
+                } else {
+                    int oldP2 = Integer.parseInt(oldValue);
+
+                    // p1 = p2 -> p2 > p1
+                    if (newP2 > oldP2 && newP2 == P1 + 1) {
+
+                        playerTwoLabel.setFont(
+                                Font.font("System", FontWeight.BOLD, 18));
+                        playerTwoGameScore.setText(Integer.toString(
+                                Integer.parseInt(
+                                        playerTwoGameScore.getText()) + 1));
+
+                    // p1 = p2 -> p1 > p2
+                    } else if (newP2 < oldP2 && newP2 == P1 - 1) {
+
+                        playerOneLabel.setFont(
+                                Font.font("System", FontWeight.BOLD, 18));
+                        playerOneGameScore.setText(Integer.toString(
+                                Integer.parseInt(
+                                        playerOneGameScore.getText()) + 1));
+
+                    // p1 > p2 -> p1 = p2
+                    } else if (newP2 > oldP2 && newP2 == P1) {
+
+                        playerOneLabel.setFont(
+                                Font.font("System", FontWeight.NORMAL, 18));
+                        playerOneGameScore.setText(Integer.toString(
+                                Integer.parseInt(
+                                        playerOneGameScore.getText()) - 1));
+
+                    // p2 > p1 -> p1 = p2
+                    } else if (newP2 < oldP2 && newP2 == P1) {
+
+                        playerTwoLabel.setFont(
+                                Font.font("System", FontWeight.NORMAL, 18));
+                        playerTwoGameScore.setText(Integer.toString(
+                                Integer.parseInt(
+                                        playerTwoGameScore.getText()) - 1));
+                    }
+                }
+            });
         }
     }
 }

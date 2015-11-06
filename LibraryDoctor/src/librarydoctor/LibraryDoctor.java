@@ -16,15 +16,19 @@ public class LibraryDoctor {
     public static ArrayList<SongDetails> LIBRARYFROMITUNES = new ArrayList<>();
     public static ArrayList<String> LIBRARYFROMFILE = new ArrayList<>();
 
+    public static String libraryLocation = "E:\\Users\\Ryan\\Music\\Library";
+
     /**
      * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        walk("E:\\Users\\Ryan\\Music\\Library");
+        walk(libraryLocation, LIBRARYFROMFILE);
         readInPlaylist("Music.txt");
-        //System.out.println(LIBRARYFROMITUNES.get(1));
 
+        //System.out.println(LIBRARYFROMFILE.get(1));
+
+        checkAgainstBackup("G:\\Library");
         extensionDiagnostics();
         findHidingSongs();
     }
@@ -114,8 +118,9 @@ public class LibraryDoctor {
     /**
      * 
      * @param path 
+     * @param library 
      */
-    private static void walk(String path) {
+    private static void walk(String path, ArrayList<String> library) {
         File root = new File(path);
         File[] list = root.listFiles();
         if (list == null) {
@@ -123,15 +128,48 @@ public class LibraryDoctor {
         }
         for (File f : list) {
             if (f.isDirectory()) {
-                walk(f.getAbsolutePath());
+                walk(f.getAbsolutePath(), library);
             //} else if (f.toString().substring(f.toString().length() - 3)
             //    .toLowerCase().equals("mp3")) {
             } else if (!f.isHidden()) {
-                LIBRARYFROMFILE.add(f.getAbsoluteFile().toString());
+            //} else {
+                library.add(f.getAbsoluteFile().toString());
             //} else if (f.toString().substring(f.toString().length() - 3)
                 //.toLowerCase().equals("m4a")) {
                 //System.out.println(f.getAbsoluteFile().toString());
             }
+        }
+    }
+
+    /**
+     * 
+     * @param backupLocation 
+     */
+    private static void checkAgainstBackup(String backupLocation) {
+        // Create a copy of the library from file instance variable
+        ArrayList<String> library = new ArrayList<>();
+        for (String fileName : LIBRARYFROMFILE) {
+            library.add(fileName);
+        }
+
+        ArrayList<String> backupLibrary = new ArrayList<>();
+        walk(backupLocation, backupLibrary);
+        //System.out.println(backupLibrary.get(1));
+
+        for (String fileName : backupLibrary) {
+            fileName = libraryLocation +
+                    fileName.substring(backupLocation.length());
+            if (library.contains(fileName)) {
+                library.remove(fileName);
+            } else {
+                System.out.println(fileName);
+            }
+        }
+
+        System.out.println();
+
+        for (String fileName : library) {
+            System.out.println(fileName);
         }
     }
 }
