@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -134,11 +135,6 @@ public class GameplayScreenController implements Initializable {
                 1000), ae -> tick(ae)));
         timeline.setCycleCount(ADDPlayer.NUM_SONGS * ADDPlayer.SONG_LENGTH);
         timeline.play();
-
-        //Timeline timeline = new Timeline(new KeyFrame(Duration.millis(
-        //        ADDPlayer.SONG_LENGTH * 1000), ae -> cycleSongs()));
-        //timeline.setCycleCount(ADDPlayer.NUM_SONGS);
-        //timeline.play();
     }
 
     private void tick(ActionEvent ae) {
@@ -243,6 +239,18 @@ public class GameplayScreenController implements Initializable {
         } else {
             gameOver();
         }
+
+        // Scroll the preview pane if applicable
+        if (previewScroller.getVbarPolicy().equals(ScrollBarPolicy.AS_NEEDED)) {
+            // If we aren't at the beginning of the end of the preview pane
+            if (songsPlayed > ADDPlayer.NUM_SONGS - 4) {
+                previewScroller.setVvalue(1);
+            } else if (songsPlayed > 2) {
+                previewScroller.setVvalue(
+                        (double)(songsPlayed - 2) / (ADDPlayer.NUM_SONGS - 5));
+            }
+        }
+
         songsPlayed++;
 
         progressField.setText(songsPlayed + "/" + ADDPlayer.NUM_SONGS);

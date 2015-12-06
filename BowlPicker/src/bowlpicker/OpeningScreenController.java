@@ -31,8 +31,13 @@ public class OpeningScreenController implements Initializable {
 
     private FadeTransition ft;
 
+    /**
+     * Sets up the fade transition and the header image
+     * @param url not used
+     * @param rb not used
+     */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL url, ResourceBundle rb) {
         ft = new FadeTransition(Duration.millis(1000), errorField);
         ft.setFromValue(0);
         ft.setToValue(1);
@@ -61,6 +66,11 @@ public class OpeningScreenController implements Initializable {
         return true;
     }
 
+    /**
+     * If the name is valid then store it for future use and open the screen
+     *     where the user can make their picks
+     * @param e The clicking of the 'Make Picks' button
+     */
     public void picksButtonAction(ActionEvent e) {
         if (validateName()) {
             Driver.playerName = nameField.getText();
@@ -72,16 +82,6 @@ public class OpeningScreenController implements Initializable {
                 Driver.mainStage.show();
             } catch (IOException ioe) {
                 System.out.println("Couldn't load the bowl picking screen.");
-            }
-        }
-    }
-
-    public void standingsButtonAction(ActionEvent e) throws Exception {
-        if (validateName()) {
-            // Change screen to the track standings page
-            errorField.setText("Not currently supported.");
-            if (ft != null) {
-                ft.play();
             }
         }
     }

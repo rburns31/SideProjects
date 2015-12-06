@@ -4,11 +4,9 @@ import bowlpicker.Team.Conference;
 import java.awt.Desktop;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -20,9 +18,11 @@ import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -46,9 +46,9 @@ import javafx.util.Duration;
  */
 public class BowlPickerController implements Initializable {
     /**
-     * As of 2014-2015,there are 39 bowl games, including the championship
+     * As of 2015-2016, there are 42 bowl games, including the championship
      */
-    public static final int NUM_GAMES = 39;
+    public static final int NUM_GAMES = 42;
 
     private final Set<String> bigBowlNames = new HashSet<>();
 
@@ -69,6 +69,7 @@ public class BowlPickerController implements Initializable {
         ft.setToValue(1);
         ft.setAutoReverse(true);
         ft.setCycleCount(2);
+
         bigBowlNames.add("Championship Game");
         bigBowlNames.add("Rose Bowl");
         bigBowlNames.add("Sugar Bowl");
@@ -76,8 +77,10 @@ public class BowlPickerController implements Initializable {
         bigBowlNames.add("Cotton Bowl");
         bigBowlNames.add("Fiesta Bowl");
         bigBowlNames.add("Peach Bowl");
+
         allGames = new GameRow[NUM_GAMES];
         scrollPane.setContent(gamesVBox);
+
         try {
             setup();
         } catch (IOException e) {
@@ -163,44 +166,44 @@ public class BowlPickerController implements Initializable {
         } else {
             Pane mainPane = (Pane)scrollPane.getParent();
             mainPane.getChildren().clear();
+
             endingProtocol();
-            Label finalMsg = new Label();
-            finalMsg.setPrefWidth(560);
-            finalMsg.setPrefHeight(720);
-            finalMsg.setLayoutX(50);
-            finalMsg.setWrapText(true);
-            finalMsg.setFont(new Font("System", 24));
-            finalMsg.setText("There is a file containing your picks in the "
-                    + "same folder as this application. You will need to email "
-                    + "this .txt file to bearskid5@yahoo.com for your picks "
-                    + "to count. Ryan will update you when all picks have "
-                    + "been submitted. Good luck!");
-            finalMsg.setAlignment(Pos.CENTER);
-            mainPane.getChildren().add(finalMsg);
+
+            try {
+                Pane myPane = (Pane)FXMLLoader.load(getClass().getResource(
+                        "ClosingScreen.fxml"));
+                Scene myScene = new Scene(myPane);
+                Driver.mainStage.setScene(myScene);
+                Driver.mainStage.show();
+            } catch (IOException ioe) {
+                System.out.println("Couldn't load the closing screen.");
+            }
         }
     }
 
     /**
      * Handles all procedures to be taken upon successful picking completion
-     *      and saves picks to file
-     * @return Whether or not the email sent successfully
+     *      and outputs string representing the user's name and picks
      */
     private void endingProtocol() {
-        try {
-            File file = new File(
-                    Driver.playerName.replace(" ", "") + "Picks.txt");
-            if (!file.exists()) {
-                file.createNewFile();
+        StringBuilder outputStr = new StringBuilder(
+                Driver.playerName.replace(" ", ""));
+        int num = 0;
+        for (int i = 0; i < allGames.length / 2; i++) {
+            if (allGames[i].checkBox2.isSelected()) {
+                num += Math.pow(2, i);
             }
-            PrintWriter outputFile = new PrintWriter(file, "UTF-8"); 
-            for (GameRow gameRow : allGames) {
-                outputFile.println(gameRow.getCurrentlyPicked().getName());
-            }
-            outputFile.close();
-        } catch(IOException ioe) {
-            System.out.println("Couldn't create and write to the picks file.");
-            System.exit(1);
         }
+        outputStr.append(num).append("/");
+        num = 0;
+        for (int i = allGames.length / 2; i < allGames.length; i++) {
+            if (allGames[i].checkBox2.isSelected()) {
+                num += Math.pow(2, i - allGames.length / 2);
+            }
+        }
+        outputStr.append(num);
+        System.out.println(outputStr);
+        Driver.output = outputStr.toString();
     }
 
     /**
@@ -241,6 +244,7 @@ public class BowlPickerController implements Initializable {
             if (bigBowlNames.contains(game.getBowlName())) {
                 this.setStyle("-fx-background-color: #FFFF00");
             }
+            checkBox2.setSelected(true); // DELETE THIS!!!
             display();
         }
 
@@ -285,13 +289,13 @@ public class BowlPickerController implements Initializable {
                     }
                 }
                 // Handles the semifinals' picks affecting the championship game
-                if (game.getBowlName().equals("Rose Bowl")) {
+                if (game.getBowlName().equals("Orange Bowl")) {
                     allGames[NUM_GAMES - 1] = new GameRow(
                             allGames[NUM_GAMES - 1].game.setAwayTeam(
                                     getCurrentlyPicked()), NUM_GAMES - 1);
                     gamesVBox.getChildren().remove(NUM_GAMES - 1);
                     gamesVBox.getChildren().add(allGames[NUM_GAMES - 1]);
-                } else if (game.getBowlName().equals("Sugar Bowl")) {
+                } else if (game.getBowlName().equals("Cotton Bowl")) {
                     allGames[NUM_GAMES - 1] = new GameRow(
                             allGames[NUM_GAMES - 1].game.setHomeTeam(
                                     getCurrentlyPicked()), NUM_GAMES - 1);

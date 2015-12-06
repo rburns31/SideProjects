@@ -20,7 +20,7 @@ public class Team {
      */
     public enum Conference {
         AAC, ACC, BIG10, BIG12, CUSA, INDEPENDENT, MWC, MAC, PAC12,
-        SEC, SUNBELT, TBD
+        SEC, SUNBELT, MEAC, SWAC, TBD
     }
 
     public Team(String name, String rank,
@@ -33,12 +33,13 @@ public class Team {
         try {
             this.image = new Image(imageName.toString());
         } catch (IllegalArgumentException iae) {
-            this.image = new Image("cfbicons/ncaa.png");
+            this.image = new Image("cfbicons/NCAA.png");
         }
         this.rank = rank;
         this.conference = conference;
         this.record = record;
         confStrings = new HashMap<>();
+        confStrings.put(Conference.AAC, "American");
         confStrings.put(Conference.BIG10, "Big 10");
         confStrings.put(Conference.BIG12, "Big 12");
         confStrings.put(Conference.CUSA, "Conference USA");

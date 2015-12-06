@@ -214,6 +214,7 @@ public class ADDPlayer extends Application {
      * @return The media player which is now playing this song
      */
     public static MediaPlayer playNextSong(SongDetails song) {
+        // Check if this file exists?
         Media songFile = new Media(new File(song.location).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(songFile);
         mediaPlayer.play();

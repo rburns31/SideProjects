@@ -20,12 +20,10 @@ ADDPlayer
 - Should countdown go up or down in seconds?
 - Key scoring support (1, 2, 3, arrows)
 - Handle repeats when shuffling
-- Test UI elements (like preview pane) on all numbers of songs
 - Sudden death mode
 - Practice mode
 - Documentation
 - Cut the song replays at the same length that they were in the round
-- Automatically scrolling the songs in preview pane as they are played
 - Mobile version?
 
 LibraryDoctor

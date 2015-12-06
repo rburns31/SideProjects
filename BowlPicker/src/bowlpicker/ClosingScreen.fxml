@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="660.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="bowlpicker.ClosingScreenController">
+   <children>
+      <Label fx:id="finalMsg" alignment="CENTER" layoutX="50.0" layoutY="100.0" prefHeight="300.0" prefWidth="560.0" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="outputField" alignment="CENTER" editable="false" layoutX="50.0" layoutY="510.0" prefHeight="40.0" prefWidth="560.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

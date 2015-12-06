@@ -1,0 +1,114 @@
+NewOrleansBowl 12/20 11:00am
+Nevada -1 MWC 7-5
+LouisianaLafayette -1 SUNBELT 8-4
+NewMexicoBowl 12/20 2:20pm
+UtahState -1 MWC 9-4
+UTEP -1 CUSA 7-5
+LasVegasBowl 12/20 3:30pm
+Utah 22 PAC12 8-4
+ColoradoState -1 MWC 10-2
+PotatoBowl 12/20 5:45pm
+WesternMichigan -1 MAC 8-4
+AirForce -1 MWC 9-3
+CamelliaBowl 12/20 9:15pm
+SouthAlabama -1 SUNBELT 6-6
+BowlingGreen -1 MAC 7-6
+MiamiBeachBowl 12/22 2:00pm
+BYU -1 INDEPENDENT 8-4
+Memphis -1 AAC 9-3
+BocaRatonBowl 12/23 6:00pm
+Marshall -1 CUSA 12-1
+NorthernIllinois -1 MAC 11-2
+PoinsettiaBowl 12/23 9:30pm
+Navy -1 INDEPENDENT 6-5
+SanDiegoState -1 MWC 7-5
+BahamasBowl 12/24 12:00pm
+CentralMichigan -1 MAC 7-5
+WesternKentucky -1 CUSA 7-5
+Hawai'iBowl 12/24 8:00pm
+FresnoState -1 MWC 6-7
+Rice -1 CUSA 7-5
+HeartOfDallasBowl 12/26 1:00pm
+Illinois -1 BIG10 6-6
+LouisianaTech -1 CUSA 8-5
+QuickLaneBowl 12/26 4:30pm
+Rutgers -1 BIG10 7-5
+NorthCarolina -1 ACC 6-6
+StPetersburgBowl 12/26 8:00pm
+NorthCarolinaState -1 ACC 7-5
+UCF -1 AAC 9-3
+MilitaryBowl 12/27 1:00pm
+Cincinnati -1 AAC 9-3
+VirginiaTech -1 ACC 6-6
+SunBowl 12/27 2:00pm
+ArizonaState 15 PAC12 9-3
+Duke -1 ACC 9-3
+IndependenceBowl 12/27 3:30pm
+Miami -1 ACC 6-6
+SouthCarolina -1 SEC 6-6
+PinstripeBowl 12/27 4:30pm
+BostonCollege -1 ACC 7-5
+PennState -1 BIG10 6-6
+HolidayBowl 12/27 8:00pm
+Nebraska -1 BIG10 9-3
+USC 24 PAC12 8-4
+LibertyBowl 12/29 2:00pm
+TexasA&M -1 SEC 7-5
+WestVirginia -1 BIG12 7-5
+RussellAthleticBowl 12/29 5:30pm
+Oklahoma -1 BIG12 8-4
+Clemson 17 ACC 9-3
+TexasBowl 12/29 9:00pm
+Arkansas -1 SEC 6-6
+Texas -1 BIG12 6-6
+MusicCityBowl 12/30 3:00pm
+NotreDame -1 INDEPENDENT 7-5
+LSU 23 SEC 8-4
+BelkBowl 12/30 6:30pm
+Georgia 13 SEC 9-3
+Louisville 21 ACC 9-3
+FosterFarmsBowl 12/30 10:00pm
+Maryland -1 BIG10 7-5
+Stanford -1 PAC12 7-5
+PeachBowl 12/31 12:30pm
+OleMiss 9 SEC 9-3
+TCU 6 BIG12 11-1
+FiestaBowl 12/31 4:00pm
+BoiseState 20 MWC 11-2
+Arizona 10 PAC12 10-3
+OrangeBowl 12/31 8:00pm
+MississippiState 7 SEC 10-2
+GeorgiaTech 12 ACC 10-3
+OutbackBowl 1/1 12:00pm
+Auburn 19 SEC 8-4
+Wisconsin 18 BIG10 10-3
+CottonBowl 1/1 12:30pm
+MichiganState 8 BIG10 10-2
+Baylor 5 BIG12 11-1
+CitrusBowl 1/1 1:00pm
+Missouri 16 SEC 10-3
+Minnesota 25 BIG10 8-4
+RoseBowl 1/1 5:00pm
+Oregon 2 PAC12 12-1
+FloridaState 3 ACC 13-0
+SugarBowl 1/1 8:30pm
+Alabama 1 SEC 12-1
+OhioState 4 BIG10 12-1
+ArmedForcesBowl 1/2 12:00pm
+Houston -1 AAC 7-5
+Pittsburgh -1 ACC 6-6
+TaxSlayerBowl 1/2 3:20pm
+Iowa -1 BIG10 7-5
+Tennessee -1 SEC 6-6
+AlamoBowl 1/2 6:45pm
+KansasState 11 BIG12 9-3
+UCLA 14 PAC12 9-3
+CactusBowl 1/2 10:15pm
+Washington -1 PAC12 8-5
+OklahomaState -1 BIG12 6-6
+BirminghamBowl 1/3 1:00pm
+EastCarolina -1 AAC 8-4
+Florida -1 SEC 6-5
+GoDaddyBowl 1/4 9:00pm
+Toledo -1 MAC 8-4
+ArkansasState -1 SUNBELT 7-5

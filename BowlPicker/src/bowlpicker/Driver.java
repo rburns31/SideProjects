@@ -22,6 +22,7 @@ public class Driver extends Application {
 
     public static Stage mainStage;
     public static String playerName;
+    public static String output;
 
     @Override
     public void start(Stage primaryStage) {
