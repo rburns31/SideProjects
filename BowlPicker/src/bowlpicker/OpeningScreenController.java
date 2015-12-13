@@ -11,8 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -26,8 +24,6 @@ public class OpeningScreenController implements Initializable {
     private TextField nameField;
     @FXML
     private Label errorField;
-    @FXML
-    private ImageView headerImageView;
 
     private FadeTransition ft;
 
@@ -43,11 +39,6 @@ public class OpeningScreenController implements Initializable {
         ft.setToValue(1);
         ft.setAutoReverse(true);
         ft.setCycleCount(2);
-        try {
-            headerImageView.setImage(new Image("cfbicons/openingHeader.png"));
-        } catch (Exception e) {
-            System.out.println("Couldn't find the header image.");
-        }
     }
 
     /**

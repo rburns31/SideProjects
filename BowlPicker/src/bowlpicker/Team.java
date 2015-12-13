@@ -14,6 +14,7 @@ public class Team {
     private final String rank;
     private final Conference conference;
     private final String record;
+    private final String espnID;
     public static HashMap<Conference, String> confStrings;
     /**
      * The list of valid conferences that a team can be in
@@ -24,7 +25,7 @@ public class Team {
     }
 
     public Team(String name, String rank,
-                    Conference conference, String record) {
+                    Conference conference, String record, String espnID) {
         this.name = name;
         StringBuilder imageName = new StringBuilder();
         imageName.append("cfbicons/");
@@ -38,6 +39,7 @@ public class Team {
         this.rank = rank;
         this.conference = conference;
         this.record = record;
+        this.espnID = espnID;
         confStrings = new HashMap<>();
         confStrings.put(Conference.AAC, "American");
         confStrings.put(Conference.BIG10, "Big 10");
@@ -74,6 +76,10 @@ public class Team {
 
     public String getRecord() {
         return record;
+    }
+
+    public String getEspnID() {
+        return espnID;
     }
 
     @Override

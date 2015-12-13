@@ -9,21 +9,37 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bowlpicker.OpeningScreenController">
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bowlpicker.OpeningScreenController">
    <children>
-      <ImageView fx:id="headerImageView" fitHeight="408.0" fitWidth="660.0" pickOnBounds="true" preserveRatio="true" />
-      <Label alignment="CENTER" contentDisplay="TOP" layoutY="408.0" prefHeight="72.0" prefWidth="660.0" text="Bowl Picker" textFill="#e0c010">
-         <font>
-            <Font name="System Bold" size="48.0" />
-         </font>
-      </Label>
-      <Label layoutX="200.0" layoutY="510.0" prefHeight="25.0" prefWidth="100.0" text="Name:">
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-      </Label>
-      <TextField fx:id="nameField" layoutX="300.0" layoutY="510.0" prefHeight="25.0" prefWidth="160.0" />
-      <Button layoutX="230.0" layoutY="580.0" mnemonicParsing="false" onAction="#picksButtonAction" prefHeight="40.0" prefWidth="200.0" text="Make Picks" />
-      <Label fx:id="errorField" alignment="TOP_CENTER" layoutX="20.0" layoutY="660.0" prefHeight="40.0" prefWidth="620.0" textAlignment="CENTER" textFill="#ee0a0a" />
+      <VBox alignment="CENTER" spacing="20.0">
+         <children>
+            <ImageView fx:id="headerImageView" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../cfbicons/openingHeader.png" />
+               </image></ImageView>
+            <Label alignment="CENTER" contentDisplay="TOP" text="Bowl Picker" textFill="#e0c010">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Name:">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="nameField" prefHeight="25.0" prefWidth="160.0" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#picksButtonAction" prefHeight="40.0" text="Make Picks" />
+            <Label fx:id="errorField" alignment="TOP_CENTER" textAlignment="CENTER" textFill="#ee0a0a" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="2015-16 Edition. Created by Ryan Burns" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

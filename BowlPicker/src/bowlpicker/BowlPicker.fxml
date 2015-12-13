@@ -9,18 +9,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bowlpicker.BowlPickerController">
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bowlpicker.BowlPickerController">
    <children>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="20.0" prefHeight="580.0" prefWidth="620.0">
-         <content>
-            <VBox fx:id="gamesVBox" prefHeight="580.0" prefWidth="600.0" />
-         </content></ScrollPane>
-      <Button layoutX="290.0" layoutY="620.0" mnemonicParsing="false" onAction="#submitButtonAction" prefHeight="30.0" prefWidth="80.0" text="Submit" />
-      <Label fx:id="errorField" alignment="CENTER" layoutX="20.0" layoutY="665.0" prefHeight="40.0" prefWidth="620.0" textAlignment="CENTER" textFill="RED" />
-      <Label layoutX="20.0" layoutY="600.0" text="*Click on a team's icon to get more information about them.">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font>
-      </Label>
+      <VBox alignment="CENTER" spacing="10.0">
+         <children>
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="580.0" prefWidth="800.0">
+               <content>
+                  <VBox fx:id="gamesVBox" prefHeight="580.0" prefWidth="785.0" />
+               </content>
+            </ScrollPane>
+            <Label text="*Click on a team's icon to get more information about them.">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#submitButtonAction" prefHeight="30.0" text="Submit" />
+            <Label fx:id="errorField" alignment="CENTER" textAlignment="CENTER" textFill="RED" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
    </children>
 </AnchorPane>

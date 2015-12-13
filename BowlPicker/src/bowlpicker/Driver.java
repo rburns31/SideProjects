@@ -17,9 +17,6 @@ import javafx.stage.Stage;
  * @author Ryan Burns
  */
 public class Driver extends Application {
-    public static final int SCREEN_WIDTH = 660;
-    public static final int SCREEN_HEIGHT = 720;
-
     public static Stage mainStage;
     public static String playerName;
     public static String output;
