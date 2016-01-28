@@ -1,6 +1,3 @@
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javafx.application.Application;
@@ -13,7 +10,6 @@ import javafx.stage.Stage;
  * Driver for the BracketBuster application, allows for manual entry of both
  *     the year and number of trials, as well as supporting the scoring of
  *     predefined formulas
- * TODO: Wrap in a basic GUI to make more intuitive
  * NOTE: All formulas must have a zero as their last index, for that
  *     column represents actual placement in the spreadsheets (called worth)
  * @author Ryan Burns
