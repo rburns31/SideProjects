@@ -25,13 +25,11 @@ import javafx.scene.text.Font;
  * FXML Controller class
  * @author Ryan Burns
  */
-public class ScreenOneController implements Initializable {
+public class GUIController implements Initializable {
     @FXML
     private Button goButton;
     @FXML
     private Button clearButton;
-    @FXML
-    private Button saveButton;
     @FXML
     private ChoiceBox<String> yearDropdown;
     @FXML
@@ -369,6 +367,7 @@ public class ScreenOneController implements Initializable {
      */
     @FXML
     private void goButtonHandler(ActionEvent event) {
+        bracketField.clear();
         double[] zeroArr = {0};
         if (MODE.equals("High Seeds")) {
             BracketBuster bb = new BracketBuster(0);

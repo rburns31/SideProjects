@@ -1,0 +1,24 @@
+As of: 1/29/2016
+
+- Create graphs of z-scores vs. worth values to gain insight into each stat's importance
+- Re-evaluate conference factors
+- Add new evaluation method where the closeness
+	of past games affects the chance of winning in the current round
+- Add new stats
+- Create data sets for 2010(3), 2011(3), 2012(3), and 2013(3)
+- Standardize run-times
+- Fine-tune the GUI
+- Implement modal picks (most picked by the other formulas)
+- Implement a companion database (or config files?)
+	(move team names, formulas, year to size, valid formulas, and stats headers there)
+- SERIOUS code clean-up for the Controller class
+- Ability to store new formulas that are made in the GUI
+- Clean up the stats' text files when done with a run
+- Progress bar cannot be observed because of the calculations, threading?
+- Some sense of time on generating a new formula
+- Somehow normalize the scaling of coefficients to be in a set range to ease comparisons
+- Trim output coefficients
+- Ability to input holistic/final/manual selections through the GUI and then save them
+- More diagnostic output in text files
+- On high seeds generation in the GUI, get rid of different versions of the same year
+- Don't output a score if the worths column is empty (for applying formulas before the tourney)

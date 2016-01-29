@@ -137,7 +137,7 @@ public class Driver extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ScreenOneFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GUIFXML.fxml"));
         Scene scene = new Scene(root, 1200, 900);
         stage.setScene(scene);
         stage.setResizable(false);
