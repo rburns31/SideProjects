@@ -142,20 +142,14 @@ public class BracketVisual {
      */
     private final double[] best;
     /**
-     * The current time as defined in Driver
-     *     Allows for time stamping and easy differentiation of results
-     */
-    private final String timeStr;
-    /**
      * The file name that BracketVisual is creating, defaults to bracket.txt
      */
     private final String outputTxt;
 
-    public BracketVisual(int[] winnerPos, int max, double[] best, String timeStr) {
+    public BracketVisual(int[] winnerPos, int max, double[] best) {
         this.winnerPos = winnerPos;
         this.max = max;
         this.best = best;
-        this.timeStr = timeStr;
         this.outputTxt = "bracket.txt";
         show();
     }
@@ -208,7 +202,7 @@ public class BracketVisual {
 
         // Headers which will be printed at the beginning of the output file
         String header = "Displaying bracket for year: " + Driver.YEAR;
-        String header2 = "Generated: " + timeStr;
+        String header2 = "Generated: " + Driver.getTime();
         String header3 = "Scored: " + max + " points";
         StringBuilder header4 = new StringBuilder("With constants: ");
         for (int i = 0; i < best.length - 1; i++) {
@@ -216,7 +210,7 @@ public class BracketVisual {
                 header4.append(", ");
             }
             String str = Double.toString(best[i]);
-            header4.append(str.indexOf(".") < 0 ? str : str.replaceAll("0*$", "").replaceAll("\\.$", ""));
+            header4.append(!str.contains(".") ? str : str.replaceAll("0*$", "").replaceAll("\\.$", ""));
         }
 
         // Set the teams variable to the appropriate array for the year

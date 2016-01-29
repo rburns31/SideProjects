@@ -368,35 +368,30 @@ public class GUIController implements Initializable {
     @FXML
     private void goButtonHandler(ActionEvent event) {
         bracketField.clear();
-        double[] zeroArr = {0};
+        Driver.convert();
         if (MODE.equals("High Seeds")) {
             BracketBuster bb = new BracketBuster(0);
-            FileConverter fc1 = new FileConverter();
-            fc1.convert();
             int score = bb.highSeed();
             scoreField.setText(Integer.toString(score));
             BracketVisual bv = new BracketVisual(bb.getWinnerPos(), score,
-                    bb.getBest(), Driver.getTime());
+                    bb.getBest());
         } else if (MODE.equals("Manual Formula")) {
             BracketBuster bb = new BracketBuster(0);
-            FileConverter fc1 = new FileConverter();
-            fc1.convert();
             storeCoeff();
-            double[] inputCoeff = concat(
-                    Arrays.copyOfRange(lastCoefficients, 0, BracketBuster.YEAR_TO_SIZE.get(Driver.YEAR) - 1), zeroArr);
+            double[] inputCoeff = concat(Arrays.copyOfRange(
+                    lastCoefficients, 0, BracketBuster.YEAR_TO_SIZE.get(Driver.YEAR) - 1), new double[]{0});
+
             int score = bb.score(inputCoeff);
             scoreField.setText(Integer.toString(score));
             BracketVisual bv = new BracketVisual(bb.getWinnerPos(), score,
-                    inputCoeff, Driver.getTime());
+                    inputCoeff);
         } else if (MODE.equals("Select Formula")) {
             BracketBuster bb = new BracketBuster(0);
-            FileConverter fc1 = new FileConverter();
-            fc1.convert();
             storeCoeff();
             // Pass in the specified formula from the map
-            double[] inputCoeff = concat(
-                    Arrays.copyOfRange(formulas.get(formulaDropdown.valueProperty().asString().getValue()),
-                            0, BracketBuster.YEAR_TO_SIZE.get(Driver.YEAR) - 1), zeroArr);
+            double[] inputCoeff = concat(Arrays.copyOfRange(formulas.get(formulaDropdown.valueProperty().asString().getValue()),
+                            0, BracketBuster.YEAR_TO_SIZE.get(Driver.YEAR) - 1), new double[]{0});
+
             int score = bb.score(inputCoeff);
             scoreField.setText(Integer.toString(score));
             // Fill in the coefficient rows with the selected formula
@@ -415,11 +410,9 @@ public class GUIController implements Initializable {
                 }
             }
             BracketVisual bv = new BracketVisual(bb.getWinnerPos(), score,
-                    inputCoeff, Driver.getTime());
+                    inputCoeff);
         } else if (MODE.equals("Generate Formula")) {
             BracketBuster bb = new BracketBuster(Integer.parseInt(trialsField.getText()));
-            FileConverter fc1 = new FileConverter();
-            fc1.convert();
             storeCoeff();
             progressBox.setVisible(true);
             int max = bb.maxFind();
@@ -440,7 +433,7 @@ public class GUIController implements Initializable {
             }
             scoreField.setText(Integer.toString(score));
             BracketVisual bv = new BracketVisual(bb.getWinnerPos(), score,
-                    bb.getBest(), Driver.getTime());
+                    bb.getBest());
         }
         fileToGUI("bracket.txt");
         fileNameRow.setVisible(true);
