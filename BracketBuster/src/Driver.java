@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +31,7 @@ import org.apache.poi.ss.usermodel.Row;
  */
 public class Driver extends Application {
     /**
-     * The year to be simulated
+     * The year of the tournament to be used
      */
     public static String YEAR;
 
@@ -98,6 +100,31 @@ public class Driver extends Application {
             output.close();
         } catch (IOException e) {
             System.out.println("Some problem with converting the stats.");
+        }
+    }
+
+    /**
+     * Reads in all of the formulas from a text file and populates them into
+     *   a passed-in hash map
+     * @param formulas The data structure to contain the formulas
+     */
+    public static void readInFormulas(HashMap<String, double[]> formulas) {
+        try {
+            Scanner fileScanner = new Scanner(new File("config/formulas.txt"));
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] parts = line.split("=");
+                String temp = parts[1].substring(2, parts[1].length() - 1);
+                String[] coeffStr = temp.split(",");
+                double[] coefficients = new double[coeffStr.length];
+                for (int i = 0; i < coeffStr.length; i++) {
+                    coefficients[i] = Double.parseDouble(coeffStr[i]);
+                }
+                formulas.put(parts[0].trim(), coefficients);
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("Formulas file does not exist.");
         }
     }
 }

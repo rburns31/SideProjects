@@ -38,12 +38,12 @@ public class BracketBuster {
      * Holds the coefficients that lead to the current maximum score reached
      *     by a formula in this iteration
      */
-    private final double[] best;
+    public final double[] best;
     /**
      * Array to hold the winners of each game of the tournament, but they are
      *     represented in terms of their column in the inputted data
      */
-    private final int[] winnerPos;
+    public final int[] winnerPos;
     /**
      * Holds the current maximum score reached by a formula in this iteration
      */
@@ -78,25 +78,6 @@ public class BracketBuster {
         winnerPos = new int[63];
     }
 
-    public int getTrials() {
-        return trials;
-    }
-
-    public double[] getBest() {
-        return best;
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public int[] getWinnerPos() {
-        return winnerPos;
-    }
-
-    public int getProgress() {
-        return progress;
-    }
     /**
      * Each trial consists of:
      *     1. Randomly generating values for each coefficient
