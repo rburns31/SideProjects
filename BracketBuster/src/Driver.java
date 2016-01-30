@@ -76,12 +76,12 @@ public class Driver extends Application {
     /**
      * Converts Excel spreadsheet into a text file
      */
-    public static void convert() {
+    public static void convertExcel() {
         try {
-            File outFile = new File("stats_" + Driver.YEAR + "_3" + ".txt");
+            File outFile = new File("stats_" + YEAR + "_3" + ".txt");
             PrintStream output = new PrintStream(outFile);
-            InputStream input = new BufferedInputStream(
-                    new FileInputStream("stats_" + Driver.YEAR + "_3" + ".xls"));
+            InputStream input = new BufferedInputStream(new FileInputStream(
+                    "stats_" + YEAR + "_3" + ".xls"));
             POIFSFileSystem fs = new POIFSFileSystem(input);
             HSSFWorkbook wb = new HSSFWorkbook(fs);
             HSSFSheet sheet = wb.getSheetAt(0);
@@ -104,27 +104,39 @@ public class Driver extends Application {
     }
 
     /**
-     * Reads in all of the formulas from a text file and populates them into
-     *   a passed-in hash map
-     * @param formulas The data structure to contain the formulas
+     * Reads in any of the config data (formulas, teams, valid formulas)
+     *   from their text file and populates them into a passed-in hash map
+     * @param fileName The name of the config file to be read in
+     * @param map The structure to contain the config data
      */
-    public static void readInFormulas(HashMap<String, double[]> formulas) {
+    public static void readInConfigFiles(String fileName,
+            HashMap map) {
+
         try {
-            Scanner fileScanner = new Scanner(new File("config/formulas.txt"));
+            Scanner fileScanner = new Scanner(new File(fileName));
             while (fileScanner.hasNextLine()) {
+                // Get the next line
                 String line = fileScanner.nextLine();
-                String[] parts = line.split("=");
-                String temp = parts[1].substring(2, parts[1].length() - 1);
-                String[] coeffStr = temp.split(",");
-                double[] coefficients = new double[coeffStr.length];
-                for (int i = 0; i < coeffStr.length; i++) {
-                    coefficients[i] = Double.parseDouble(coeffStr[i]);
+                String[] parts = line.split(" = ");
+
+                // Cut off the leading and trailing brackets
+                String temp = parts[1].substring(1, parts[1].length() - 1);
+                String[] data = temp.split(", ");
+
+                // Handle special case where config file holds numbers
+                if (fileName.equals("config/formulas.txt")) {
+                    double[] coefficients = new double[data.length];
+                    for (int i = 0; i < data.length; i++) {
+                        coefficients[i] = Double.parseDouble(data[i]);
+                    }
+                    map.put(parts[0], coefficients);
+                } else {
+                    map.put(parts[0], data);
                 }
-                formulas.put(parts[0].trim(), coefficients);
             }
             fileScanner.close();
         } catch (IOException e) {
-            System.out.println("Formulas file does not exist.");
+            System.out.println(fileName + " file does not exist.");
         }
     }
 }

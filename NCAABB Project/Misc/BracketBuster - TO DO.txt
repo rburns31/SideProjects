@@ -9,9 +9,8 @@ As of: 1/29/2016
 - Standardize run-times
 - Fine-tune the GUI
 - Implement modal picks (most picked by the other formulas)
-- Implement a companion database (or config files?)
-	(move team names, year to size, valid formulas, and stats headers there)
-- SERIOUS code clean-up (GUIController, BracketBuster, BracketVisual)
+- Implement config files (move year to size, stats headers there)
+- SERIOUS code clean-up (GUIController, BracketBuster)
 - Ability to store new formulas that are made in the GUI
 - Clean up the stats' text files when done with a run
 - Progress bar cannot be observed because of the calculations, threading?
@@ -22,4 +21,7 @@ As of: 1/29/2016
 - More diagnostic output in text files
 - On high seeds generation in the GUI, get rid of different versions of the same year
 - Don't output a score if the worths column is empty (for applying formulas before the tourney)
-- Fix formula names
+- Move high seeds into the select formula section (maybe re-name to routine?)
+- Way to see the actual data through the GUI (manual formulas needs more support)
+- Clean up project directory structure
+- Rework the GUI flow so that there are no duplicate years in the dropdown

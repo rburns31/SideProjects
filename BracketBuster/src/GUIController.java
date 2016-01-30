@@ -4,7 +4,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -87,56 +89,15 @@ public class GUIController implements Initializable {
     private final String[] statsThree = {"FG%", "3P%", "ORPG", "RPG", "FTMPG",
                     "ASTPG", "TOPG", "STPG", "BLKPG", "CF", "T20", "CT", "FT%",
                     "FGMPG", "PPS", "ADJ FG%", "3PMPG", "AST/TO", "ST/TO"};
-    /**
-     * The formulas which are valid to be applied to the 2010 data
-     */
-    private final String[] valid2010 = {"2010 1.0", "2010 2.0", "Everything(1)"};
-    /**
-     * The formulas which are valid to be applied to the 2011 data
-     */
-    private final String[] valid2011 = {"2010 1.0", "2010 2.0", "2011 1.0",
-                    "2011 2.0", "Everything(1)"};
-    /**
-     * The formulas which are valid to be applied to the 2012(1) data
-     */
-    private final String[] valid2012x1 = {"2010 1.0", "2010 2.0", "2011 1.0",
-                    "2011 2.0", "2012(1) 1.0", "2012(1) 2.0",
-                    "Average 2012 1.0", "Everything(1)"};
-    /**
-     * The formulas which are valid to be applied to the 2012(2) data
-     */
-    private final String[] valid2012x2 = {"2012(2) 2.0", "Average 2012 2.0",
-                    "Everything(2)"};
-    /**
-     * The formulas which are valid to be applied to the 2013 data
-     */
-    private final String[] valid2013 = {"2010 1.0", "2010 2.0", "2011 1.0",
-                    "2011 2.0", "2012(1) 1.0", "2012(1) 2.0", "2013 2.0",
-                    "Average 2013 1.0", "Average 2013 2.0", "Everything(1)"};
-    /**
-     * The formulas which are valid to be applied to the 2014(1) data
-     */
-    private final String[] valid2014x1 = {"2010 1.0", "2010 2.0", "2011 1.0",
-                    "2011 2.0", "2012(1) 1.0", "2012(1) 2.0", "2013 2.0",
-                    "2014(1) 2.0", "Average 2014 2.0", "Everything(1)"};
-    /**
-     * The formulas which are valid to be applied to the 2014(3) data
-     */
-    private final String[] valid2014x3 = {"2014(3) 2.0", "Everything(3)"};
-    /**
-     * The formulas which are valid to be applied to the 2015(1) data
-     */
-    private final String[] valid2015x1 = {"2010 1.0", "2010 2.0", "2011 1.0",
-                    "2011 2.0", "2012(1) 1.0", "2012(1) 2.0", "2013 2.0",
-                    "2014(1) 2.0", "Everything(1)", "Average 2015 2.0"};
-    /**
-     * The formulas which are valid to be applied to the 2015(3) data
-     */
-    private final String[] valid2015x3 = {"2014(3) 2.0", "Everything(3)"};
+
     /**
      * 
      */
     private final HashMap<String, double[]> formulas = new HashMap<>();
+    /**
+     * 
+     */
+    private final HashMap<String, String[]> allValid = new HashMap<>();
 
     /**
      * Initializes the controller class
@@ -144,13 +105,14 @@ public class GUIController implements Initializable {
      *     YEAR variable every time the selection is changed
      * Calls the method to update the coefficient rows whenever the YEAR
      *     variable user selection is changed
-     * @param url
-     * @param rb
+     * @param url Not used
+     * @param rb Not used
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Instantiate the formulas map from the text file
-        Driver.readInFormulas(formulas);
+        // Instantiate the formulas  and allValid maps from their text files
+        Driver.readInConfigFiles("config/formulas.txt", formulas);
+        Driver.readInConfigFiles("config/valid.txt", allValid);
 
         // Font needs to be monospaced or the bracket goes all wonky
         bracketField.setFont(Font.font(java.awt.Font.MONOSPACED, 13.5));
@@ -159,17 +121,18 @@ public class GUIController implements Initializable {
         lastCoefficients = new double[statsTwo.length];
 
         // Set up the dropdown menus with choices, defaults, and listeners
-        yearDropdown.getItems().addAll("2010", "2011", "2012(1)", "2012(2)",
-                    "2013", "2014(1)", "2014(3)", "2015(1)", "2015(3)");
+        ArrayList<String> years = new ArrayList(allValid.keySet());
+        Collections.sort(years);
+        yearDropdown.getItems().addAll(years);
         yearDropdown.setValue("2015(3)");
-        yearDropdown.valueProperty().addListener((observable, old, newYear) -> {
+        yearDropdown.valueProperty().addListener((obs, old, newYear) -> {
             Driver.YEAR = newYear;
             update();
         });
         modeDropdown.getItems().addAll("High Seeds", "Manual Formula",
                 "Select Formula", "Generate Formula");
         modeDropdown.setValue("High Seeds");
-        modeDropdown.valueProperty().addListener((observable, old, newMode) -> {
+        modeDropdown.valueProperty().addListener((obs, old, newMode) -> {
             MODE = newMode;
             update();
         });
@@ -182,7 +145,7 @@ public class GUIController implements Initializable {
         update();
 
         // Adds a listener to the trials field to verify it is always an int
-        trialsField.textProperty().addListener((observable, oldInput, newInput) -> {
+        trialsField.textProperty().addListener((obs, oldInput, newInput) -> {
             try {
                 Integer.parseInt(newInput);
                 trialsField.setText(newInput.replaceAll("[d,f,i]", ""));
@@ -191,44 +154,21 @@ public class GUIController implements Initializable {
                 trialsField.setText(oldInput);
             }
         });
-        formulaDropdown.valueProperty().addListener((observable, old, newFormula) -> {
+        formulaDropdown.valueProperty().addListener((obs, old, newF) -> {
             bracketField.clear();
         });
-    }
-
-    /**
-     * 
-     */
-    private String[] validFormulaFinder() {
-        String[] validFormulas = null;
-        if (Driver.YEAR.equals("2010")) {
-            validFormulas = valid2010;
-        } else if (Driver.YEAR.equals("2011")) {
-            validFormulas = valid2011;
-        } else if (Driver.YEAR.equals("2012(1)")) {
-            validFormulas = valid2012x1;
-        } else if (Driver.YEAR.equals("2012(2)")) {
-            validFormulas = valid2012x2;
-        } else if (Driver.YEAR.equals("2013")) {
-            validFormulas = valid2013;
-        } else if (Driver.YEAR.equals("2014(1)")) {
-            validFormulas = valid2014x1;
-        } else if (Driver.YEAR.equals("2014(3)")) {
-            validFormulas = valid2014x3;
-        } else if (Driver.YEAR.equals("2015(1)")) {
-            validFormulas = valid2015x1;
-        } else if (Driver.YEAR.equals("2015(3)")) {
-            validFormulas = valid2015x3;
-        }
-        return validFormulas;
     }
 
     /**
      * Handles updating all parts of the form when any input is changed
      */
     private void update() {
-        // Set the valid formulas variable to the appropriate array for the year
-        String[] validFormulas = validFormulaFinder();
+        // Set the valid formulas to the appropriate array for the year
+        String[] validFormulas = allValid.get(Driver.YEAR);
+        if (validFormulas == null) {
+            System.out.println("No valid formulas for that year. Exiting.");
+            System.exit(0);
+        }
 
         // Store the current coefficients before clearing the rows out
         storeCoeff();
@@ -330,7 +270,8 @@ public class GUIController implements Initializable {
      * Removes trailing zeros from a passed in String
      */
     private String removeTrailingZeros(String str) {
-        return !str.contains(".") ? str : str.replaceAll("0*$", "").replaceAll("\\.$", "");
+        return !str.contains(".") ? str
+                : str.replaceAll("0*$", "").replaceAll("\\.$", "");
     }
 
     /**
@@ -359,7 +300,7 @@ public class GUIController implements Initializable {
     @FXML
     private void goButtonHandler(ActionEvent event) {
         bracketField.clear();
-        Driver.convert();
+        Driver.convertExcel();
         if (MODE.equals("High Seeds")) {
             BracketBuster bb = new BracketBuster(0);
             int score = bb.highSeed();

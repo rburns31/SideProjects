@@ -1,6 +1,7 @@
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Outputs a visual representation of a set of picks on a hard-coded bracket
@@ -9,148 +10,49 @@ import java.util.ArrayList;
  */
 public class BracketVisual {
     /**
-     * The teams in the 2010 tournament, in order of the bracket
-     */
-    public static final String[] TEAMS_2010 =
-                        {"Kansas", "Lehigh", "UNLV", "N Iowa",
-                        "Mich St", "NM St", "Maryland", "Houston",
-                        "Tenn", "San D St", "G'town", "Ohio",
-                        "Okla St", "Ga Tech", "Ohio St", "UCSB",
-                        "Syracuse", "Vermont", "Gonzaga", "Fla St",
-                        "Butler", "UTEP", "Vandy", "Murray St",
-                        "Xavier", "Minnesota", "Pitt", "Oakland",
-                        "BYU", "Florida", "Kansas St", "N Texas",
-                        "Kentucky", "E Tenn St", "Texas", "Wake For",
-                        "Temple", "Cornell", "Wisconsin", "Wofford",
-                        "Marquette", "Washingt", "New Mexic", "Montana",
-                        "Clemson", "Missouri", "WVU", "Morgan St",
-                        "Duke", "Ark PB", "Cal", "L'ville",
-                        "Texas A&M", "Utah St", "Purdue", "Siena",
-                        "ND", "Old Domin", "Baylor", "Sam H St",
-                        "Richmond", "St Marys", "Villanova", "Robert M"};
-    /**
-     * The teams in the 2011 tournament, in order of the bracket
-     */
-    public static final String[] TEAMS_2011 =
-                        {"Ohio St", "UTSA", "G Mason", "Villanova",
-                        "WVU", "Clemson", "Kentucky", "Princeton",
-                        "Xavier", "Marquette", "Syracuse", "Ind St",
-                        "Washingt", "Georgia", "UNC", "LIU Bkn",
-                        "Duke", "Hampton", "Michigan", "Tenn",
-                        "Arizona", "Memphis", "Texas", "Oakland",
-                        "Cincy", "Missouri", "UConn", "Bucknell",
-                        "Temple", "Penn St", "San D St", "N Col",
-                        "Kansas", "Boston U", "UNLV", "Illinois",
-                        "Vandy", "Richmond", "L'ville", "M'head St",
-                        "G'town", "VCU", "Purdue", "St Peters",
-                        "Texas A&M", "Fla St", "ND", "Akron",
-                        "Pitt", "UNC Ash", "Butler", "Old Domin",
-                        "Kansas St", "Utah St", "Wisconsin", "Belmont",
-                        "St Johns", "Gonzaga", "BYU", "Wofford",
-                        "UCLA", "Mich St", "Florida", "UCSB"};
-    /**
-     * The teams in the 2012 tournament, in order of the bracket
-     */
-    public static final String[] TEAMS_2012 =
-                        {"Kentucky", "W KY", "Iowa St", "UConn",
-                        "Wich St", "VCU", "Indiana", "NM St",
-                        "UNLV", "Colorado", "Baylor", "S Dak St",
-                        "ND", "Xavier", "Duke", "Lehigh",
-                        "Mich St", "LIU Bkn", "Memphis", "St Louis",
-                        "New Mexic", "LB St", "L'ville", "Davidson",
-                        "Murray St", "Col St", "Marquette", "BYU",
-                        "Florida", "Virginia", "Missouri", "Norf St",
-                        "Syracuse", "UNC Ash", "Kansas St", "So Miss",
-                        "Vandy", "Harvard", "Wisconsin", "Montana",
-                        "Cincy", "Texas", "Fla St", "St Bonnys",
-                        "Gonzaga", "WVU", "Ohio St", "Loyola MD",
-                        "UNC", "Vermont", "Creighton", "Alabama",
-                        "Temple", "South Fla", "Michigan", "Ohio",
-                        "San D St", "NC St", "G'town", "Belmont",
-                        "St Marys", "Purdue", "Kansas", "Detroit"};
-    /**
-     * The teams in the 2013 tournament, in order of the bracket
-     */
-    public static final String[] TEAMS_2013 =
-                        {"L'ville", "NC A&T", "Col St", "Missouri",
-                        "Okla St", "Oregon", "St Louis", "NM St",
-                        "Memphis", "St Marys", "Mich St", "Valpo",
-                        "Creighton", "Cincy", "Duke", "Albany",
-                        "Gonzaga", "Southern", "Pitt", "Wich St",
-                        "Wisconsin", "Ole Miss", "Kansas St", "La Salle",
-                        "Arizona", "Belmont", "New Mexic", "Harvard",
-                        "ND", "Iowa St", "Ohio St", "Iona",
-                        "Kansas", "W KY", "UNC", "Villanova", "VCU",
-                        "Akron", "Michigan", "S Dak St",
-                        "UCLA", "Minnesota", "Florida", "NW St",
-                        "San D St", "Oklahoma", "G'town", "Fla GC",
-                        "Indiana", "James Mad", "NC St", "Temple",
-                        "UNLV", "Cal", "Syracuse", "Montana",
-                        "Butler", "Bucknell", "Marquette", "Davidson",
-                        "Illinois", "Colorado", "Miami", "Pacific"};
-    /**
-     * The teams in the 2014 tournament, in order of the bracket
-     */
-    public static final String[] TEAMS_2014 =
-                        {"Florida", "Albany", "Colorado", "Pitt",
-                        "VCU", "SF Austin", "UCLA", "Tulsa",
-                        "Ohio St", "Dayton", "Syracuse", "W Mich",
-                        "New Mexic", "Stanford", "Kansas", "E KY",
-                        "Virginia", "Coast Car", "Memphis", "G Wash",
-                        "Cincy", "Harvard", "Mich St", "Delaware",
-                        "UNC", "Providenc", "Iowa St", "NC Cen",
-                        "UConn", "St Joes", "Villanova", "Milwaukee",
-                        "Arizona", "Weber St", "Gonzaga", "Okla St",
-                        "Oklahoma", "N Dak St", "San D St", "NM St",
-                        "Baylor", "Nebraska", "Creighton", "LA Lafay",
-                        "Oregon", "BYU", "Wisconsin", "American",
-                        "Wich St", "Cal Poly", "Kentucky", "Kansas St",
-                        "St Louis", "NC St", "L'ville", "Manhattan",
-                        "UMass", "Tenn", "Duke", "Mercer",
-                        "Texas", "ASU", "Michigan", "Wofford"};
-    /**
-     * The teams in the 2015 tournament, in order of the bracket
-     */
-    public static final String[] TEAMS_2015 =
-                        {"Kentucky", "Hampton", "Cincy", "Purdue",
-                        "WVU", "Buffalo", "Maryland", "Valpo",
-                        "Butler", "Texas", "ND", "N eastern",
-                        "Wich St", "Indiana", "Kansas", "NM St",
-                        "Wisconsin", "Coast Car", "Oregon", "Okla St",
-                        "Arkansas", "Wofford", "UNC", "Harvard",
-                        "Xavier", "Ole Miss", "Baylor", "GA St",
-                        "VCU", "Ohio St", "Arizona", "Texas So",
-                        "Villanova", "Lafayette", "NC State", "LSU",
-                        "N Iowa", "Wyoming", "L'ville", "UC Irvine",
-                        "Providenc", "Dayton", "Oklahoma", "Albany",
-                        "Mich St", "Georgia", "Virginia", "Belmont",
-                        "Duke", "Rob Morr", "San D St", "St Johns",
-                        "Utah", "SF Austin", "G'town", "E Wash",
-                        "SMU", "UCLA", "Iowa St", "UAB",
-                        "Iowa", "Davidson", "Gonzaga", "N Dak St"};
-
-    /**
-     * 
-     */
-    private final int[] winnerPos;
-    /**
-     * 
+     * The number of points corresponding to this bracket
      */
     private final int max;
     /**
-     * 
+     * The coefficients which lead to this bracket
      */
     private final double[] best;
     /**
      * The file name that BracketVisual is creating, defaults to bracket.txt
      */
     private final String outputTxt;
+    /**
+     * The winners of each game in the tournament
+     */
+    private final String[] winners;
+    /**
+     * The names of all of the teams in the specified year's tournament
+     */
+    private final String[] teams;
 
     public BracketVisual(int[] winnerPos, int max, double[] best) {
-        this.winnerPos = winnerPos;
         this.max = max;
         this.best = best;
         this.outputTxt = "bracket.txt";
+
+        // Set the teams variable to the appropriate array for the year
+        HashMap<String, String[]> teamNames = new HashMap<>();
+        Driver.readInConfigFiles("config/teams.txt", teamNames);
+        teams = teamNames.get(Driver.YEAR.split("\\(")[0]);
+        if (teams == null) {
+            System.out.println("Cannot make a bracket for that year. Exiting.");
+            System.exit(0);
+        }
+
+        // Make sure that each team name in that array is valid to be printed
+        validate(teams);
+
+        // Extract the team names of the winners from their passed in indices
+        winners = new String[63];
+        for (int i = 0; i < winners.length; i++) {
+            winners[i] = teams[winnerPos[i]];
+        }
+
         show();
     }
 
@@ -188,8 +90,8 @@ public class BracketVisual {
         try {
             outFile = new PrintWriter(outputTxt);
         } catch (IOException e) {
-            System.out.println("Some problem with writing to the bracket "
-                    + "visual. Decide if this is fatal or not.");
+            System.out.println(
+                    "Some problem with writing to the bracket visual.");
         }
 
         // Parts of the bracket to be printed (for convenience)
@@ -210,39 +112,8 @@ public class BracketVisual {
                 header4.append(", ");
             }
             String str = Double.toString(best[i]);
-            header4.append(!str.contains(".") ? str : str.replaceAll("0*$", "").replaceAll("\\.$", ""));
-        }
-
-        // Set the teams variable to the appropriate array for the year
-        String[] teams = null;
-        if (Driver.YEAR.equals("2010")) {
-            teams = TEAMS_2010;
-        } else if (Driver.YEAR.equals("2011")) {
-            teams = TEAMS_2011;
-        } else if (Driver.YEAR.equals("2012(1)")
-                || Driver.YEAR.equals("2012(2)")) {
-            teams = TEAMS_2012;
-        } else if (Driver.YEAR.equals("2013")) {
-            teams = TEAMS_2013;
-        } else if (Driver.YEAR.equals("2014(1)")
-                || Driver.YEAR.equals("2014(3)")) {
-            teams = TEAMS_2014;
-        } else if (Driver.YEAR.equals("2015(1)")
-                || Driver.YEAR.equals("2015(3)")) {
-            teams = TEAMS_2015;
-        } else {
-            System.out.println("I cannot yet make a "
-                    + "bracket for that year. Exiting.");
-            System.exit(0);
-        }
-
-        // Make sure that each team name in that array is valid to be printed
-        validate(teams);
-
-        // Extract the team names of the winners from their passed in indices
-        String[] winners = new String[63];
-        for (int i = 0; i < winners.length; i++) {
-            winners[i] = teams[winnerPos[i]];
+            header4.append(!str.contains(".") ? str
+                    : str.replaceAll("0*$", "").replaceAll("\\.$", ""));
         }
 
         // Print headers to file

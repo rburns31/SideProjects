@@ -35,6 +35,15 @@ public class BracketBuster {
      */
     private final double[] constants;
     /**
+     * Holds the current maximum score reached by a formula in this iteration
+     */
+    private int max;
+    /**
+     * The number of trials currently completed
+     */
+    private int progress;
+
+    /**
      * Holds the coefficients that lead to the current maximum score reached
      *     by a formula in this iteration
      */
@@ -44,14 +53,6 @@ public class BracketBuster {
      *     represented in terms of their column in the inputted data
      */
     public final int[] winnerPos;
-    /**
-     * Holds the current maximum score reached by a formula in this iteration
-     */
-    private int max;
-    /**
-     * The number of trials currently completed
-     */
-    private int progress;
 
     /**
      * Statically instantiates a map from the year that was input to the
