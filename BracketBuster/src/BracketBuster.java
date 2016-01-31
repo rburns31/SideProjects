@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.File;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -54,28 +53,12 @@ public class BracketBuster {
      */
     public final int[] winnerPos;
 
-    /**
-     * Statically instantiates a map from the year that was input to the
-     *     number of variables that the corresponding data set contains
-     */
-    public static final HashMap<String, Integer> YEAR_TO_SIZE;
-    static {
-        YEAR_TO_SIZE = new HashMap<>();
-        YEAR_TO_SIZE.put("2010", 13);
-        YEAR_TO_SIZE.put("2011", 13);
-        YEAR_TO_SIZE.put("2012(1)", 13);
-        YEAR_TO_SIZE.put("2013", 13);
-        YEAR_TO_SIZE.put("2014(1)", 13);
-        YEAR_TO_SIZE.put("2012(2)", 21);
-        YEAR_TO_SIZE.put("2014(3)", 20);
-        YEAR_TO_SIZE.put("2015(1)", 13);
-        YEAR_TO_SIZE.put("2015(3)", 20);
-    }
+
 
     public BracketBuster(int trials) {
         this.trials = trials;
-        constants = new double[YEAR_TO_SIZE.get(Driver.YEAR)];
-        best = new double[YEAR_TO_SIZE.get(Driver.YEAR)];
+        constants = new double[Driver.YEAR_TO_SIZE.get(Driver.YEAR)];
+        best = new double[Driver.YEAR_TO_SIZE.get(Driver.YEAR)];
         winnerPos = new int[63];
     }
 
@@ -156,7 +139,8 @@ public class BracketBuster {
          * Reads in the z scores from file and fills in the teams array
          */
         try {
-            File dataFile = new File("stats_" + Driver.YEAR + "_3" + ".txt");
+            File dataFile = new File(
+                    "stats/stats_" + Driver.YEAR + "_3" + ".txt");
             Scanner fileScanner = new Scanner(dataFile);
             int j = 0;
             while (fileScanner.hasNext() && j < 64) {
@@ -265,13 +249,14 @@ public class BracketBuster {
          * Reads in the worths from file and fills in the worths array
          */
         try {
-            File dataFile = new File("stats_" + Driver.YEAR + "_3" + ".txt");
+            File dataFile = new File(
+                    "stats/stats_" + Driver.YEAR + "_3" + ".txt");
             Scanner fileScanner = new Scanner(dataFile);
             int i = 0;
             while (fileScanner.hasNext() && i < 64) {
                 String line = fileScanner.nextLine();
-                worths[i] = Double.parseDouble(
-                        (line.split(" "))[YEAR_TO_SIZE.get(Driver.YEAR) - 1]);
+                worths[i] = Double.parseDouble((line.split(" "))
+                        [Driver.YEAR_TO_SIZE.get(Driver.YEAR) - 1]);
                 i++;
             }
             fileScanner.close();

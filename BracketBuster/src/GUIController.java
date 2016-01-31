@@ -74,21 +74,11 @@ public class GUIController implements Initializable {
     /**
      * 
      */
-    private final String[] statsOne = {"FG%", "3P%", "ORPG", "RPG", "FTMPG",
-                    "ASTPG", "TOPG", "STPG", "BLKPG", "CF", "T20", "CT"};
+    private int L1;
     /**
      * 
      */
-    private final String[] statsTwo = {"FG%", "3P%", "ORPG", "RPG", "FTMPG",
-                    "ASTPG", "TOPG", "STPG", "BLKPG", "CF", "T20", "CT",
-                    "FTAPG", "Opp FG%", "Opp TO", "Opp RPG", "Opp FTAPG",
-                    "FT%", "AST%", "Opp AST%"};
-    /**
-     * 
-     */
-    private final String[] statsThree = {"FG%", "3P%", "ORPG", "RPG", "FTMPG",
-                    "ASTPG", "TOPG", "STPG", "BLKPG", "CF", "T20", "CT", "FT%",
-                    "FGMPG", "PPS", "ADJ FG%", "3PMPG", "AST/TO", "ST/TO"};
+    private int L2;
 
     /**
      * 
@@ -98,6 +88,10 @@ public class GUIController implements Initializable {
      * 
      */
     private final HashMap<String, String[]> allValid = new HashMap<>();
+    /**
+     * 
+     */
+    private final HashMap<String, String[]> statsHeaders = new HashMap<>();
 
     /**
      * Initializes the controller class
@@ -110,15 +104,21 @@ public class GUIController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Instantiate the formulas  and allValid maps from their text files
+        // Instantiate the maps from their respective text files
         Driver.readInConfigFiles("config/formulas.txt", formulas);
         Driver.readInConfigFiles("config/valid.txt", allValid);
+        Driver.readInConfigFiles("config/stats_headers.txt", statsHeaders);
+
+        // Initialize the convenience length variables
+        L1 = statsHeaders.get("1").length;
+        L2 = statsHeaders.get("2").length;
 
         // Font needs to be monospaced or the bracket goes all wonky
         bracketField.setFont(Font.font(java.awt.Font.MONOSPACED, 13.5));
 
         // Instantiate the instance array to the maximum coefficient size
-        lastCoefficients = new double[statsTwo.length];
+        lastCoefficients = new double[
+                Collections.max(Driver.YEAR_TO_SIZE.values())];
 
         // Set up the dropdown menus with choices, defaults, and listeners
         ArrayList<String> years = new ArrayList(allValid.keySet());
@@ -192,8 +192,8 @@ public class GUIController implements Initializable {
         fileNameRow.setVisible(false);
         progressBox.setVisible(false);
 
-        // If the program does not support the selected year, don't show anything
-        if (!BracketBuster.YEAR_TO_SIZE.containsKey(Driver.YEAR)) {
+        // If the program doesn't support the selected year, don't show anything
+        if (!Driver.YEAR_TO_SIZE.containsKey(Driver.YEAR)) {
             return;
         }
 
@@ -224,13 +224,12 @@ public class GUIController implements Initializable {
         }
 
         // Add the correct children to the main coefficient row
-        setUpRow(0, statsOne, coeffRow);
+        setUpRow(0, statsHeaders.get("1"), coeffRow);
 
-        // If the selected year supports additional statistics, fill in the overflow row
-        if (BracketBuster.YEAR_TO_SIZE.get(Driver.YEAR) == 21) {
-            setUpRow(statsOne.length, statsTwo, overflowCoeffRow);
-        } else if (BracketBuster.YEAR_TO_SIZE.get(Driver.YEAR) == 20) {
-            setUpRow(statsOne.length, statsThree, overflowCoeffRow);
+        // If the selected year supports additional stats, use the overflow row
+        if (Driver.YEAR_TO_SIZE.get(Driver.YEAR) > L1) {
+            setUpRow(L1, statsHeaders.get(Driver.YEAR.split("[\\(, \\)]")[1]),
+                    overflowCoeffRow);
         }
     }
 
@@ -282,14 +281,16 @@ public class GUIController implements Initializable {
     private void saveButtonHandler(ActionEvent event) {
         try {
             Scanner input = new Scanner(new File("bracket.txt"));
-            PrintWriter output = new PrintWriter(outputFileNameField.getText() + ".txt");
+            PrintWriter output = new PrintWriter(
+                    outputFileNameField.getText() + ".txt");
             while (input.hasNextLine()) {
                 output.println(input.nextLine());
             }
             input.close();
             output.close();
         } catch (IOException e) {
-            System.out.println("Some problem copying the bracket to the new file.");
+            System.out.println("Some problem copying"
+                    + " the bracket to the new file.");
         }
     }
 
@@ -310,7 +311,8 @@ public class GUIController implements Initializable {
             BracketBuster bb = new BracketBuster(0);
             storeCoeff();
             double[] inputCoeff = concat(Arrays.copyOfRange(
-                    lastCoefficients, 0, BracketBuster.YEAR_TO_SIZE.get(Driver.YEAR) - 1), new double[]{0});
+                    lastCoefficients, 0, Driver.YEAR_TO_SIZE.get(
+                            Driver.YEAR) - 1), new double[]{0});
 
             int score = bb.score(inputCoeff);
             scoreField.setText(Integer.toString(score));
@@ -321,8 +323,9 @@ public class GUIController implements Initializable {
             storeCoeff();
 
             // Pass in the specified formula from the map
-            double[] inputCoeff = concat(Arrays.copyOfRange(formulas.get(formulaDropdown.valueProperty().asString().getValue()),
-                            0, BracketBuster.YEAR_TO_SIZE.get(Driver.YEAR) - 1), new double[]{0});
+            double[] inputCoeff = concat(Arrays.copyOfRange(formulas.get(
+                    formulaDropdown.valueProperty().asString().getValue()), 0,
+                    Driver.YEAR_TO_SIZE.get(Driver.YEAR) - 1), new double[]{0});
 
             int score = bb.score(inputCoeff);
             scoreField.setText(Integer.toString(score));
@@ -332,20 +335,23 @@ public class GUIController implements Initializable {
             VBox[] vboxes = new VBox[objs.length];
             for (int i = 0; i < objs.length; i++) {
                 vboxes[i] = (VBox)objs[i];
-                ((TextField)vboxes[i].getChildren().toArray()[1]).setText(Double.toString(inputCoeff[i]));
+                ((TextField)vboxes[i].getChildren().toArray()[1]).setText(
+                        Double.toString(inputCoeff[i]));
             }
             if (!overflowCoeffRow.getChildren().isEmpty()) {
                 Object[] objs2 = overflowCoeffRow.getChildren().toArray();
                 VBox[] vboxes2 = new VBox[objs2.length];
                 for (int i = 0; i < objs2.length; i++) {
                     vboxes2[i] = (VBox)objs2[i];
-                    ((TextField)vboxes2[i].getChildren().toArray()[1]).setText(Double.toString(inputCoeff[i + objs.length]));
+                    ((TextField)vboxes2[i].getChildren().toArray()[1]).setText(
+                            Double.toString(inputCoeff[i + objs.length]));
                 }
             }
             BracketVisual bv = new BracketVisual(bb.winnerPos, score,
                     inputCoeff);
         } else if (MODE.equals("Generate Formula")) {
-            BracketBuster bb = new BracketBuster(Integer.parseInt(trialsField.getText()));
+            BracketBuster bb = new BracketBuster(
+                    Integer.parseInt(trialsField.getText()));
             storeCoeff();
             progressBox.setVisible(true);
             bb.maxFind();
@@ -397,11 +403,11 @@ public class GUIController implements Initializable {
                 vboxes[i] = (VBox)objs[i];
             }
             for (int i = 0; i < objs.length; i++) {
-                lastCoefficients[i] = Double.parseDouble(
-                        ((TextField)vboxes[i].getChildren().toArray()[1]).getText());
+                lastCoefficients[i] = Double.parseDouble(((TextField)
+                        vboxes[i].getChildren().toArray()[1]).getText());
             }
         } else {
-            for (int i = 0; i < statsOne.length; i++) {
+            for (int i = 0; i < L1; i++) {
                 lastCoefficients[i] = 0;
             }
         }
@@ -412,11 +418,11 @@ public class GUIController implements Initializable {
                 vboxes[i] = (VBox)objs[i];
             }
             for (int i = 0; i < objs.length; i++) {
-                lastCoefficients[i + statsOne.length] = Double.parseDouble(
-                        ((TextField)vboxes[i].getChildren().toArray()[1]).getText());
+                lastCoefficients[i + L1] = Double.parseDouble(((TextField)
+                        vboxes[i].getChildren().toArray()[1]).getText());
             }
         } else {
-            for (int i = statsOne.length; i < statsTwo.length; i++) {
+            for (int i = L1; i < L2; i++) {
                 lastCoefficients[i] = 0;
             }
         }
@@ -459,7 +465,8 @@ public class GUIController implements Initializable {
     private void fileToGUI(String fileName) {
         try {
             File dataFile = new File(fileName);
-            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(dataFile));
             String line;
             int i = 0;
             while ((line = reader.readLine()) != null) {

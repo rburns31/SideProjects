@@ -1,4 +1,4 @@
-As of: 1/29/2016
+As of: 1/31/2016
 
 - Create graphs of z-scores vs. worth values to gain insight into each stat's importance
 - Re-evaluate conference factors
@@ -8,8 +8,11 @@ As of: 1/29/2016
 - Create data sets for 2010(3), 2011(3), 2012(3), and 2013(3)
 - Standardize run-times
 - Fine-tune the GUI
+- Rework the GUI flow so that there are no duplicate years in the drop-down
+- On high seeds generation in the GUI, get rid of different versions of the same year
+- Move high seeds into the select formula section (maybe re-name to routine?)
+- Way to see the actual data through the GUI (manual formulas needs more support)
 - Implement modal picks (most picked by the other formulas)
-- Implement config files (move year to size, stats headers there)
 - SERIOUS code clean-up (GUIController, BracketBuster)
 - Ability to store new formulas that are made in the GUI
 - Clean up the stats' text files when done with a run
@@ -19,9 +22,5 @@ As of: 1/29/2016
 - Trim output coefficients
 - Ability to input holistic/final/manual selections through the GUI and then save them
 - More diagnostic output in text files
-- On high seeds generation in the GUI, get rid of different versions of the same year
+
 - Don't output a score if the worths column is empty (for applying formulas before the tourney)
-- Move high seeds into the select formula section (maybe re-name to routine?)
-- Way to see the actual data through the GUI (manual formulas needs more support)
-- Clean up project directory structure
-- Rework the GUI flow so that there are no duplicate years in the dropdown

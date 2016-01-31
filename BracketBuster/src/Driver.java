@@ -35,6 +35,24 @@ public class Driver extends Application {
      */
     public static String YEAR;
 
+    /**
+     * Statically instantiates a map from the year that was input to the
+     *     number of variables that the corresponding data set contains
+     */
+    public static final HashMap<String, Integer> YEAR_TO_SIZE;
+    static {
+        YEAR_TO_SIZE = new HashMap<>();
+        YEAR_TO_SIZE.put("2010(1)", 13);
+        YEAR_TO_SIZE.put("2011(1)", 13);
+        YEAR_TO_SIZE.put("2012(1)", 13);
+        YEAR_TO_SIZE.put("2013(1)", 13);
+        YEAR_TO_SIZE.put("2014(1)", 13);
+        YEAR_TO_SIZE.put("2012(2)", 21);
+        YEAR_TO_SIZE.put("2014(3)", 20);
+        YEAR_TO_SIZE.put("2015(1)", 13);
+        YEAR_TO_SIZE.put("2015(3)", 20);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("GUIFXML.fxml"));
@@ -78,10 +96,10 @@ public class Driver extends Application {
      */
     public static void convertExcel() {
         try {
-            File outFile = new File("stats_" + YEAR + "_3" + ".txt");
+            File outFile = new File("stats/stats_" + YEAR + "_3" + ".txt");
             PrintStream output = new PrintStream(outFile);
             InputStream input = new BufferedInputStream(new FileInputStream(
-                    "stats_" + YEAR + "_3" + ".xls"));
+                    "stats/stats_" + YEAR + "_3" + ".xls"));
             POIFSFileSystem fs = new POIFSFileSystem(input);
             HSSFWorkbook wb = new HSSFWorkbook(fs);
             HSSFSheet sheet = wb.getSheetAt(0);
