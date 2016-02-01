@@ -68,6 +68,10 @@ public class GUIController implements Initializable {
      */
     public static String MODE;
     /**
+     * 
+     */
+    public static String FORMULA;
+    /**
      *
      */
     private double[] lastCoefficients;
@@ -156,6 +160,7 @@ public class GUIController implements Initializable {
         });
         formulaDropdown.valueProperty().addListener((obs, old, newF) -> {
             bracketField.clear();
+            FORMULA = newF;
         });
     }
 
@@ -306,7 +311,7 @@ public class GUIController implements Initializable {
             BracketBuster bb = new BracketBuster(0);
             int score = bb.highSeed();
             scoreField.setText(Integer.toString(score));
-            BracketVisual bv = new BracketVisual(bb.winnerPos, score, bb.best);
+            new BracketVisual(bb.winnerPos, score, bb.best, -1);
         } else if (MODE.equals("Manual Formula")) {
             BracketBuster bb = new BracketBuster(0);
             storeCoeff();
@@ -316,8 +321,7 @@ public class GUIController implements Initializable {
 
             int score = bb.score(inputCoeff);
             scoreField.setText(Integer.toString(score));
-            BracketVisual bv = new BracketVisual(bb.winnerPos, score,
-                    inputCoeff);
+            new BracketVisual(bb.winnerPos, score, inputCoeff, -1);
         } else if (MODE.equals("Select Formula")) {
             BracketBuster bb = new BracketBuster(0);
             storeCoeff();
@@ -347,15 +351,13 @@ public class GUIController implements Initializable {
                             Double.toString(inputCoeff[i + objs.length]));
                 }
             }
-            BracketVisual bv = new BracketVisual(bb.winnerPos, score,
-                    inputCoeff);
+            new BracketVisual(bb.winnerPos, score, inputCoeff, -1);
         } else if (MODE.equals("Generate Formula")) {
             BracketBuster bb = new BracketBuster(
                     Integer.parseInt(trialsField.getText()));
+            int score = bb.maxFind();
             storeCoeff();
             progressBox.setVisible(true);
-            bb.maxFind();
-            int score = bb.score(bb.best);
             Object[] objs = coeffRow.getChildren().toArray();
             VBox[] vboxes = new VBox[objs.length];
             for (int i = 0; i < objs.length; i++) {
@@ -373,7 +375,8 @@ public class GUIController implements Initializable {
                 }
             }
             scoreField.setText(Integer.toString(score));
-            BracketVisual bv = new BracketVisual(bb.winnerPos, score, bb.best);
+            new BracketVisual(bb.winnerPos, score, bb.best,
+                    Integer.parseInt(trialsField.getText()));
         }
         fileToGUI("bracket.txt");
         fileNameRow.setVisible(true);

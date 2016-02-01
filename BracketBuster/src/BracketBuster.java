@@ -1,5 +1,9 @@
 import java.io.IOException;
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -46,12 +50,12 @@ public class BracketBuster {
      * Holds the coefficients that lead to the current maximum score reached
      *     by a formula in this iteration
      */
-    public final double[] best;
+    public double[] best;
     /**
      * Array to hold the winners of each game of the tournament, but they are
      *     represented in terms of their column in the inputted data
      */
-    public final int[] winnerPos;
+    public int[] winnerPos;
 
 
 
@@ -89,6 +93,9 @@ public class BracketBuster {
                 }
             }
         }
+        List trimmed = trimCoeff(max, best);
+        max = (int) trimmed.get(0);
+        best = (double[]) trimmed.get(1);
         return max;
     }
 
@@ -320,5 +327,29 @@ public class BracketBuster {
             }
         }
         return pointsEarned;
+    }
+
+    /**
+     * 
+     * @param origScore
+     * @param origCoeff
+     * @return 
+     */
+    public List trimCoeff(int origScore, double[] origCoeff) {
+        double[] trimmed = Arrays.copyOf(origCoeff, origCoeff.length);
+
+        int j = Double.toString(Math.abs(origCoeff[0])).length()
+                - Double.toString(Math.abs(origCoeff[0])).indexOf('.') - 1;
+        while (origScore <= score(trimmed) && j > 0) {
+            origCoeff = Arrays.copyOf(trimmed, trimmed.length);
+            for (int i = 0; i < trimmed.length; i++) {
+                String temp = Double.toString(Math.abs(trimmed[i]));
+                int decimals = temp.length() - temp.indexOf('.') - 1;
+                trimmed[i] = new BigDecimal(trimmed[i]).setScale(decimals - 1,
+                        RoundingMode.HALF_UP).doubleValue();
+            }
+            j--;
+        }
+        return Arrays.asList(score(origCoeff), origCoeff);
     }
 }

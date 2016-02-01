@@ -1,5 +1,7 @@
-Displaying bracket for year: 2010
-Generated: 3-8-2014 20'7'21
+Tournament bracket for year: 2010(1)
+Generated: 01-31-2016 20:00:48
+Scored: 62 points
+Mode: High Seeds
 
 Kansas                                                                                                                    Kentucky
 _________                                                                                                                _________
@@ -9,46 +11,46 @@ _________|         |                                                            
                    |Kansas                                                                            Kentucky|                   
 UNLV               |_________                                                                        _________|              Texas
 _________          |         |                                                                      |         |          _________
-         |UNLV     |         |                                                                      |         | Wake For|         
+         |UNLV     |         |                                                                      |         |    Texas|         
 N Iowa   |_________|         |                                                                      |         |_________| Wake For
 _________|                   |                                                                      |                   |_________
-                             |Mich St                                                       Kentucky|                             
+                             |Kansas                                                        Kentucky|                             
 Mich St                      |_________                                                    _________|                       Temple
 _________                    |         |                                                  |         |                    _________
          |Mich St            |         |                                                  |         |             Temple|         
 NM St    |_________          |         |                                                  |         |          _________|  Cornell
 _________|         |         |         |                                                  |         |         |         |_________
-                   |Mich St  |         |                                                  |         |   Temple|                   
+                   |Maryland |         |                                                  |         |Wisconsin|                   
 Maryland           |_________|         |                                                  |         |_________|          Wisconsin
 _________          |                   |                                                  |                   |          _________
-         |Maryland |                   |                                                  |                   |  Wofford|         
+         |Maryland |                   |                                                  |                   |Wisconsin|         
 Houston  |_________|                   |                                                  |                   |_________|  Wofford
 _________|                             |                                                  |                             |_________
-                                       |Mich St                                        WVU|                                       
+                                       |Kansas                                    Kentucky|                                       
 Tenn                                   |_________                                _________|                              Marquette
 _________                              |         |                              |         |                              _________
-         |Tenn                         |         |                              |         |                     Washingt|         
+         |Tenn                         |         |                              |         |                    Marquette|         
 San D St |_________                    |         |                              |         |                    _________| Washingt
 _________|         |                   |         |                              |         |                   |         |_________
-                   |Tenn               |         |                              |         |           Washingt|                   
+                   |G'town             |         |                              |         |          New Mexic|                   
 G'town             |_________          |         |                              |         |          _________|          New Mexic
 _________          |         |         |         |                              |         |         |         |          _________
-         |Ohio     |         |         |         |                              |         |         |         |New Mexic|         
+         |G'town   |         |         |         |                              |         |         |         |New Mexic|         
 Ohio     |_________|         |         |         |                              |         |         |         |_________|  Montana
 _________|                   |         |         |                              |         |         |                   |_________
-                             |Tenn     |         |                              |         |      WVU|                             
+                             |Ohio St  |         |                              |         |      WVU|                             
 Okla St                      |_________|         |                              |         |_________|                      Clemson
 _________                    |                   |                              |                   |                    _________
-         |Okla St            |                   |                              |                   |           Missouri|         
+         |Okla St            |                   |                              |                   |            Clemson|         
 Ga Tech  |_________          |                   |                              |                   |          _________| Missouri
 _________|         |         |                   |                              |                   |         |         |_________
-                   |Okla St  |                   |          Duke                |                   |      WVU|                   
+                   |Ohio St  |                   |          Kansas              |                   |      WVU|                   
 Ohio St            |_________|                   |         ____________         |                   |_________|                WVU
 _________          |                             |                              |                             |          _________
          |Ohio St  |                             |                              |                             |      WVU|         
 UCSB     |_________|                             |                              |                             |_________|Morgan St
 _________|                                       |                              |                                       |_________
-                                                 |Mich St                   Duke|                                                 
+                                                 |Kansas                Kentucky|                                                 
 Syracuse                                         |_________            _________|                                             Duke
 _________                                        |                              |                                        _________
          |Syracuse                               |                              |                                   Duke|         
@@ -57,7 +59,7 @@ _________|         |                             |                              
                    |Syracuse                     |                              |                         Duke|                   
 Gonzaga            |_________                    |                              |                    _________|                Cal
 _________          |         |                   |                              |                   |         |          _________
-         |Gonzaga  |         |                   |                              |                   |         |  L'ville|         
+         |Gonzaga  |         |                   |                              |                   |         |      Cal|         
 Fla St   |_________|         |                   |                              |                   |         |_________|  L'ville
 _________|                   |                   |                              |                   |                   |_________
                              |Syracuse           |                              |               Duke|                             
@@ -66,28 +68,28 @@ _________                    |         |         |                              
          |Butler             |         |         |                              |         |         |          Texas A&M|         
 UTEP     |_________          |         |         |                              |         |         |          _________|  Utah St
 _________|         |         |         |         |                              |         |         |         |         |_________
-                   |Vandy    |         |         |                              |         |         |Texas A&M|                   
+                   |Vandy    |         |         |                              |         |         |   Purdue|                   
 Vandy              |_________|         |         |                              |         |         |_________|             Purdue
 _________          |                   |         |                              |         |                   |          _________
          |Vandy    |                   |         |                              |         |                   |   Purdue|         
 Murray St|_________|                   |         |                              |         |                   |_________|    Siena
 _________|                             |         |                              |         |                             |_________
-                                       |Kansas St|                              |     Duke|                                       
+                                       |Syracuse |                              |     Duke|                                       
 Xavier                                 |_________|                              |_________|                                     ND
 _________                              |                                                  |                              _________
-         |Xavier                       |                                                  |                    Old Domin|         
+         |Xavier                       |                                                  |                           ND|         
 Minnesota|_________                    |                                                  |                    _________|Old Domin
 _________|         |                   |                                                  |                   |         |_________
-                   |Xavier             |                                                  |          Old Domin|                   
+                   |Pitt               |                                                  |             Baylor|                   
 Pitt               |_________          |                                                  |          _________|             Baylor
 _________          |         |         |                                                  |         |         |          _________
-         |Pitt     |         |         |                                                  |         |         | Sam H St|         
+         |Pitt     |         |         |                                                  |         |         |   Baylor|         
 Oakland  |_________|         |         |                                                  |         |         |_________| Sam H St
 _________|                   |         |                                                  |         |                   |_________
-                             |Kansas St|                                                  |Old Domin|                             
+                             |Kansas St|                                                  |Villanova|                             
 BYU                          |_________|                                                  |_________|                     Richmond
 _________                    |                                                                      |                    _________
-         |Florida            |                                                                      |           Richmond|         
+         |BYU                |                                                                      |           Richmond|         
 Florida  |_________          |                                                                      |          _________| St Marys
 _________|         |         |                                                                      |         |         |_________
                    |Kansas St|                                                                      |Villanova|                   

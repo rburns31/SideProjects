@@ -18,6 +18,11 @@ public class BracketVisual {
      */
     private final double[] best;
     /**
+     * The number of trials which lead to this formula (only for the
+     *   'Generate Formula' mode
+     */
+    private final int trials;
+    /**
      * The file name that BracketVisual is creating, defaults to bracket.txt
      */
     private final String outputTxt;
@@ -30,9 +35,10 @@ public class BracketVisual {
      */
     private final String[] teams;
 
-    public BracketVisual(int[] winnerPos, int max, double[] best) {
+    public BracketVisual(int[] winnerPos, int max, double[] best, int trials) {
         this.max = max;
         this.best = best;
+        this.trials = trials;
         this.outputTxt = "bracket.txt";
 
         // Set the teams variable to the appropriate array for the year
@@ -81,6 +87,46 @@ public class BracketVisual {
     }
 
     /**
+     * Handles printing all of the applicable diagnostic headers to the file
+     * @param outFile The file for these headers to be printed into
+     */
+    private void printHeaders(PrintWriter outFile) {
+        String header1 = "Tournament bracket for year: " + Driver.YEAR;
+        String header2 = "Generated: " + Driver.getTime();
+        String header3 = "Scored: " + max + " points";
+        String header4 = "Mode: " + GUIController.MODE;
+
+        String header5 = "Formula: " + GUIController.FORMULA;
+
+        String header6 = "Trials: " + trials;
+
+        StringBuilder header7 = new StringBuilder("Coefficients: ");
+        for (int i = 0; i < best.length - 1; i++) {
+            if (i != 0) {
+                header7.append(", ");
+            }
+            String str = Double.toString(best[i]);
+            header7.append(!str.contains(".") ? str
+                    : str.replaceAll("0*$", "").replaceAll("\\.$", ""));
+        }
+
+        outFile.println(header1);
+        outFile.println(header2);
+        outFile.println(header3);
+        outFile.println(header4);
+        if (GUIController.MODE.equals("Select Formula")) {
+            outFile.println(header5);
+            outFile.println(header7);
+        } else if (GUIController.MODE.equals("Manual Formula")) {
+            outFile.println(header7);
+        } else if (GUIController.MODE.equals("Generate Formula")) {
+            outFile.println(header6);
+            outFile.println(header7);
+        }
+        outFile.println();
+    }
+
+    /**
      * Creates a file, and fills it with a filled-in bracket based on the input
      *     year and winners
      * Not ideal setup to have this hard-coded like it is, try to fix this
@@ -94,6 +140,8 @@ public class BracketVisual {
                     "Some problem with writing to the bracket visual.");
         }
 
+        printHeaders(outFile);
+
         // Parts of the bracket to be printed (for convenience)
         String topLine = "_________";
         String lBottomLine = "_________|";
@@ -101,27 +149,6 @@ public class BracketVisual {
         String divider = "|";
         String empty = "";
         String champLine = "____________";
-
-        // Headers which will be printed at the beginning of the output file
-        String header = "Displaying bracket for year: " + Driver.YEAR;
-        String header2 = "Generated: " + Driver.getTime();
-        String header3 = "Scored: " + max + " points";
-        StringBuilder header4 = new StringBuilder("With constants: ");
-        for (int i = 0; i < best.length - 1; i++) {
-            if (i != 0) {
-                header4.append(", ");
-            }
-            String str = Double.toString(best[i]);
-            header4.append(!str.contains(".") ? str
-                    : str.replaceAll("0*$", "").replaceAll("\\.$", ""));
-        }
-
-        // Print headers to file
-        outFile.println(header);
-        outFile.println(header2);
-        outFile.println(header3);
-        outFile.println(header4);
-        outFile.println();
 
         // Print the first octets of each side of the bracket
         outFile.printf("%-10s%110s%10s%n", teams[0], empty, teams[32]);

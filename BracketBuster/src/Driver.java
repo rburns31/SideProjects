@@ -77,17 +77,17 @@ public class Driver extends Application {
     public static String getTime() {
         StringBuilder timeStr = new StringBuilder();
         Calendar calendar = new GregorianCalendar();
-        timeStr.append(Integer.toString(calendar.get(Calendar.MONTH) + 1));
+        timeStr.append(String.format("%02d", calendar.get(Calendar.MONTH) + 1));
         timeStr.append("-");
-        timeStr.append(Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)));
+        timeStr.append(String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)));
         timeStr.append("-");
         timeStr.append(Integer.toString(calendar.get(Calendar.YEAR)));
         timeStr.append(" ");
-        timeStr.append(Integer.toString(calendar.get(Calendar.HOUR_OF_DAY)));
-        timeStr.append("'");
-        timeStr.append(Integer.toString(calendar.get(Calendar.MINUTE)));
-        timeStr.append("'");
-        timeStr.append(Integer.toString(calendar.get(Calendar.SECOND)));
+        timeStr.append(String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY)));
+        timeStr.append(":");
+        timeStr.append(String.format("%02d", calendar.get(Calendar.MINUTE)));
+        timeStr.append(":");
+        timeStr.append(String.format("%02d", calendar.get(Calendar.SECOND)));
         return timeStr.toString();
     }
 
@@ -97,6 +97,7 @@ public class Driver extends Application {
     public static void convertExcel() {
         try {
             File outFile = new File("stats/stats_" + YEAR + "_3" + ".txt");
+            outFile.deleteOnExit();
             PrintStream output = new PrintStream(outFile);
             InputStream input = new BufferedInputStream(new FileInputStream(
                     "stats/stats_" + YEAR + "_3" + ".xls"));
@@ -122,14 +123,13 @@ public class Driver extends Application {
     }
 
     /**
-     * Reads in any of the config data (formulas, teams, valid formulas)
+     * Reads in any of the config data
+     *   (formulas, teams, valid formulas, stats headers)
      *   from their text file and populates them into a passed-in hash map
      * @param fileName The name of the config file to be read in
      * @param map The structure to contain the config data
      */
-    public static void readInConfigFiles(String fileName,
-            HashMap map) {
-
+    public static void readInConfigFiles(String fileName, HashMap map) {
         try {
             Scanner fileScanner = new Scanner(new File(fileName));
             while (fileScanner.hasNextLine()) {
