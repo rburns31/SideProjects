@@ -134,7 +134,7 @@ public class GUIController implements Initializable {
             update();
         });
         modeDropdown.getItems().addAll("High Seeds", "Manual Formula",
-                "Select Formula", "Generate Formula");
+                "Select Formula", "Generate Formula", "Actual Results");
         modeDropdown.setValue("High Seeds");
         modeDropdown.valueProperty().addListener((obs, old, newMode) -> {
             MODE = newMode;
@@ -208,7 +208,7 @@ public class GUIController implements Initializable {
         goButton.setVisible(true);
 
         // If the program is in "High Seeds" mode, do not fill in the rows
-        if (MODE.equals("High Seeds")) {
+        if (MODE.equals("High Seeds") || MODE.equals("Actual Results")) {
             return;
         } else if (MODE.equals("Select Formula")) {
             formulaBox.setVisible(true);
@@ -377,6 +377,11 @@ public class GUIController implements Initializable {
             scoreField.setText(Integer.toString(score));
             new BracketVisual(bb.winnerPos, score, bb.best,
                     Integer.parseInt(trialsField.getText()));
+        } else if (MODE.equals("Actual Results")) {
+            BracketBuster bb = new BracketBuster(0);
+            bb.actualResults();
+            scoreField.setText("N/A");
+            new BracketVisual(bb.winnerPos, -1, bb.best, -1);
         }
         fileToGUI("bracket.txt");
         fileNameRow.setVisible(true);
@@ -471,13 +476,15 @@ public class GUIController implements Initializable {
             BufferedReader reader = new BufferedReader(
                     new FileReader(dataFile));
             String line;
-            int i = 0;
+            boolean pastHeaders = false;
             while ((line = reader.readLine()) != null) {
-                if (i > 4) {
+                if (pastHeaders) {
                     bracketField.appendText(line);
                     bracketField.appendText("\n");
                 }
-                i++;
+                if (line.equals("")) {
+                    pastHeaders = true;
+                }
             }
             reader.close();
         } catch (IOException e) {

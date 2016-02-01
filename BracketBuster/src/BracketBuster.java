@@ -244,33 +244,13 @@ public class BracketBuster {
          *     seeds houses each team's seed (with the #1 overall seed getting
          *         assigned a -1 and the #2 overall getting assigned a 0
          */
-        double[] worths = new double[64];
+        double[] worths = readInWorths();
         double[] seeds =
                     {-1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15,
                     1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15,
                     0, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15,
                     1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15};
         int pointsEarned = 0;
-
-        /**
-         * Reads in the worths from file and fills in the worths array
-         */
-        try {
-            File dataFile = new File(
-                    "stats/stats_" + Driver.YEAR + "_3" + ".txt");
-            Scanner fileScanner = new Scanner(dataFile);
-            int i = 0;
-            while (fileScanner.hasNext() && i < 64) {
-                String line = fileScanner.nextLine();
-                worths[i] = Double.parseDouble((line.split(" "))
-                        [Driver.YEAR_TO_SIZE.get(Driver.YEAR) - 1]);
-                i++;
-            }
-            fileScanner.close();
-        } catch (IOException e) {
-            System.out.println("Data file does not exist, exiting.");
-            System.exit(0);
-        }
 
         // Hold on to your hat, this is where it gets a tad convoluted
 
@@ -331,6 +311,59 @@ public class BracketBuster {
 
     /**
      * 
+     */
+    public void actualResults() {
+        /**
+         * Sets up the worths arrays which houses the number of games that each
+         *   team actually won in this year (based on ESPN standard scoring)
+         */
+        double[] worths = readInWorths();
+
+        // counter keeps track of what index of winnerPos we fill in next
+        int counter = 0;
+        /**
+         * Go through the bracket one round at a time
+         */
+        for (int round = 0; round < 6; round++) {
+            /**
+             * (value / 2) is how much each game in this round is worth
+             * value is also how many teams are vying for those points
+             *     (i.e. in round 1 only 2 teams, in round 6 all 64 teams)
+             */
+            int value = (int)(Math.pow(2, round + 1));
+            // compare houses the index of each team in the "match-up"
+            int[] compare = new int[value];
+            // For each "match-up" in this round
+            for (int i = 0; i < (64 / value); i++) {
+                int maxWorthIndex = value * i;
+                // For each team in this "match-up"
+                for (int j = 0; j < value; j++) {
+                    // Find the index of the team
+                    compare[j] = (value * i) + j;
+
+                    /**
+                     * If the team's worth is the biggest in the "match-up"
+                     *     thus far, save it in maxWorth
+                     */
+                    if (worths[compare[j]] > worths[maxWorthIndex]) {
+                        maxWorthIndex = compare[j];
+                    }
+                }
+
+                /**
+                 * Put the index of the team with the highest worth into winnerPos
+                 * There are only 63 games, so there are only 63 winners
+                 */
+                if (counter < winnerPos.length) {
+                    winnerPos[counter] = maxWorthIndex;
+                }
+                counter++;
+            }
+        }
+    }
+
+    /**
+     * 
      * @param origScore
      * @param origCoeff
      * @return 
@@ -351,5 +384,30 @@ public class BracketBuster {
             j--;
         }
         return Arrays.asList(score(origCoeff), origCoeff);
+    }
+
+    /**
+     * Reads in the worths from file and outputs the worths array
+     * @return The worths array from file
+     */
+    private double[] readInWorths() {
+        double[] worths = new double[64];
+        try {
+            File dataFile = new File(
+                    "stats/stats_" + Driver.YEAR + "_3" + ".txt");
+            Scanner fileScanner = new Scanner(dataFile);
+            int i = 0;
+            while (fileScanner.hasNext() && i < 64) {
+                String line = fileScanner.nextLine();
+                worths[i] = Double.parseDouble((line.split(" "))
+                        [Driver.YEAR_TO_SIZE.get(Driver.YEAR) - 1]);
+                i++;
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("Data file does not exist, exiting.");
+            System.exit(0);
+        }
+        return worths;
     }
 }

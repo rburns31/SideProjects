@@ -92,8 +92,14 @@ public class BracketVisual {
      */
     private void printHeaders(PrintWriter outFile) {
         String header1 = "Tournament bracket for year: " + Driver.YEAR;
+
         String header2 = "Generated: " + Driver.getTime();
+
         String header3 = "Scored: " + max + " points";
+        if (max == -1) {
+            header3 = "Scored: N/A";
+        }
+        
         String header4 = "Mode: " + GUIController.MODE;
 
         String header5 = "Formula: " + GUIController.FORMULA;
