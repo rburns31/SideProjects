@@ -1,0 +1,102 @@
+Tournament bracket for year: 2011(3)
+Generated: 03-13-2016 11:38:56
+Scored: 90 points
+Mode: Select Formula
+Formula: 2010(3)
+Coefficients: -16, -18, 3, 21, 6, -3.8, 16, 5, 3, 7, -6, 8, 15, -11, 13, 9.9, 3.9, 1, 6
+
+Ohio St                                                                                                                     Kansas
+_________                                                                                                                _________
+         |Ohio St                                                                                               Boston U|         
+UTSA     |_________                                                                                            _________| Boston U
+_________|         |                                                                                          |         |_________
+                   |Villanova                                                                         Boston U|                   
+G Mason            |_________                                                                        _________|               UNLV
+_________          |         |                                                                      |         |          _________
+         |Villanova|         |                                                                      |         |     UNLV|         
+Villanova|_________|         |                                                                      |         |_________| Illinois
+_________|                   |                                                                      |                   |_________
+                             |Villanova                                                        Vandy|                             
+WVU                          |_________                                                    _________|                        Vandy
+_________                    |         |                                                  |         |                    _________
+         |WVU                |         |                                                  |         |              Vandy|         
+Clemson  |_________          |         |                                                  |         |          _________| Richmond
+_________|         |         |         |                                                  |         |         |         |_________
+                   |WVU      |         |                                                  |         |    Vandy|                   
+Kentucky           |_________|         |                                                  |         |_________|            L'ville
+_________          |                   |                                                  |                   |          _________
+         |Kentucky |                   |                                                  |                   |M'head St|         
+Princeton|_________|                   |                                                  |                   |_________|M'head St
+_________|                             |                                                  |                             |_________
+                                       |Villanova                                    Vandy|                                       
+Xavier                                 |_________                                _________|                                 G'town
+_________                              |         |                              |         |                              _________
+         |Xavier                       |         |                              |         |                          VCU|         
+Marquette|_________                    |         |                              |         |                    _________|      VCU
+_________|         |                   |         |                              |         |                   |         |_________
+                   |Xavier             |         |                              |         |             Purdue|                   
+Syracuse           |_________          |         |                              |         |          _________|             Purdue
+_________          |         |         |         |                              |         |         |         |          _________
+         |Syracuse |         |         |         |                              |         |         |         |   Purdue|         
+Ind St   |_________|         |         |         |                              |         |         |         |_________|St Peters
+_________|                   |         |         |                              |         |         |                   |_________
+                             |Xavier   |         |                              |         |       ND|                             
+Washingt                     |_________|         |                              |         |_________|                    Texas A&M
+_________                    |                   |                              |                   |                    _________
+         |Georgia            |                   |                              |                   |          Texas A&M|         
+Georgia  |_________          |                   |                              |                   |          _________|   Fla St
+_________|         |         |                   |                              |                   |         |         |_________
+                   |UNC      |                   |          UConn               |                   |       ND|                   
+UNC                |_________|                   |         ____________         |                   |_________|                 ND
+_________          |                             |                              |                             |          _________
+         |UNC      |                             |                              |                             |       ND|         
+LIU Bkn  |_________|                             |                              |                             |_________|    Akron
+_________|                                       |                              |                                       |_________
+                                                 |UConn                      BYU|                                                 
+Duke                                             |_________            _________|                                             Pitt
+_________                                        |                              |                                        _________
+         |Duke                                   |                              |                                   Pitt|         
+Hampton  |_________                              |                              |                              _________|  UNC Ash
+_________|         |                             |                              |                             |         |_________
+                   |Duke                         |                              |                    Old Domin|                   
+Michigan           |_________                    |                              |                    _________|             Butler
+_________          |         |                   |                              |                   |         |          _________
+         |Tenn     |         |                   |                              |                   |         |Old Domin|         
+Tenn     |_________|         |                   |                              |                   |         |_________|Old Domin
+_________|                   |                   |                              |                   |                   |_________
+                             |Duke               |                              |          Wisconsin|                             
+Arizona                      |_________          |                              |          _________|                    Kansas St
+_________                    |         |         |                              |         |         |                    _________
+         |Arizona            |         |         |                              |         |         |            Utah St|         
+Memphis  |_________          |         |         |                              |         |         |          _________|  Utah St
+_________|         |         |         |         |                              |         |         |         |         |_________
+                   |Texas    |         |         |                              |         |         |Wisconsin|                   
+Texas              |_________|         |         |                              |         |         |_________|          Wisconsin
+_________          |                   |         |                              |         |                   |          _________
+         |Texas    |                   |         |                              |         |                   |Wisconsin|         
+Oakland  |_________|                   |         |                              |         |                   |_________|  Belmont
+_________|                             |         |                              |         |                             |_________
+                                       |UConn    |                              |      BYU|                                       
+Cincy                                  |_________|                              |_________|                               St Johns
+_________                              |                                                  |                              _________
+         |Cincy                        |                                                  |                      Gonzaga|         
+Missouri |_________                    |                                                  |                    _________|  Gonzaga
+_________|         |                   |                                                  |                   |         |_________
+                   |UConn              |                                                  |                BYU|                   
+UConn              |_________          |                                                  |          _________|                BYU
+_________          |         |         |                                                  |         |         |          _________
+         |UConn    |         |         |                                                  |         |         |      BYU|         
+Bucknell |_________|         |         |                                                  |         |         |_________|  Wofford
+_________|                   |         |                                                  |         |                   |_________
+                             |UConn    |                                                  |      BYU|                             
+Temple                       |_________|                                                  |_________|                         UCLA
+_________                    |                                                                      |                    _________
+         |Temple             |                                                                      |            Mich St|         
+Penn St  |_________          |                                                                      |          _________|  Mich St
+_________|         |         |                                                                      |         |         |_________
+                   |N Col    |                                                                      |  Mich St|                   
+San D St           |_________|                                                                      |_________|            Florida
+_________          |                                                                                          |          _________
+         |N Col    |                                                                                          |  Florida|         
+N Col    |_________|                                                                                          |_________|     UCSB
+_________|                                                                                                              |_________

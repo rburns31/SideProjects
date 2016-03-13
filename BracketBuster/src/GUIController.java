@@ -320,6 +320,25 @@ public class GUIController implements Initializable {
                             Driver.YEAR) - 1), new double[]{0});
 
             int score = bb.score(inputCoeff);
+            inputCoeff = (double[]) bb.trimCoeff(score, inputCoeff).get(1);
+            score = bb.score(inputCoeff);
+            // Fill in the coefficient rows with the trimmed manual formula
+            Object[] objs = coeffRow.getChildren().toArray();
+            VBox[] vboxes = new VBox[objs.length];
+            for (int i = 0; i < objs.length; i++) {
+                vboxes[i] = (VBox)objs[i];
+                ((TextField)vboxes[i].getChildren().toArray()[1]).setText(
+                        Double.toString(inputCoeff[i]));
+            }
+            if (!overflowCoeffRow.getChildren().isEmpty()) {
+                Object[] objs2 = overflowCoeffRow.getChildren().toArray();
+                VBox[] vboxes2 = new VBox[objs2.length];
+                for (int i = 0; i < objs2.length; i++) {
+                    vboxes2[i] = (VBox)objs2[i];
+                    ((TextField)vboxes2[i].getChildren().toArray()[1]).setText(
+                            Double.toString(inputCoeff[i + objs.length]));
+                }
+            }
             scoreField.setText(Integer.toString(score));
             new BracketVisual(bb.winnerPos, score, inputCoeff, -1);
         } else if (MODE.equals("Select Formula")) {

@@ -43,11 +43,15 @@ public class Driver extends Application {
     static {
         YEAR_TO_SIZE = new HashMap<>();
         YEAR_TO_SIZE.put("2010(1)", 13);
+        YEAR_TO_SIZE.put("2010(3)", 20);
         YEAR_TO_SIZE.put("2011(1)", 13);
+        YEAR_TO_SIZE.put("2011(3)", 20);
         YEAR_TO_SIZE.put("2012(1)", 13);
-        YEAR_TO_SIZE.put("2013(1)", 13);
-        YEAR_TO_SIZE.put("2014(1)", 13);
         YEAR_TO_SIZE.put("2012(2)", 21);
+        YEAR_TO_SIZE.put("2012(3)", 20);
+        YEAR_TO_SIZE.put("2013(1)", 13);
+        YEAR_TO_SIZE.put("2013(3)", 20);
+        YEAR_TO_SIZE.put("2014(1)", 13);
         YEAR_TO_SIZE.put("2014(3)", 20);
         YEAR_TO_SIZE.put("2015(1)", 13);
         YEAR_TO_SIZE.put("2015(3)", 20);

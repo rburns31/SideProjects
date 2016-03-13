@@ -1,9 +1,8 @@
-Tournament bracket for year: 2012(1)
-Generated: 03-13-2016 15:14:53
-Scored: 73 points
-Mode: Select Formula
-Formula: Average 2012(1) 1.0
-Coefficients: 0.3, 0, 0.8, 0.5, 0.47, 0, 2, 0, 0, 0.3, 0.6, 2
+Tournament bracket for year: 2012(3)
+Generated: 03-13-2016 15:41:16
+Scored: 66 points
+Mode: Manual Formula
+Coefficients: 0.48, 0.3, 1, 1.6, 1, 1, 1.27, 0.72, 0.6, 1.15, 1.2, 1.2, 1.4, 1.18, 1, 1.2, 1.1, 0.6, 1.1
 
 Kentucky                                                                                                                  Syracuse
 _________                                                                                                                _________
@@ -13,16 +12,16 @@ _________|         |                                                            
                    |Kentucky                                                                          Syracuse|                   
 Iowa St            |_________                                                                        _________|          Kansas St
 _________          |         |                                                                      |         |          _________
-         |UConn    |         |                                                                      |         |  So Miss|         
+         |Iowa St  |         |                                                                      |         |Kansas St|         
 UConn    |_________|         |                                                                      |         |_________|  So Miss
 _________|                   |                                                                      |                   |_________
                              |Kentucky                                                      Syracuse|                             
 Wich St                      |_________                                                    _________|                        Vandy
 _________                    |         |                                                  |         |                    _________
-         |VCU                |         |                                                  |         |              Vandy|         
+         |Wich St            |         |                                                  |         |              Vandy|         
 VCU      |_________          |         |                                                  |         |          _________|  Harvard
 _________|         |         |         |                                                  |         |         |         |_________
-                   |Indiana  |         |                                                  |         |Wisconsin|                   
+                   |Indiana  |         |                                                  |         |    Vandy|                   
 Indiana            |_________|         |                                                  |         |_________|          Wisconsin
 _________          |                   |                                                  |                   |          _________
          |Indiana  |                   |                                                  |                   |Wisconsin|         
@@ -31,28 +30,28 @@ _________|                             |                                        
                                        |Kentucky                                  Syracuse|                                       
 UNLV                                   |_________                                _________|                                  Cincy
 _________                              |         |                              |         |                              _________
-         |UNLV                         |         |                              |         |                        Cincy|         
+         |UNLV                         |         |                              |         |                        Texas|         
 Colorado |_________                    |         |                              |         |                    _________|    Texas
 _________|         |                   |         |                              |         |                   |         |_________
-                   |S Dak St           |         |                              |         |              Cincy|                   
+                   |Baylor             |         |                              |         |              Texas|                   
 Baylor             |_________          |         |                              |         |          _________|             Fla St
 _________          |         |         |         |                              |         |         |         |          _________
-         |S Dak St |         |         |         |                              |         |         |         |St Bonnys|         
+         |Baylor   |         |         |         |                              |         |         |         |St Bonnys|         
 S Dak St |_________|         |         |         |                              |         |         |         |_________|St Bonnys
 _________|                   |         |         |                              |         |         |                   |_________
-                             |Duke     |         |                              |         |    Cincy|                             
+                             |Baylor   |         |                              |         |  Ohio St|                             
 +ND                          |_________|         |                              |         |_________|                      Gonzaga
 _________                    |                   |                              |                   |                    _________
-         |+ND                |                   |                              |                   |                WVU|         
+         |+ND                |                   |                              |                   |            Gonzaga|         
 Xavier   |_________          |                   |                              |                   |          _________|      WVU
 _________|         |         |                   |                              |                   |         |         |_________
-                   |Duke     |                   |          UNC                 |                   |  Ohio St|                   
+                   |Duke     |                   |          Missouri            |                   |  Ohio St|                   
 Duke               |_________|                   |         ____________         |                   |_________|            Ohio St
 _________          |                             |                              |                             |          _________
          |Duke     |                             |                              |                             |  Ohio St|         
 Lehigh   |_________|                             |                              |                             |_________|Loyola MD
 _________|                                       |                              |                                       |_________
-                                                 |Kentucky                   UNC|                                                 
+                                                 |Missouri                   UNC|                                                 
 Mich St                                          |_________            _________|                                              UNC
 _________                                        |                              |                                        _________
          |Mich St                                |                              |                                    UNC|         
@@ -61,13 +60,13 @@ _________|         |                             |                              
                    |Mich St                      |                              |                          UNC|                   
 Memphis            |_________                    |                              |                    _________|          Creighton
 _________          |         |                   |                              |                   |         |          _________
-         |St Louis |         |                   |                              |                   |         |Creighton|         
+         |Memphis  |         |                   |                              |                   |         |Creighton|         
 St Louis |_________|         |                   |                              |                   |         |_________|  Alabama
 _________|                   |                   |                              |                   |                   |_________
-                             |Davidson           |                              |                UNC|                             
+                             |Mich St            |                              |                UNC|                             
 New Mexic                    |_________          |                              |          _________|                       Temple
 _________                    |         |         |                              |         |         |                    _________
-         |LB St              |         |         |                              |         |         |             Temple|         
+         |New Mexic          |         |         |                              |         |         |             Temple|         
 LB St    |_________          |         |         |                              |         |         |          _________|South Fla
 _________|         |         |         |         |                              |         |         |         |         |_________
                    |Davidson |         |         |                              |         |         |   Temple|                   
@@ -88,13 +87,13 @@ _________          |         |         |                                        
          |Marquette|         |         |                                                  |         |         |  Belmont|         
 BYU      |_________|         |         |                                                  |         |         |_________|  Belmont
 _________|                   |         |                                                  |         |                   |_________
-                             |Missouri |                                                  |   Purdue|                             
+                             |Missouri |                                                  |  Belmont|                             
 Florida                      |_________|                                                  |_________|                     St Marys
 _________                    |                                                                      |                    _________
-         |Florida            |                                                                      |             Purdue|         
+         |Florida            |                                                                      |           St Marys|         
 Virginia |_________          |                                                                      |          _________|   Purdue
 _________|         |         |                                                                      |         |         |_________
-                   |Missouri |                                                                      |   Purdue|                   
+                   |Missouri |                                                                      |   Kansas|                   
 Missouri           |_________|                                                                      |_________|             Kansas
 _________          |                                                                                          |          _________
          |Missouri |                                                                                          |   Kansas|         

@@ -1,11 +1,12 @@
-As of: 1/31/2016
+As of: 3/13/2016
 
 - Create graphs of z-scores vs. worth values to gain insight into each stat's importance
 - Re-evaluate conference factors
 - Add new evaluation method where the closeness
 	of past games affects the chance of winning in the current round
 - Add new stats
-- Create data sets for 2010(3), 2011(3), 2012(3), and 2013(3)
+- Add more historic years (2009, 2008, ...)
+- Add support for 2016
 - Standardize run-times
 - Fine-tune the GUI
 - Rework the GUI flow so that there are no duplicate years in the drop-down
@@ -14,15 +15,23 @@ As of: 1/31/2016
 - Way to see the actual data through the GUI (manual formulas needs more support)
 - Implement modal picks (most picked by the other formulas)
 - SERIOUS code clean-up (GUIController, BracketBuster)
-- Ability to store new formulas that are made in the GUI
+- Ability to store new formulas that are made in the GUI (overwrite old formulas)
 - Progress bar cannot be observed because of the calculations (threading)
 - Some sense of time on generating a new formula
-- Somehow normalize the scaling of coefficients to be in a set range to ease comparisons
 - Ability to input holistic/final/manual selections through the GUI and then save them
 - Don't output a score if the worths column is empty (for applying formulas before the tourney)
 - Can't type in negative signs or decimal points in the manual formula fields until a number is already there
-- Automate the data collection process (HTML scraping)
+- Automate the data collection process (HTML scraping?)
 - Some weird error being thrown on manual formula entry
 - Look into getting rid of YEAR_TO_SIZE structure using the statsHeaders config file
 - Populate the save file name field with the last run formula name
 - Don't allow 'Actual Results' to be called on tournaments not yet completed
+- Add an option for running all of the supported formulas for a year in a batch
+- Streamline the output to file process (directories)
+- Add a title and icon for the application window
+
+Useful Excel commands:
+=VLOOKUP($A62,$Z$2:$AG$348,2,FALSE)
+=LEFT(AI2, FIND( "-", AI2) - 1)
+=(L2-AVERAGE(L$2:L$65))/STDEV(L$2:L$65)
+=VLOOKUP($A2,Sheet1!$A$2:$U$65,B$67,FALSE)

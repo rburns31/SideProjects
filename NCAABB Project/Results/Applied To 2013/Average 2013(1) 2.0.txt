@@ -1,22 +1,22 @@
 Tournament bracket for year: 2013(1)
-Generated: 02-01-2016 12:40:40
-Scored: 110 points
+Generated: 03-13-2016 16:14:54
+Scored: 65 points
 Mode: Select Formula
 Formula: Average 2013(1) 2.0
-Coefficients: -1.2, -2.981667, 1.860467, 4.743533, 2.6, 3.449867, 3.303867, 3.643333, -2, 8.530033, -2, 3.041867
+Coefficients: 1, 1, 2, 2.1, 1.3, 1.6, 2, 2, 1, 2, 1, 2
 
 L'ville                                                                                                                     Kansas
 _________                                                                                                                _________
          |L'ville                                                                                                 Kansas|         
 NC A&T   |_________                                                                                            _________|     W KY
 _________|         |                                                                                          |         |_________
-                   |L'ville                                                                                UNC|                   
+                   |L'ville                                                                             Kansas|                   
 Col St             |_________                                                                        _________|                UNC
 _________          |         |                                                                      |         |          _________
          |Missouri |         |                                                                      |         |      UNC|         
 Missouri |_________|         |                                                                      |         |_________|Villanova
 _________|                   |                                                                      |                   |_________
-                             |L'ville                                                            UNC|                             
+                             |L'ville                                                         Kansas|                             
 Okla St                      |_________                                                    _________|                          VCU
 _________                    |         |                                                  |         |                    _________
          |Okla St            |         |                                                  |         |                VCU|         
@@ -28,43 +28,43 @@ _________          |                   |                                        
          |St Louis |                   |                                                  |                   | Michigan|         
 NM St    |_________|                   |                                                  |                   |_________| S Dak St
 _________|                             |                                                  |                             |_________
-                                       |L'ville                                        UNC|                                       
+                                       |L'ville                                     Kansas|                                       
 Memphis                                |_________                                _________|                                   UCLA
 _________                              |         |                              |         |                              _________
          |Memphis                      |         |                              |         |                    Minnesota|         
 St Marys |_________                    |         |                              |         |                    _________|Minnesota
 _________|         |                   |         |                              |         |                   |         |_________
-                   |Mich St            |         |                              |         |          Minnesota|                   
+                   |Memphis            |         |                              |         |          Minnesota|                   
 Mich St            |_________          |         |                              |         |          _________|            Florida
 _________          |         |         |         |                              |         |         |         |          _________
          |Mich St  |         |         |         |                              |         |         |         |    NW St|         
 Valpo    |_________|         |         |         |                              |         |         |         |_________|    NW St
 _________|                   |         |         |                              |         |         |                   |_________
-                             |Cincy    |         |                              |         |Minnesota|                             
+                             |Memphis  |         |                              |         |Minnesota|                             
 Creighton                    |_________|         |                              |         |_________|                     San D St
 _________                    |                   |                              |                   |                    _________
          |Cincy              |                   |                              |                   |           Oklahoma|         
 Cincy    |_________          |                   |                              |                   |          _________| Oklahoma
 _________|         |         |                   |                              |                   |         |         |_________
-                   |Cincy    |                   |          L'ville             |                   | Oklahoma|                   
+                   |Duke     |                   |          Indiana             |                   |   G'town|                   
 Duke               |_________|                   |         ____________         |                   |_________|             G'town
 _________          |                             |                              |                             |          _________
          |Duke     |                             |                              |                             |   G'town|         
 Albany   |_________|                             |                              |                             |_________|   Fla GC
 _________|                                       |                              |                                       |_________
-                                                 |L'ville                    UNC|                                                 
+                                                 |L'ville                Indiana|                                                 
 Gonzaga                                          |_________            _________|                                          Indiana
 _________                                        |                              |                                        _________
          |Gonzaga                                |                              |                                Indiana|         
 Southern |_________                              |                              |                              _________|James Mad
 _________|         |                             |                              |                             |         |_________
-                   |Pitt                         |                              |                       Temple|                   
+                   |Pitt                         |                              |                      Indiana|                   
 Pitt               |_________                    |                              |                    _________|              NC St
 _________          |         |                   |                              |                   |         |          _________
-         |Pitt     |         |                   |                              |                   |         |   Temple|         
+         |Pitt     |         |                   |                              |                   |         |    NC St|         
 Wich St  |_________|         |                   |                              |                   |         |_________|   Temple
 _________|                   |                   |                              |                   |                   |_________
-                             |Ole Miss           |                              |           Syracuse|                             
+                             |Ole Miss           |                              |            Indiana|                             
 Wisconsin                    |_________          |                              |          _________|                         UNLV
 _________                    |         |         |                              |         |         |                    _________
          |Ole Miss           |         |         |                              |         |         |               UNLV|         
@@ -76,7 +76,7 @@ _________          |                   |         |                              
          |Kansas St|                   |         |                              |         |                   | Syracuse|         
 La Salle |_________|                   |         |                              |         |                   |_________|  Montana
 _________|                             |         |                              |         |                             |_________
-                                       |Ole Miss |                              | Syracuse|                                       
+                                       |Ole Miss |                              |  Indiana|                                       
 Arizona                                |_________|                              |_________|                                 Butler
 _________                              |                                                  |                              _________
          |Arizona                      |                                                  |                       Butler|         
@@ -88,7 +88,7 @@ _________          |         |         |                                        
          |New Mexic|         |         |                                                  |         |         |Marquette|         
 Harvard  |_________|         |         |                                                  |         |         |_________| Davidson
 _________|                   |         |                                                  |         |                   |_________
-                             |Iowa St  |                                                  |Marquette|                             
+                             |Iowa St  |                                                  |    Miami|                             
 ND                           |_________|                                                  |_________|                     Illinois
 _________                    |                                                                      |                    _________
          |Iowa St            |                                                                      |           Illinois|         

@@ -1,9 +1,9 @@
-Tournament bracket for year: 2012(1)
-Generated: 03-13-2016 15:14:53
-Scored: 73 points
+Tournament bracket for year: 2012(3)
+Generated: 03-13-2016 13:08:39
+Scored: 142 points
 Mode: Select Formula
-Formula: Average 2012(1) 1.0
-Coefficients: 0.3, 0, 0.8, 0.5, 0.47, 0, 2, 0, 0, 0.3, 0.6, 2
+Formula: 2012(3)
+Coefficients: 55.043, 2.3471, 18.66, -24, -17.212, 33, -27.6, -7.43, 46.5, 35.492, 4.79, 9.372, -23.54, -20.23, -3.1054, 13, -19.33, -6.2, 0.078
 
 Kentucky                                                                                                                  Syracuse
 _________                                                                                                                _________
@@ -13,46 +13,46 @@ _________|         |                                                            
                    |Kentucky                                                                          Syracuse|                   
 Iowa St            |_________                                                                        _________|          Kansas St
 _________          |         |                                                                      |         |          _________
-         |UConn    |         |                                                                      |         |  So Miss|         
+         |UConn    |         |                                                                      |         |Kansas St|         
 UConn    |_________|         |                                                                      |         |_________|  So Miss
 _________|                   |                                                                      |                   |_________
                              |Kentucky                                                      Syracuse|                             
 Wich St                      |_________                                                    _________|                        Vandy
 _________                    |         |                                                  |         |                    _________
-         |VCU                |         |                                                  |         |              Vandy|         
+         |Wich St            |         |                                                  |         |              Vandy|         
 VCU      |_________          |         |                                                  |         |          _________|  Harvard
 _________|         |         |         |                                                  |         |         |         |_________
-                   |Indiana  |         |                                                  |         |Wisconsin|                   
+                   |Indiana  |         |                                                  |         |    Vandy|                   
 Indiana            |_________|         |                                                  |         |_________|          Wisconsin
 _________          |                   |                                                  |                   |          _________
-         |Indiana  |                   |                                                  |                   |Wisconsin|         
+         |Indiana  |                   |                                                  |                   |  Montana|         
 NM St    |_________|                   |                                                  |                   |_________|  Montana
 _________|                             |                                                  |                             |_________
-                                       |Kentucky                                  Syracuse|                                       
+                                       |Kentucky                                    Fla St|                                       
 UNLV                                   |_________                                _________|                                  Cincy
 _________                              |         |                              |         |                              _________
          |UNLV                         |         |                              |         |                        Cincy|         
 Colorado |_________                    |         |                              |         |                    _________|    Texas
 _________|         |                   |         |                              |         |                   |         |_________
-                   |S Dak St           |         |                              |         |              Cincy|                   
+                   |UNLV               |         |                              |         |             Fla St|                   
 Baylor             |_________          |         |                              |         |          _________|             Fla St
 _________          |         |         |         |                              |         |         |         |          _________
-         |S Dak St |         |         |         |                              |         |         |         |St Bonnys|         
+         |Baylor   |         |         |         |                              |         |         |         |   Fla St|         
 S Dak St |_________|         |         |         |                              |         |         |         |_________|St Bonnys
 _________|                   |         |         |                              |         |         |                   |_________
-                             |Duke     |         |                              |         |    Cincy|                             
+                             |UNLV     |         |                              |         |   Fla St|                             
 +ND                          |_________|         |                              |         |_________|                      Gonzaga
 _________                    |                   |                              |                   |                    _________
-         |+ND                |                   |                              |                   |                WVU|         
+         |Xavier             |                   |                              |                   |                WVU|         
 Xavier   |_________          |                   |                              |                   |          _________|      WVU
 _________|         |         |                   |                              |                   |         |         |_________
-                   |Duke     |                   |          UNC                 |                   |  Ohio St|                   
+                   |Xavier   |                   |          Kentucky            |                   |  Ohio St|                   
 Duke               |_________|                   |         ____________         |                   |_________|            Ohio St
 _________          |                             |                              |                             |          _________
          |Duke     |                             |                              |                             |  Ohio St|         
 Lehigh   |_________|                             |                              |                             |_________|Loyola MD
 _________|                                       |                              |                                       |_________
-                                                 |Kentucky                   UNC|                                                 
+                                                 |Kentucky                Kansas|                                                 
 Mich St                                          |_________            _________|                                              UNC
 _________                                        |                              |                                        _________
          |Mich St                                |                              |                                    UNC|         
@@ -61,42 +61,42 @@ _________|         |                             |                              
                    |Mich St                      |                              |                          UNC|                   
 Memphis            |_________                    |                              |                    _________|          Creighton
 _________          |         |                   |                              |                   |         |          _________
-         |St Louis |         |                   |                              |                   |         |Creighton|         
+         |Memphis  |         |                   |                              |                   |         |Creighton|         
 St Louis |_________|         |                   |                              |                   |         |_________|  Alabama
 _________|                   |                   |                              |                   |                   |_________
-                             |Davidson           |                              |                UNC|                             
+                             |Mich St            |                              |                UNC|                             
 New Mexic                    |_________          |                              |          _________|                       Temple
 _________                    |         |         |                              |         |         |                    _________
-         |LB St              |         |         |                              |         |         |             Temple|         
+         |New Mexic          |         |         |                              |         |         |             Temple|         
 LB St    |_________          |         |         |                              |         |         |          _________|South Fla
 _________|         |         |         |         |                              |         |         |         |         |_________
-                   |Davidson |         |         |                              |         |         |   Temple|                   
+                   |L'ville  |         |         |                              |         |         |   Temple|                   
 L'ville            |_________|         |         |                              |         |         |_________|           Michigan
 _________          |                   |         |                              |         |                   |          _________
-         |Davidson |                   |         |                              |         |                   |     Ohio|         
+         |L'ville  |                   |         |                              |         |                   | Michigan|         
 Davidson |_________|                   |         |                              |         |                   |_________|     Ohio
 _________|                             |         |                              |         |                             |_________
-                                       |Missouri |                              |      UNC|                                       
+                                       |Mich St  |                              |   Kansas|                                       
 Murray St                              |_________|                              |_________|                               San D St
 _________                              |                                                  |                              _________
          |Murray St                    |                                                  |                        NC St|         
 Col St   |_________                    |                                                  |                    _________|    NC St
 _________|         |                   |                                                  |                   |         |_________
-                   |Marquette          |                                                  |            Belmont|                   
+                   |BYU                |                                                  |             G'town|                   
 Marquette          |_________          |                                                  |          _________|             G'town
 _________          |         |         |                                                  |         |         |          _________
-         |Marquette|         |         |                                                  |         |         |  Belmont|         
+         |BYU      |         |         |                                                  |         |         |   G'town|         
 BYU      |_________|         |         |                                                  |         |         |_________|  Belmont
 _________|                   |         |                                                  |         |                   |_________
-                             |Missouri |                                                  |   Purdue|                             
+                             |Florida  |                                                  |   Kansas|                             
 Florida                      |_________|                                                  |_________|                     St Marys
 _________                    |                                                                      |                    _________
          |Florida            |                                                                      |             Purdue|         
 Virginia |_________          |                                                                      |          _________|   Purdue
 _________|         |         |                                                                      |         |         |_________
-                   |Missouri |                                                                      |   Purdue|                   
+                   |Florida  |                                                                      |   Kansas|                   
 Missouri           |_________|                                                                      |_________|             Kansas
 _________          |                                                                                          |          _________
-         |Missouri |                                                                                          |   Kansas|         
+         |Norf St  |                                                                                          |   Kansas|         
 Norf St  |_________|                                                                                          |_________|  Detroit
 _________|                                                                                                              |_________
