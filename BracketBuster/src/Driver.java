@@ -55,6 +55,8 @@ public class Driver extends Application {
         YEAR_TO_SIZE.put("2014(3)", 20);
         YEAR_TO_SIZE.put("2015(1)", 13);
         YEAR_TO_SIZE.put("2015(3)", 20);
+        YEAR_TO_SIZE.put("2016(1)", 13);
+        YEAR_TO_SIZE.put("2016(3)", 20);
     }
 
     @Override

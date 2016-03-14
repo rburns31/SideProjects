@@ -128,7 +128,7 @@ public class GUIController implements Initializable {
         ArrayList<String> years = new ArrayList(allValid.keySet());
         Collections.sort(years);
         yearDropdown.getItems().addAll(years);
-        yearDropdown.setValue("2015(3)");
+        yearDropdown.setValue("2016(3)");
         yearDropdown.valueProperty().addListener((obs, old, newYear) -> {
             Driver.YEAR = newYear;
             update();

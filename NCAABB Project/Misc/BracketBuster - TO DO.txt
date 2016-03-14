@@ -6,7 +6,7 @@ As of: 3/13/2016
 	of past games affects the chance of winning in the current round
 - Add new stats
 - Add more historic years (2009, 2008, ...)
-- Add support for 2016
+- Finalize 2016 pre-work after the "first 4" games are played
 - Standardize run-times
 - Fine-tune the GUI
 - Rework the GUI flow so that there are no duplicate years in the drop-down

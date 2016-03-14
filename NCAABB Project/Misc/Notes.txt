@@ -10,24 +10,6 @@ stats_x_3 is the trimmed and ordered data format, input this one into the progra
 2012(2) is advanced, with GHP, stats
 2014(3) is pertinent ESPN stats
 
-Formulas to apply to 2014:
-
-2010 1.0
-2010 2.0
-2011 1.0
-2011 2.0
-2012(1) 1.0
-2012(1) 2.0
-2012(2) 2.0
-2013 2.0
-Average 1.0
-Average 2.0
-Everything
-High Seeds
-Modal (Most common picks, highest seed in ties) (?)
-Holistic (Done before any simulations)
-Final (Combines intuition and trends from simulations)
-
 Stats to look at adding:
 
 Ken Pom
@@ -35,25 +17,13 @@ RPI
 BPI
 Experience
 More exact conference factors
-FT%
-PPS
-Adj. FG%
-AST/TO
 Strength of schedule
 Efficiency (from statsheet.com)
 Tons of defensive stats (from statsheet.com)
 
-DO NOT USE 2012(2) TO JUDGE FORMULAS (CONSTANTS LENGTH GETS MESSED UP)
+Conference Factors:
 
-Some Things To Consider:
-
-Currently, there is a variable amount of times that MaxTune gets called, so the time it takes
-to run is also variable. To standardize this, we could add formulas to an array of some fixed
-length TBD, and then always run MaxTune exactly that many times
-
-Maybe not all variables are linearly related to worth, find plots of each stat's z-score and
-find whichever regression fits best and then make a forumla for that
-
-Notes about 2014:
-
+2 Points: ACC, Big Ten, Big 12, Pac 12, SEC, Big East, AAC
+1.5 Points: A10
+-0.5 Points: MWC
 Currrently giving conference factor to Big East and AAC (Look at the effects of that realignment)
