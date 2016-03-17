@@ -2,11 +2,9 @@ As of: 3/13/2016
 
 - Create graphs of z-scores vs. worth values to gain insight into each stat's importance
 - Re-evaluate conference factors
-- Add new evaluation method where the closeness
-	of past games affects the chance of winning in the current round
+- Add new evaluation method where the closeness of past games affects the chance of winning in the current round
 - Add new stats
 - Add more historic years (2009, 2008, ...)
-- Finalize 2016 pre-work after the "first 4" games are played
 - Standardize run-times
 - Fine-tune the GUI
 - Rework the GUI flow so that there are no duplicate years in the drop-down
@@ -28,7 +26,7 @@ As of: 3/13/2016
 - Don't allow 'Actual Results' to be called on tournaments not yet completed
 - Add an option for running all of the supported formulas for a year in a batch
 - Streamline the output to file process (directories)
-- Add a title and icon for the application window
+- Make sure past data sets aren't awarding points for the play in games
 
 Useful Excel commands:
 =VLOOKUP($A62,$Z$2:$AG$348,2,FALSE)

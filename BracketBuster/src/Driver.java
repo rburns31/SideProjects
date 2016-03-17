@@ -14,6 +14,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -65,6 +66,13 @@ public class Driver extends Application {
         Scene scene = new Scene(root, 1200, 900);
         stage.setScene(scene);
         stage.setResizable(false);
+        try {
+            stage.getIcons().add(new Image("file:bb_logo.png"));
+        } catch (Exception e) {
+            System.out.println("Failed to open the application icon.");
+            e.printStackTrace();
+        }
+        stage.setTitle("BracketBuster");
         stage.show();
     }
 
