@@ -1,9 +1,8 @@
-Tournament bracket for year: 2016(1)
-Generated: 03-16-2016 22:48:45
-Scored: 61 points
-Mode: Select Formula
-Formula: Average 2016(1)
-Coefficients: 2.537520749, 2.179634504, 2.418953419, 4.034031506, 2.567343759, 2.904063608, 3.932895279, 3.072359391, 2.362723558, 5.317100712, 3.197438525, 1.863213046
+Tournament bracket for year: 2016
+Generated at: 03-17-2016 18:25:36
+Scored: N/A
+Mode: Manual Formula
+Coefficients: 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 Kansas                                                                                                                         UNC
 _________                                                                                                                _________
@@ -22,7 +21,7 @@ _________                    |         |                                        
          |Maryland           |         |                                                  |         |            Indiana|         
 S Dak St |_________          |         |                                                  |         |          _________|Chattanoo
 _________|         |         |         |                                                  |         |         |         |_________
-                   |Cal      |         |                                                  |         | Kentucky|                   
+                   |Maryland |         |                                                  |         |  Indiana|                   
 Cal                |_________|         |                                                  |         |_________|           Kentucky
 _________          |                   |                                                  |                   |          _________
          |Cal      |                   |                                                  |                   | Kentucky|         
@@ -34,67 +33,67 @@ _________                              |         |                              
          |Arizona                      |         |                              |         |                           ND|         
 Wich St  |_________                    |         |                              |         |                    _________| Michigan
 _________|         |                   |         |                              |         |                   |         |_________
-                   |Arizona            |         |                              |         |                WVU|                   
+                   |Arizona            |         |                              |         |                 ND|                   
 Miami              |_________          |         |                              |         |          _________|                WVU
 _________          |         |         |         |                              |         |         |         |          _________
          |Miami    |         |         |         |                              |         |         |         |      WVU|         
 Buffalo  |_________|         |         |         |                              |         |         |         |_________|SF Austin
 _________|                   |         |         |                              |         |         |                   |_________
-                             |Iowa     |         |                              |         |   Xavier|                             
+                             |Arizona  |         |                              |         |       ND|                             
 Iowa                         |_________|         |                              |         |_________|                    Wisconsin
 _________                    |                   |                              |                   |                    _________
-         |Iowa               |                   |                              |                   |               Pitt|         
+         |Iowa               |                   |                              |                   |          Wisconsin|         
 Temple   |_________          |                   |                              |                   |          _________|     Pitt
 _________|         |         |                   |                              |                   |         |         |_________
-                   |Iowa     |                   |          Mich St             |                   |   Xavier|                   
+                   |Iowa     |                   |          Kansas              |                   |Wisconsin|                   
 Villanova          |_________|                   |         ____________         |                   |_________|             Xavier
 _________          |                             |                              |                             |          _________
          |Villanova|                             |                              |                             |   Xavier|         
 UNC Ash  |_________|                             |                              |                             |_________| Weber St
 _________|                                       |                              |                                       |_________
-                                                 |Duke                   Mich St|                                                 
+                                                 |Kansas                     UNC|                                                 
 Oregon                                           |_________            _________|                                         Virginia
 _________                                        |                              |                                        _________
          |Oregon                                 |                              |                               Virginia|         
 Holy Cros|_________                              |                              |                              _________|  Hampton
 _________|         |                             |                              |                             |         |_________
-                   |Cincy                        |                              |                       Butler|                   
+                   |Oregon                       |                              |                     Virginia|                   
 St Joes            |_________                    |                              |                    _________|          Texas Tec
 _________          |         |                   |                              |                   |         |          _________
-         |Cincy    |         |                   |                              |                   |         |   Butler|         
+         |St Joes  |         |                   |                              |                   |         |Texas Tec|         
 Cincy    |_________|         |                   |                              |                   |         |_________|   Butler
 _________|                   |                   |                              |                   |                   |_________
-                             |Duke               |                              |             Purdue|                             
+                             |Oregon             |                              |           Virginia|                             
 Baylor                       |_________          |                              |          _________|                       Purdue
 _________                    |         |         |                              |         |         |                    _________
          |Baylor             |         |         |                              |         |         |             Purdue|         
 Yale     |_________          |         |         |                              |         |         |          _________|   Ark LR
 _________|         |         |         |         |                              |         |         |         |         |_________
-                   |Duke     |         |         |                              |         |         |   Purdue|                   
+                   |Baylor   |         |         |                              |         |         |   Purdue|                   
 Duke               |_________|         |         |                              |         |         |_________|            Iowa St
 _________          |                   |         |                              |         |                   |          _________
          |Duke     |                   |         |                              |         |                   |  Iowa St|         
 UNC Wilm |_________|                   |         |                              |         |                   |_________|     Iona
 _________|                             |         |                              |         |                             |_________
-                                       |Duke     |                              |  Mich St|                                       
+                                       |Oregon   |                              | Virginia|                                       
 Texas                                  |_________|                              |_________|                              Seton Hal
 _________                              |                                                  |                              _________
          |Texas                        |                                                  |                    Seton Hal|         
 N Iowa   |_________                    |                                                  |                    _________|  Gonzaga
 _________|         |                   |                                                  |                   |         |_________
-                   |Texas A&M          |                                                  |               Utah|                   
+                   |Texas              |                                                  |          Seton Hal|                   
 Texas A&M          |_________          |                                                  |          _________|               Utah
 _________          |         |         |                                                  |         |         |          _________
          |Texas A&M|         |         |                                                  |         |         |     Utah|         
 Green Bay|_________|         |         |                                                  |         |         |_________|Fresno St
 _________|                   |         |                                                  |         |                   |_________
-                             |Oklahoma |                                                  |  Mich St|                             
+                             |Texas    |                                                  |Seton Hal|                             
 Oregon St                    |_________|                                                  |_________|                       Dayton
 _________                    |                                                                      |                    _________
-         |VCU                |                                                                      |           Syracuse|         
+         |Oregon St          |                                                                      |             Dayton|         
 VCU      |_________          |                                                                      |          _________| Syracuse
 _________|         |         |                                                                      |         |         |_________
-                   |Oklahoma |                                                                      |  Mich St|                   
+                   |Oregon St|                                                                      |   Dayton|                   
 Oklahoma           |_________|                                                                      |_________|            Mich St
 _________          |                                                                                          |          _________
          |Oklahoma |                                                                                          |  Mich St|         

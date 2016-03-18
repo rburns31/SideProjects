@@ -57,12 +57,10 @@ public class BracketBuster {
      */
     public int[] winnerPos;
 
-
-
     public BracketBuster(int trials) {
         this.trials = trials;
-        constants = new double[Driver.YEAR_TO_SIZE.get(Driver.YEAR)];
-        best = new double[Driver.YEAR_TO_SIZE.get(Driver.YEAR)];
+        constants = new double[Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET)];
+        best = new double[Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET)];
         winnerPos = new int[63];
     }
 
@@ -146,8 +144,8 @@ public class BracketBuster {
          * Reads in the z scores from file and fills in the teams array
          */
         try {
-            File dataFile = new File(
-                    "stats/stats_" + Driver.YEAR + "_3" + ".txt");
+            File dataFile = new File("stats/stats_" +
+                    Driver.YEAR + "(" + Driver.DATA_SET + ")_3" + ".txt");
             Scanner fileScanner = new Scanner(dataFile);
             int j = 0;
             while (fileScanner.hasNext() && j < 64) {
@@ -229,7 +227,12 @@ public class BracketBuster {
                 }
             }
         }
-        return pointsEarned;
+        // If no worth are input for this data set then return a score of -1
+        if (worths[0] == 0 && worths[1] == 0) {
+            return -1;
+        } else {
+            return pointsEarned;
+        }
     }
 
     /**
@@ -306,7 +309,12 @@ public class BracketBuster {
                 }
             }
         }
-        return pointsEarned;
+        // If no worth are input for this data set then return a score of -1
+        if (worths[0] == 0 && worths[1] == 0) {
+            return -1;
+        } else {
+            return pointsEarned;
+        }
     }
 
     /**
@@ -393,14 +401,14 @@ public class BracketBuster {
     private double[] readInWorths() {
         double[] worths = new double[64];
         try {
-            File dataFile = new File(
-                    "stats/stats_" + Driver.YEAR + "_3" + ".txt");
+            File dataFile = new File("stats/stats_"
+                    + Driver.YEAR + "(" + Driver.DATA_SET + ")_3" + ".txt");
             Scanner fileScanner = new Scanner(dataFile);
             int i = 0;
             while (fileScanner.hasNext() && i < 64) {
                 String line = fileScanner.nextLine();
                 worths[i] = Double.parseDouble((line.split(" "))
-                        [Driver.YEAR_TO_SIZE.get(Driver.YEAR) - 1]);
+                        [Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET) - 1]);
                 i++;
             }
             fileScanner.close();

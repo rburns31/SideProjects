@@ -1,7 +1,6 @@
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Outputs a visual representation of a set of picks on a hard-coded bracket
@@ -41,10 +40,7 @@ public class BracketVisual {
         this.trials = trials;
         this.outputTxt = "bracket.txt";
 
-        // Set the teams variable to the appropriate array for the year
-        HashMap<String, String[]> teamNames = new HashMap<>();
-        Driver.readInConfigFiles("config/teams.txt", teamNames);
-        teams = teamNames.get(Driver.YEAR.split("\\(")[0]);
+        teams = Driver.TEAM_NAMES.get(Driver.YEAR);
         if (teams == null) {
             System.out.println("Cannot make a bracket for that year. Exiting.");
             System.exit(0);
@@ -93,16 +89,16 @@ public class BracketVisual {
     private void printHeaders(PrintWriter outFile) {
         String header1 = "Tournament bracket for year: " + Driver.YEAR;
 
-        String header2 = "Generated: " + Driver.getTime();
+        String header2 = "Generated at: " + Driver.getTime();
 
         String header3 = "Scored: " + max + " points";
         if (max == -1) {
             header3 = "Scored: N/A";
         }
         
-        String header4 = "Mode: " + GUIController.MODE;
+        String header4 = "Mode: " + Driver.MODE;
 
-        String header5 = "Formula: " + GUIController.FORMULA;
+        String header5 = "Formula: " + Driver.FORMULA;
 
         String header6 = "Trials: " + trials;
 
@@ -120,12 +116,12 @@ public class BracketVisual {
         outFile.println(header2);
         outFile.println(header3);
         outFile.println(header4);
-        if (GUIController.MODE.equals("Select Formula")) {
+        if (Driver.MODE.equals("Select Formula")) {
             outFile.println(header5);
             outFile.println(header7);
-        } else if (GUIController.MODE.equals("Manual Formula")) {
+        } else if (Driver.MODE.equals("Manual Formula")) {
             outFile.println(header7);
-        } else if (GUIController.MODE.equals("Generate Formula")) {
+        } else if (Driver.MODE.equals("Generate Formula")) {
             outFile.println(header6);
             outFile.println(header7);
         }

@@ -32,36 +32,47 @@ import org.apache.poi.ss.usermodel.Row;
  */
 public class Driver extends Application {
     /**
-     * The year of the tournament to be used
+     * The year of the tournament currently selected
      */
     public static String YEAR;
-
     /**
-     * Statically instantiates a map from the year that was input to the
-     *     number of variables that the corresponding data set contains
+     * 
      */
-    public static final HashMap<String, Integer> YEAR_TO_SIZE;
-    static {
-        YEAR_TO_SIZE = new HashMap<>();
-        YEAR_TO_SIZE.put("2010(1)", 13);
-        YEAR_TO_SIZE.put("2010(3)", 20);
-        YEAR_TO_SIZE.put("2011(1)", 13);
-        YEAR_TO_SIZE.put("2011(3)", 20);
-        YEAR_TO_SIZE.put("2012(1)", 13);
-        YEAR_TO_SIZE.put("2012(2)", 21);
-        YEAR_TO_SIZE.put("2012(3)", 20);
-        YEAR_TO_SIZE.put("2013(1)", 13);
-        YEAR_TO_SIZE.put("2013(3)", 20);
-        YEAR_TO_SIZE.put("2014(1)", 13);
-        YEAR_TO_SIZE.put("2014(3)", 20);
-        YEAR_TO_SIZE.put("2015(1)", 13);
-        YEAR_TO_SIZE.put("2015(3)", 20);
-        YEAR_TO_SIZE.put("2016(1)", 13);
-        YEAR_TO_SIZE.put("2016(3)", 20);
-    }
+    public static String MODE;
+    /**
+     * 
+     */
+    public static String FORMULA;
+    /**
+     * The data set currently selected ('1', '2', or '3')
+     */
+    public static String DATA_SET;
+    /**
+     * 
+     */
+    public static HashMap<String, String[]> TEAM_NAMES = new HashMap<>();
+    /**
+     * 
+     */
+    public static HashMap<String, double[]> FORMULAS = new HashMap<>();
+    /**
+     * 
+     */
+    public static HashMap<String, String[]> VALID = new HashMap<>();
+    /**
+     * 
+     */
+    public static HashMap<String, String[]> STATS_HEADERS = new HashMap<>();
+    /**
+     * A map from the currently selected data set to the number of
+     *   variables that it contains
+     */
+    public static HashMap<String, Integer> DATA_SET_TO_SIZE = new HashMap<>();
 
     @Override
     public void start(Stage stage) throws Exception {
+        setUpConfigFiles();
+
         Parent root = FXMLLoader.load(getClass().getResource("GUIFXML.fxml"));
         Scene scene = new Scene(root, 1200, 900);
         stage.setScene(scene);
@@ -70,7 +81,6 @@ public class Driver extends Application {
             stage.getIcons().add(new Image("file:bb_logo.png"));
         } catch (Exception e) {
             System.out.println("Failed to open the application icon.");
-            e.printStackTrace();
         }
         stage.setTitle("BracketBuster");
         stage.show();
@@ -82,6 +92,21 @@ public class Driver extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    /**
+     * 
+     */
+    private static void setUpConfigFiles() {
+        readInConfigFiles("config/teams.txt", TEAM_NAMES);
+        readInConfigFiles("config/formulas.txt", FORMULAS);
+        readInConfigFiles("config/valid.txt", VALID);
+        readInConfigFiles("config/stats_headers.txt", STATS_HEADERS);
+        
+        // Initialize the YEAR_TO_SIZE map from the stats headers' lengths
+        for (String key: STATS_HEADERS.keySet()) {
+            DATA_SET_TO_SIZE.put(key, STATS_HEADERS.get(key).length + 1);
+        }
     }
 
     /**
@@ -110,11 +135,12 @@ public class Driver extends Application {
      */
     public static void convertExcel() {
         try {
-            File outFile = new File("stats/stats_" + YEAR + "_3" + ".txt");
+            String fileName = "stats/stats_" + YEAR + "(" + DATA_SET + ")_3";
+            File outFile = new File(fileName + ".txt");
             outFile.deleteOnExit();
             PrintStream output = new PrintStream(outFile);
             InputStream input = new BufferedInputStream(new FileInputStream(
-                    "stats/stats_" + YEAR + "_3" + ".xls"));
+                    fileName + ".xls"));
             POIFSFileSystem fs = new POIFSFileSystem(input);
             HSSFWorkbook wb = new HSSFWorkbook(fs);
             HSSFSheet sheet = wb.getSheetAt(0);
