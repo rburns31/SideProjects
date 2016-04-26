@@ -1,0 +1,6 @@
+Useful Excel commands:
+
+=VLOOKUP($A62,$Z$2:$AG$348,2,FALSE)
+=LEFT(AI2, FIND( "-", AI2) - 1)
+=(L2-AVERAGE(L$2:L$65))/STDEV(L$2:L$65)
+=VLOOKUP($A2,Sheet1!$A$2:$U$65,B$67,FALSE)
