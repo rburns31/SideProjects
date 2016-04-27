@@ -108,15 +108,33 @@ public class GUIController implements Initializable {
         update();
 
         // Adds a listener to the trials field to verify it is always an int
+        trialsField.setText("1");
         trialsField.textProperty().addListener((obs, oldInput, newInput) -> {
             try {
                 Integer.parseInt(newInput);
                 trialsField.setText(newInput.replaceAll("[d,f,i]", ""));
-                update();
             } catch (Exception e) {
                 trialsField.setText(oldInput);
             }
         });
+    }
+
+    /**
+     * 
+     * @param validFormulas
+     * @param lastFormula 
+     */
+    private void addFormulas(String[] validFormulas, String lastFormula) {
+        for (String s2: validFormulas) {
+            for (String s: Driver.FORMULAS.keySet()) {
+                if (s.equals(s2)) {
+                    formulaDropdown.getItems().add(s);
+                }
+            }
+            if (s2.equals(lastFormula)) {
+                formulaDropdown.setValue(s2);
+            }
+        }
     }
 
     /**
@@ -130,7 +148,9 @@ public class GUIController implements Initializable {
         yearDropdown.setValue(years.get(years.size() - 1));
         yearDropdown.valueProperty().addListener((obs, old, newYear) -> {
             Driver.YEAR = newYear;
-            update();
+            if (newYear != null) {
+                update();
+            }
         });
         modeDropdown.getItems().addAll("High Seeds", "Manual Formula",
                 "Select Formula", "Generate Formula",
@@ -138,19 +158,25 @@ public class GUIController implements Initializable {
         modeDropdown.setValue("Select Formula");
         modeDropdown.valueProperty().addListener((obs, old, newMode) -> {
             Driver.MODE = newMode;
-            update();
+            if (newMode != null) {
+                update();
+            }
         });
         formulaDropdown.valueProperty().addListener((obs, old, newFormula) -> {
             Driver.FORMULA = newFormula;
-            System.out.println(Driver.FORMULA);
-            update();
+            System.out.println("Formula dropdown changed to: " + Driver.FORMULA);
+            //if (newFormula != null) {
+            //    update();
+            //}
             System.out.println("got here");
         });
         dataSetDropdown.getItems().addAll("1", "3");
         dataSetDropdown.setValue("3");
         dataSetDropdown.valueProperty().addListener((obs, old, newDataSet) -> {
             Driver.DATA_SET = newDataSet;
-            update();
+            if (newDataSet != null) {
+                update();
+            }
         });
     }
 
@@ -164,7 +190,6 @@ public class GUIController implements Initializable {
             System.out.println("No valid formulas for that year. Exiting.");
             System.exit(0);
         }
-        String lastFormula = formulaDropdown.getValue();
 
         // Store the current coefficients before clearing the rows out
         storeCoeff();
@@ -184,7 +209,6 @@ public class GUIController implements Initializable {
         dataSetBox.setVisible(false);
         trialsBox.setVisible(false);
         scoreBox.setVisible(false);
-        
         goButton.setVisible(false);
         clearButton.setVisible(false);
         fileNameRow.setVisible(false);
@@ -198,6 +222,7 @@ public class GUIController implements Initializable {
             goButton.setVisible(true);
         }
 
+        // Make sure the data set dropdown always has the correct options
         if (Driver.YEAR.equals("2012")
                 && !dataSetDropdown.getItems().contains("2")) {
 
@@ -213,21 +238,9 @@ public class GUIController implements Initializable {
             overflowCoeffRow.getChildren().clear();
         }
 
-        if (Driver.YEAR.equals("2016")
-                && modeDropdown.getItems().contains("Actual Results")) {
-
-            modeDropdown.setValue("Select Formula");
-            modeDropdown.getItems().remove("Actual Results");
-        } else if (!Driver.YEAR.equals("2016")
-                && !modeDropdown.getItems().contains("Actual Results")) {
-            modeDropdown.getItems().add(4, "Actual Results");
-        }
-
-        if (Driver.MODE.equals("High Seeds")) {
-            scoreBox.setVisible(true);
-        } else if (Driver.MODE.equals("Manual Formula")) {
+        // Manipulate the UI elements based on the currently selected mode
+        if (Driver.MODE.equals("Manual Formula")) {
             dataSetBox.setVisible(true);
-            scoreBox.setVisible(true);
             clearButton.setVisible(true);
 
             clearButtonHandler(null);
@@ -239,16 +252,19 @@ public class GUIController implements Initializable {
             if (Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET) > L1) {
                 setUpRow(L1, Driver.STATS_HEADERS.get(Driver.DATA_SET), overflowCoeffRow);
             }
-        } else if (Driver.MODE.equals("Select Formula")) {
+
+        /**} else if (Driver.MODE.equals("Select Formula")) {
             scoreBox.setVisible(true);
             formulaBox.setVisible(true);
             clearButton.setVisible(true);
 
             // Handle updating the formulas list
             formulaDropdown.getItems().add(0, validFormulas[0]);
+            System.out.println("Test 1");
+            System.out.println("Valid formula #1: " + validFormulas[0]);
             formulaDropdown.setValue(validFormulas[0]);
             formulaDropdown.getItems().remove(1, formulaDropdown.getItems().size());
-            /**for (String s2: validFormulas) {
+            for (String s2: validFormulas) {
                 for (String s: Driver.FORMULAS.keySet()) {
                     if (s.equals(s2)) {
                         if (formulaDropdown.getItems().isEmpty()) {
@@ -257,7 +273,7 @@ public class GUIController implements Initializable {
                         formulaDropdown.getItems().add(s);
                     }
                 }
-            }*/
+            }
 
             // Because update() will get called thrice unnecessarily
             coeffRow.getChildren().clear();
@@ -271,12 +287,13 @@ public class GUIController implements Initializable {
             if (Driver.DATA_SET_TO_SIZE.get(dataSet) > L1 + 1) {
                 setUpRow(L1, Driver.STATS_HEADERS.get(Driver.DATA_SET), overflowCoeffRow);
             }
-        }
+        */} else if (Driver.MODE.equals("Generate Formula")) {
+            dataSetBox.setVisible(true);
+            trialsBox.setVisible(true);
+
+        }        
         
-        // If the program is in "High Seeds" mode, do not fill in the rows
-        /**if (Driver.MODE.equals("High Seeds") || Driver.MODE.equals("Actual Results")) {
-            return;
-        } else if (Driver.MODE.equals("Select Formula")) {
+        /**} else if (Driver.MODE.equals("Select Formula")) {
             formulaBox.setVisible(true);
             for (String s2: validFormulas) {
                 for (String s: Driver.FORMULAS.keySet()) {
@@ -288,32 +305,7 @@ public class GUIController implements Initializable {
                     }
                 }
             }
-        } else if (Driver.MODE.equals("Manual Formula")) {
-            clearButton.setVisible(true);
-        } else if (Driver.MODE.equals("Generate Formula")) {
-            trialsBox.setVisible(true);
         }*/
-
-        // Add the correct children to the main coefficient row
-        //setUpRow(0, Driver.STATS_HEADERS.get("1"), coeffRow);
-
-        // If the selected year supports additional stats, use the overflow row
-        //if (Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET) > L1) {
-        //    setUpRow(L1, Driver.STATS_HEADERS.get(Driver.DATA_SET), overflowCoeffRow);
-        //}
-    }
-
-    private void addFormulas(String[] validFormulas, String lastFormula) {
-        for (String s2: validFormulas) {
-            for (String s: Driver.FORMULAS.keySet()) {
-                if (s.equals(s2)) {
-                    formulaDropdown.getItems().add(s);
-                }
-            }
-            if (s2.equals(lastFormula)) {
-                formulaDropdown.setValue(s2);
-            }
-        }
     }
 
     /**
@@ -325,6 +317,7 @@ public class GUIController implements Initializable {
             entry.setPrefWidth(82);
             Label label = new Label(arr[i]);
             TextField field = new TextField();
+            
             if (Driver.MODE.equals("Select Formula")
                     || Driver.MODE.equals("Generate Formula")) {
                 field.setText("0");
@@ -333,8 +326,8 @@ public class GUIController implements Initializable {
                 field.setText(removeTrailingZeros(
                         Double.toString(lastCoefficients[i])));
             }
-            field.textProperty().addListener(
-                    (observable, oldInput, newInput) -> {
+            
+            field.textProperty().addListener((obs, oldInput, newInput) -> {
                 try {
                     String str = Double.toString(Double.parseDouble(
                             newInput.replaceAll("[d,f]", "")));
@@ -343,6 +336,7 @@ public class GUIController implements Initializable {
                     field.setText(oldInput);
                 }
             });
+            
             entry.getChildren().addAll(label, field);
             row.getChildren().add(entry);
         }
@@ -399,8 +393,8 @@ public class GUIController implements Initializable {
                 new BracketVisual(bb.winnerPos, score, bb.best, -1);
             }
 
+            scoreBox.setVisible(true);
             fileToGUI("bracket.txt");
-            fileNameRow.setVisible(true);
 
         } else if (Driver.MODE.equals("Manual Formula")) {
             BracketBuster bb = new BracketBuster(0);
@@ -442,8 +436,8 @@ public class GUIController implements Initializable {
                 new BracketVisual(bb.winnerPos, score, bb.best, -1);
             }
             
+            scoreBox.setVisible(true);
             fileToGUI("bracket.txt");
-            fileNameRow.setVisible(true);
 
         }/** else if (Driver.MODE.equals("Select Formula")) {
             BracketBuster bb = new BracketBuster(0);
@@ -475,12 +469,29 @@ public class GUIController implements Initializable {
                 }
             }
             new BracketVisual(bb.winnerPos, score, inputCoeff, -1);
-        } else if (Driver.MODE.equals("Generate Formula")) {
+        }*/ else if (Driver.MODE.equals("Generate Formula")) {
+            update();
+            
+            progressBox.setVisible(true);
+            
             BracketBuster bb = new BracketBuster(
                     Integer.parseInt(trialsField.getText()));
             int score = bb.maxFind();
+            
             storeCoeff();
-            progressBox.setVisible(true);
+            
+            // Because update() will get called thrice unnecessarily
+            coeffRow.getChildren().clear();
+            overflowCoeffRow.getChildren().clear();
+            
+            // Add the correct children to the main coefficient row
+            setUpRow(0, Driver.STATS_HEADERS.get("1"), coeffRow);
+
+            // If the selected year supports additional stats, use the overflow row
+            if (Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET) > L1) {
+                setUpRow(L1, Driver.STATS_HEADERS.get(Driver.DATA_SET), overflowCoeffRow);
+            }
+            
             Object[] objs = coeffRow.getChildren().toArray();
             VBox[] vboxes = new VBox[objs.length];
             for (int i = 0; i < objs.length; i++) {
@@ -488,6 +499,7 @@ public class GUIController implements Initializable {
                 ((TextField)vboxes[i].getChildren().toArray()[1]).setText(
                         Double.toString(bb.best[i]));
             }
+            
             if (!overflowCoeffRow.getChildren().isEmpty()) {
                 Object[] objs2 = overflowCoeffRow.getChildren().toArray();
                 VBox[] vboxes2 = new VBox[objs2.length];
@@ -497,15 +509,30 @@ public class GUIController implements Initializable {
                             Double.toString(bb.best[i + objs.length]));
                 }
             }
+            
             scoreField.setText(Integer.toString(score));
             new BracketVisual(bb.winnerPos, score, bb.best,
                     Integer.parseInt(trialsField.getText()));
-        }*/ else if (Driver.MODE.equals("Actual Results")) {
+            
+            scoreBox.setVisible(true);
+            
+            fileToGUI("bracket.txt");
+            
+        } else if (Driver.MODE.equals("Actual Results")) {
             BracketBuster bb = new BracketBuster(0);
             bb.actualResults();
             new BracketVisual(bb.winnerPos, -1, bb.best, -1);
             
             fileToGUI("bracket.txt");
+        } else if (Driver.MODE.equals("Run Formula Batch")) {
+            progressBox.setVisible(true);
+            
+            
+            
+        }
+        
+        // All modes but 'Run Formula Batch' utilize the file name row
+        if (!Driver.MODE.equals("Run Formula Batch")) {
             fileNameRow.setVisible(true);
         }
     }

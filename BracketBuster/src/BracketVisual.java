@@ -152,6 +152,8 @@ public class BracketVisual {
         String empty = "";
         String champLine = "____________";
 
+        assert(outFile != null);
+
         // Print the first octets of each side of the bracket
         outFile.printf("%-10s%110s%10s%n", teams[0], empty, teams[32]);
         outFile.printf("%-10s%110s%10s%n", topLine, empty, topLine);
