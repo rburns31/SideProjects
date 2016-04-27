@@ -378,7 +378,11 @@ public class GUIController implements Initializable {
     @FXML
     private void goButtonHandler(ActionEvent event) {
         bracketField.clear();
-        Driver.convertExcel();
+        
+        for (String dataSet: Driver.DATA_SET_TO_SIZE.keySet()) {
+            Driver.DATA_SET = dataSet;
+            Driver.convertExcel();
+        }
 
         if (Driver.MODE.equals("High Seeds")) {
             BracketBuster bb = new BracketBuster(0);
@@ -522,15 +526,39 @@ public class GUIController implements Initializable {
             BracketBuster bb = new BracketBuster(0);
             bb.actualResults();
             new BracketVisual(bb.winnerPos, -1, bb.best, -1);
-            
+
             fileToGUI("bracket.txt");
         } else if (Driver.MODE.equals("Run Formula Batch")) {
             progressBox.setVisible(true);
-            
-            
-            
+
+            // Create a folder to house all of the formula results in this batch
+            new File("Applied to " + Driver.YEAR).mkdir();
+
+            // Iterate through all of the valid formulas for the selected year
+            String[] validFormulas = Driver.VALID.get(Driver.YEAR);
+            for (String thisFormulaName: validFormulas) {
+
+                // Pass in the specified formula from the map
+                double[] thisFormula = Driver.FORMULAS.get(thisFormulaName);
+                double[] inputCoeff = concat(thisFormula, new double[]{0});
+
+                // Update the global variables for this formula run
+                Driver.DATA_SET = (String) (
+                        thisFormulaName.split("\\(")[1]).substring(0, 1);
+                Driver.FORMULA = thisFormulaName;
+
+                // Score this formula and output the results to file
+                BracketBuster bb = new BracketBuster(0);
+                int score = bb.score(inputCoeff);
+                new BracketVisual(bb.winnerPos, score, inputCoeff, -1);
+
+                // Save this formula's results in the batch's folder
+                outputFileNameField.setText(
+                        "Applied to " + Driver.YEAR + "\\" + thisFormulaName);
+                saveButtonHandler(null);
+            }
         }
-        
+
         // All modes but 'Run Formula Batch' utilize the file name row
         if (!Driver.MODE.equals("Run Formula Batch")) {
             fileNameRow.setVisible(true);

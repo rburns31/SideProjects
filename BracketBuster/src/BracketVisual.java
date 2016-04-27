@@ -95,8 +95,11 @@ public class BracketVisual {
         if (max == -1) {
             header3 = "Scored: N/A";
         }
-        
+
         String header4 = "Mode: " + Driver.MODE;
+        if (Driver.MODE.equals("Run Formula Batch")) {
+            header4 = "Mode: Select Formula";
+        }
 
         String header5 = "Formula: " + Driver.FORMULA;
 
@@ -116,7 +119,7 @@ public class BracketVisual {
         outFile.println(header2);
         outFile.println(header3);
         outFile.println(header4);
-        if (Driver.MODE.equals("Select Formula")) {
+        if (Driver.MODE.equals("Select Formula") || Driver.MODE.equals("Run Formula Batch")) {
             outFile.println(header5);
             outFile.println(header7);
         } else if (Driver.MODE.equals("Manual Formula")) {
