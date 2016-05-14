@@ -1,7 +1,7 @@
-Tournament bracket for year: 2013(1)
-Generated: 03-13-2016 16:08:49
-Scored: 58 points
+Tournament bracket for year: 2013
+Generated at: 05-14-2016 13:39:06
 Mode: Select Formula
+Scored: 58 points
 Formula: Average 2013(1) 1.0
 Coefficients: 1.4, 0, 1, 0.9, 0.7, 0, 2, 0, 0.6, 1, 0.6, 2
 

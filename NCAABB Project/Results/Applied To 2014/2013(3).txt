@@ -1,7 +1,7 @@
-Tournament bracket for year: 2014(3)
-Generated: 03-13-2016 13:33:41
-Scored: 48 points
+Tournament bracket for year: 2014
+Generated at: 05-14-2016 13:39:08
 Mode: Select Formula
+Scored: 48 points
 Formula: 2013(3)
 Coefficients: -6, 30, 27, 40, 3.2, 3, 42, 11, 6, 3.3, -14, 115, -25, 6, 45, 4, -10, 73, 37
 

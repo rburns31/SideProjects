@@ -1,7 +1,7 @@
-Tournament bracket for year: 2012(1)
-Generated: 03-13-2016 15:33:52
-Scored: 79 points
+Tournament bracket for year: 2012
+Generated at: 05-14-2016 13:39:03
 Mode: Select Formula
+Scored: 79 points
 Formula: Average 2012(1) 2.0
 Coefficients: 0.7, 0.6, 1, 2, 1, 1, 2, 1, 0.2, 1.4, 1, 1.6
 
@@ -41,9 +41,9 @@ _________          |         |         |         |                              
 S Dak St |_________|         |         |         |                              |         |         |         |_________|St Bonnys
 _________|                   |         |         |                              |         |         |                   |_________
                              |Duke     |         |                              |         |      WVU|                             
-+ND                          |_________|         |                              |         |_________|                      Gonzaga
+ND                           |_________|         |                              |         |_________|                      Gonzaga
 _________                    |                   |                              |                   |                    _________
-         |+ND                |                   |                              |                   |                WVU|         
+         |ND                 |                   |                              |                   |                WVU|         
 Xavier   |_________          |                   |                              |                   |          _________|      WVU
 _________|         |         |                   |                              |                   |         |         |_________
                    |Duke     |                   |          UNC                 |                   |      WVU|                   

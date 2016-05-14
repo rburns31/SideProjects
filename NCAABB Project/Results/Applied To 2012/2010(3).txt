@@ -1,7 +1,7 @@
-Tournament bracket for year: 2012(3)
-Generated: 03-13-2016 13:08:11
-Scored: 28 points
+Tournament bracket for year: 2012
+Generated at: 05-14-2016 13:39:03
 Mode: Select Formula
+Scored: 28 points
 Formula: 2010(3)
 Coefficients: -16, -18, 3, 21, 6, -3.8, 16, 5, 3, 7, -6, 8, 15, -11, 13, 9.9, 3.9, 1, 6
 
@@ -41,9 +41,9 @@ _________          |         |         |         |                              
 S Dak St |_________|         |         |         |                              |         |         |         |_________|St Bonnys
 _________|                   |         |         |                              |         |         |                   |_________
                              |Lehigh   |         |                              |         |    Texas|                             
-+ND                          |_________|         |                              |         |_________|                      Gonzaga
+ND                           |_________|         |                              |         |_________|                      Gonzaga
 _________                    |                   |                              |                   |                    _________
-         |+ND                |                   |                              |                   |                WVU|         
+         |ND                 |                   |                              |                   |                WVU|         
 Xavier   |_________          |                   |                              |                   |          _________|      WVU
 _________|         |         |                   |                              |                   |         |         |_________
                    |Lehigh   |                   |          Texas               |                   |Loyola MD|                   

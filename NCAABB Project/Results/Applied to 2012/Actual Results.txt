@@ -1,6 +1,5 @@
-Tournament bracket for year: 2012(1)
-Generated: 02-01-2016 13:34:06
-Scored: N/A
+Tournament bracket for year: 2012
+Generated at: 05-14-2016 13:39:03
 Mode: Actual Results
 
 Kentucky                                                                                                                  Syracuse
@@ -39,7 +38,7 @@ _________          |         |         |         |                              
 S Dak St |_________|         |         |         |                              |         |         |         |_________|St Bonnys
 _________|                   |         |         |                              |         |         |                   |_________
                              |Baylor   |         |                              |         |  Ohio St|                             
-+ND                          |_________|         |                              |         |_________|                      Gonzaga
+ND                           |_________|         |                              |         |_________|                      Gonzaga
 _________                    |                   |                              |                   |                    _________
          |Xavier             |                   |                              |                   |            Gonzaga|         
 Xavier   |_________          |                   |                              |                   |          _________|      WVU

@@ -1,7 +1,7 @@
-Tournament bracket for year: 2012(1)
-Generated: 02-01-2016 12:32:15
-Scored: 57 points
+Tournament bracket for year: 2012
+Generated at: 05-14-2016 13:39:03
 Mode: Select Formula
+Scored: 57 points
 Formula: 2010(1) 1.0
 Coefficients: 1, 0, 1, 1, 1.5, 0, 4, 0, 0, 1, 1, 4
 
@@ -41,9 +41,9 @@ _________          |         |         |         |                              
 S Dak St |_________|         |         |         |                              |         |         |         |_________|St Bonnys
 _________|                   |         |         |                              |         |         |                   |_________
                              |Duke     |         |                              |         |  Ohio St|                             
-+ND                          |_________|         |                              |         |_________|                      Gonzaga
+ND                           |_________|         |                              |         |_________|                      Gonzaga
 _________                    |                   |                              |                   |                    _________
-         |+ND                |                   |                              |                   |                WVU|         
+         |ND                 |                   |                              |                   |                WVU|         
 Xavier   |_________          |                   |                              |                   |          _________|      WVU
 _________|         |         |                   |                              |                   |         |         |_________
                    |Duke     |                   |          UNC                 |                   |  Ohio St|                   

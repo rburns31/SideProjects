@@ -1,7 +1,7 @@
-Tournament bracket for year: 2015(1)
-Generated: 02-01-2016 12:50:23
-Scored: 89 points
+Tournament bracket for year: 2015
+Generated at: 05-14-2016 13:39:10
 Mode: High Seeds
+Scored: 89 points
 
 Kentucky                                                                                                                 Villanova
 _________                                                                                                                _________

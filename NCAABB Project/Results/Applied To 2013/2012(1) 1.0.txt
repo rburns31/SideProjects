@@ -1,7 +1,7 @@
-Tournament bracket for year: 2013(1)
-Generated: 02-01-2016 12:39:58
-Scored: 37 points
+Tournament bracket for year: 2013
+Generated at: 05-14-2016 13:39:06
 Mode: Select Formula
+Scored: 37 points
 Formula: 2012(1) 1.0
 Coefficients: 4.25, 0, 1, 2, 1, 0, 0, 0, 2, 3, 0, 0
 

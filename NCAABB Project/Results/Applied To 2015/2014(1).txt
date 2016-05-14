@@ -1,7 +1,7 @@
-Tournament bracket for year: 2015(1)
-Generated: 02-01-2016 12:51:38
-Scored: 32 points
+Tournament bracket for year: 2015
+Generated at: 05-14-2016 13:39:10
 Mode: Select Formula
+Scored: 32 points
 Formula: 2014(1)
 Coefficients: -1.96, 3.42, -2.54, 3.81, 0.31, -3.5, 1.24, -1.03, 3, 3.29, 0.88, -6.02
 

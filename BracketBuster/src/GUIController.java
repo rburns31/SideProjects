@@ -149,7 +149,6 @@ public class GUIController implements Initializable {
         
         formulaDropdown.valueProperty().addListener((obs, old, newFormula) -> {
             Driver.FORMULA = newFormula;
-            System.out.println("Formula dropdown changed to: " + Driver.FORMULA);
             if (newFormula != null) {
                 update(true);
             }
@@ -237,7 +236,7 @@ public class GUIController implements Initializable {
                 setUpRow(L1, Driver.STATS_HEADERS.get(Driver.DATA_SET), overflowCoeffRow);
             }
 
-        } else if (Driver.MODE.equals("Select Formula")) {
+        } else if (Driver.MODE.equals("Select Formula")) {            
             formulaBox.setVisible(true);
 
             // Handle updating the formulas list
@@ -252,6 +251,12 @@ public class GUIController implements Initializable {
                 }
             }
 
+            // Set the Driver's data set based on the selected formula
+            String lastDataSet = Driver.DATA_SET;
+            String thisFormula = formulaDropdown.valueProperty().asString().getValue();
+            Driver.DATA_SET = Character.toString(
+                    thisFormula.charAt(thisFormula.indexOf("(") + 1));
+            
             // Because update() will get called thrice unnecessarily
             coeffRow.getChildren().clear();
             overflowCoeffRow.getChildren().clear();
@@ -260,8 +265,7 @@ public class GUIController implements Initializable {
             setUpRow(0, Driver.STATS_HEADERS.get("1"), coeffRow);
 
             // If the selected year supports additional stats, use the overflow row
-            String dataSet = (String) (Driver.FORMULA.split("\\(")[1]).substring(0, 1);
-            if (Driver.DATA_SET_TO_SIZE.get(dataSet) > L1 + 1) {
+            if (Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET) > L1 + 1) {
                 setUpRow(L1, Driver.STATS_HEADERS.get(Driver.DATA_SET), overflowCoeffRow);
             }
 
@@ -287,6 +291,9 @@ public class GUIController implements Initializable {
                             Double.toString(inputCoeff[i + objs.length]));
                 }
             }
+            
+            // Reset the data set to what it was set to before this change
+            Driver.DATA_SET = lastDataSet;
             
         } else if (Driver.MODE.equals("Generate Formula")) {
             dataSetBox.setVisible(true);
@@ -366,11 +373,17 @@ public class GUIController implements Initializable {
     private void goButtonHandler(ActionEvent event) {
         bracketField.clear();
         
+        // Keep track of the data set value when the 'Go' button was pressed
+        String lastDataSet = Driver.DATA_SET;
+        
         // Read in the stats files for all possible data sets
         for (String dataSet: Driver.DATA_SET_TO_SIZE.keySet()) {
             Driver.DATA_SET = dataSet;
             Driver.convertExcel();
         }
+        
+        // Reset the data set to what it was set to before this button selection
+        Driver.DATA_SET = lastDataSet;
 
         if (Driver.MODE.equals("High Seeds")) {
             BracketBuster bb = new BracketBuster(0);
@@ -432,13 +445,21 @@ public class GUIController implements Initializable {
             fileToGUI("bracket.txt");
 
         } else if (Driver.MODE.equals("Select Formula")) {
+            // Verify that the correct data set is selected
+            String thisFormula = formulaDropdown.valueProperty().asString().getValue();
+            Driver.DATA_SET = Character.toString(
+                    thisFormula.charAt(thisFormula.indexOf("(") + 1));
+            System.out.println(Driver.DATA_SET);
+            
             BracketBuster bb = new BracketBuster(0);
             storeCoeff();
             
             // Pass in the specified formula from the map
-            double[] inputCoeff = concat(Arrays.copyOfRange(Driver.FORMULAS.get(
-                formulaDropdown.valueProperty().asString().getValue()), 0,
-                Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET) - 1), new double[]{0});
+            double[] inputCoeff = concat(
+                    Arrays.copyOfRange(Driver.FORMULAS.get(thisFormula), 0,
+                            Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET) - 1),
+                    new double[]{0});
+            System.out.println(inputCoeff.length);
 
             int score = bb.score(inputCoeff);
             scoreField.setText(Integer.toString(score));
@@ -447,6 +468,9 @@ public class GUIController implements Initializable {
             new BracketVisual(bb.winnerPos, score, inputCoeff, -1);
             
             fileToGUI("bracket.txt");
+            
+            // Reset the data set to what it was set to before this button selection
+            Driver.DATA_SET = lastDataSet;
             
         } else if (Driver.MODE.equals("Generate Formula")) {
             update(false);
@@ -497,6 +521,8 @@ public class GUIController implements Initializable {
             
             fileToGUI("bracket.txt");
             
+            progressBox.setVisible(false);
+            
         } else if (Driver.MODE.equals("Actual Results")) {
             BracketBuster bb = new BracketBuster(0);
             bb.actualResults();
@@ -510,6 +536,7 @@ public class GUIController implements Initializable {
             new File("Applied to " + Driver.YEAR).mkdir();
 
             // Iterate through all of the valid formulas for the selected year
+            Driver.MODE = "Select Formula";
             String[] validFormulas = Driver.VALID.get(Driver.YEAR);
             for (String thisFormulaName: validFormulas) {
 

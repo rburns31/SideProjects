@@ -1,7 +1,7 @@
-Tournament bracket for year: 2010(1)
-Generated: 01-31-2016 20:00:13
-Scored: 59 points
+Tournament bracket for year: 2010
+Generated at: 05-14-2016 13:38:58
 Mode: Select Formula
+Scored: 59 points
 Formula: Everything(1)
 Coefficients: 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 

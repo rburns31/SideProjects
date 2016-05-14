@@ -87,46 +87,33 @@ public class BracketVisual {
      * @param outFile The file for these headers to be printed into
      */
     private void printHeaders(PrintWriter outFile) {
-        String header1 = "Tournament bracket for year: " + Driver.YEAR;
-
-        String header2 = "Generated at: " + Driver.getTime();
-
-        String header3 = "Scored: " + max + " points";
-        if (max == -1) {
-            header3 = "Scored: N/A";
-        }
-
-        String header4 = "Mode: " + Driver.MODE;
-        if (Driver.MODE.equals("Run Formula Batch")) {
-            header4 = "Mode: Select Formula";
-        }
-
-        String header5 = "Formula: " + Driver.FORMULA;
-
-        String header6 = "Trials: " + trials;
-
-        StringBuilder header7 = new StringBuilder("Coefficients: ");
+        StringBuilder coeffHeader = new StringBuilder("Coefficients: ");
         for (int i = 0; i < best.length - 1; i++) {
             if (i != 0) {
-                header7.append(", ");
+                coeffHeader.append(", ");
             }
             String str = Double.toString(best[i]);
-            header7.append(!str.contains(".") ? str
+            coeffHeader.append(!str.contains(".") ? str
                     : str.replaceAll("0*$", "").replaceAll("\\.$", ""));
         }
 
-        outFile.println(header1);
-        outFile.println(header2);
-        outFile.println(header3);
-        outFile.println(header4);
-        if (Driver.MODE.equals("Select Formula") || Driver.MODE.equals("Run Formula Batch")) {
-            outFile.println(header5);
-            outFile.println(header7);
+        outFile.println("Tournament bracket for year: " + Driver.YEAR);
+        outFile.println("Generated at: " + Driver.getTime());
+        outFile.println("Mode: " + Driver.MODE);
+        if (max != -1) {
+            outFile.println("Scored: " + max + " points");
+        }
+        
+        if (Driver.MODE.equals("Select Formula")) {
+            outFile.println("Formula: " + Driver.FORMULA);
+            outFile.println(coeffHeader);
         } else if (Driver.MODE.equals("Manual Formula")) {
-            outFile.println(header7);
+            outFile.println("Data set: " + Driver.DATA_SET);
+            outFile.println(coeffHeader);
         } else if (Driver.MODE.equals("Generate Formula")) {
-            outFile.println(header6);
-            outFile.println(header7);
+            outFile.println("Data set: " + Driver.DATA_SET);
+            outFile.println("Trials: " + trials);
+            outFile.println(coeffHeader);
         }
         outFile.println();
     }

@@ -1,7 +1,7 @@
-Tournament bracket for year: 2014(1)
-Generated: 03-13-2016 16:30:57
-Scored: 38 points
+Tournament bracket for year: 2014
+Generated at: 05-14-2016 13:39:08
 Mode: Select Formula
+Scored: 38 points
 Formula: Average 2014(1)
 Coefficients: 1.3, 1.1, 1.9, 2, 1.6, 1.9, 2.4, 2.1, 1.2, 3, 1.6, 1.2
 

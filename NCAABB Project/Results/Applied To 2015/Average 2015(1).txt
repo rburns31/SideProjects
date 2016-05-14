@@ -1,7 +1,7 @@
-Tournament bracket for year: 2015(1)
-Generated: 03-13-2016 16:44:11
-Scored: 95 points
+Tournament bracket for year: 2015
+Generated at: 05-14-2016 13:39:10
 Mode: Select Formula
+Scored: 95 points
 Formula: Average 2015(1)
 Coefficients: 2, 2.1, 2.2, 3.1, 2, 2, 3.1, 2.7, 2.1, 4, 2, 2
 

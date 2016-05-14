@@ -1,7 +1,7 @@
-Tournament bracket for year: 2012(1)
-Generated: 02-01-2016 12:33:40
-Scored: 164 points
+Tournament bracket for year: 2012
+Generated at: 05-14-2016 13:39:03
 Mode: Select Formula
+Scored: 164 points
 Formula: 2012(1) 2.0
 Coefficients: -1.4356, 1.175, -0.3186, -2.0694, -0.8082, 5.1496, -8.0884, 3.13, 6.152, 10.0601, 3.538, -7.1744
 
@@ -41,7 +41,7 @@ _________          |         |         |         |                              
 S Dak St |_________|         |         |         |                              |         |         |         |_________|St Bonnys
 _________|                   |         |         |                              |         |         |                   |_________
                              |Baylor   |         |                              |         |   Fla St|                             
-+ND                          |_________|         |                              |         |_________|                      Gonzaga
+ND                           |_________|         |                              |         |_________|                      Gonzaga
 _________                    |                   |                              |                   |                    _________
          |Xavier             |                   |                              |                   |                WVU|         
 Xavier   |_________          |                   |                              |                   |          _________|      WVU

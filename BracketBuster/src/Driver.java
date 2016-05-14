@@ -134,10 +134,10 @@ public class Driver extends Application {
      * Converts Excel spreadsheet into a text file
      */
     public static void convertExcel() {
+        String fileName = "stats/stats_" + YEAR + "(" + DATA_SET + ")_3";
+        File outFile = new File(fileName + ".txt");
+        outFile.deleteOnExit();
         try {
-            String fileName = "stats/stats_" + YEAR + "(" + DATA_SET + ")_3";
-            File outFile = new File(fileName + ".txt");
-            outFile.deleteOnExit();
             PrintStream output = new PrintStream(outFile);
             InputStream input = new BufferedInputStream(new FileInputStream(
                     fileName + ".xls"));
