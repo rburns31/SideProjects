@@ -1,34 +1,34 @@
 Tournament bracket for year: 2015
-Generated at: 05-14-2016 13:39:10
+Generated at: 05-16-2016 12:06:08
 Mode: Select Formula
-Scored: 42 points
+Scored: 37 points
 Formula: 2012(3)
-Coefficients: 55.043, 2.3471, 18.66, -24, -17.212, 33, -27.6, -7.43, 46.5, 35.492, 4.79, 9.372, -23.54, -20.23, -3.1054, 13, -19.33, -6.2, 0.078
+Coefficients: -16, -2, -24.7, -3, 1.34, 1, -39, 28, 36, 65, 39.4, -30.8, -21, 0.01, 24, -0.05, -22, 8, -9
 
 Kentucky                                                                                                                 Villanova
 _________                                                                                                                _________
          |Kentucky                                                                                             Villanova|         
 Hampton  |_________                                                                                            _________|Lafayette
 _________|         |                                                                                          |         |_________
-                   |Cincy                                                                                  LSU|                   
+                   |Kentucky                                                                               LSU|                   
 Cincy              |_________                                                                        _________|           NC State
 _________          |         |                                                                      |         |          _________
          |Cincy    |         |                                                                      |         |      LSU|         
 Purdue   |_________|         |                                                                      |         |_________|      LSU
 _________|                   |                                                                      |                   |_________
-                             |Cincy                                                              LSU|                             
+                             |Kentucky                                                           LSU|                             
 WVU                          |_________                                                    _________|                       N Iowa
 _________                    |         |                                                  |         |                    _________
          |WVU                |         |                                                  |         |            Wyoming|         
 Buffalo  |_________          |         |                                                  |         |          _________|  Wyoming
 _________|         |         |         |                                                  |         |         |         |_________
-                   |Valpo    |         |                                                  |         |UC Irvine|                   
+                   |WVU      |         |                                                  |         |  L'ville|                   
 Maryland           |_________|         |                                                  |         |_________|            L'ville
 _________          |                   |                                                  |                   |          _________
-         |Valpo    |                   |                                                  |                   |UC Irvine|         
+         |Maryland |                   |                                                  |                   |  L'ville|         
 Valpo    |_________|                   |                                                  |                   |_________|UC Irvine
 _________|                             |                                                  |                             |_________
-                                       |Cincy                                      Mich St|                                       
+                                       |Kentucky                                       LSU|                                       
 Butler                                 |_________                                _________|                              Providenc
 _________                              |         |                              |         |                              _________
          |Texas                        |         |                              |         |                    Providenc|         
@@ -40,49 +40,49 @@ _________          |         |         |         |                              
          |N eastern|         |         |         |                              |         |         |         | Oklahoma|         
 N eastern|_________|         |         |         |                              |         |         |         |_________|   Albany
 _________|                   |         |         |                              |         |         |                   |_________
-                             |Texas    |         |                              |         |  Mich St|                             
+                             |Texas    |         |                              |         |Providenc|                             
 Wich St                      |_________|         |                              |         |_________|                      Mich St
 _________                    |                   |                              |                   |                    _________
-         |Indiana            |                   |                              |                   |            Mich St|         
+         |Indiana            |                   |                              |                   |            Georgia|         
 Indiana  |_________          |                   |                              |                   |          _________|  Georgia
 _________|         |         |                   |                              |                   |         |         |_________
-                   |NM St    |                   |          Mich St             |                   |  Mich St|                   
+                   |Kansas   |                   |          Kentucky            |                   |  Georgia|                   
 Kansas             |_________|                   |         ____________         |                   |_________|           Virginia
 _________          |                             |                              |                             |          _________
-         |NM St    |                             |                              |                             | Virginia|         
+         |Kansas   |                             |                              |                             | Virginia|         
 NM St    |_________|                             |                              |                             |_________|  Belmont
 _________|                                       |                              |                                       |_________
-                                                 |Cincy                  Mich St|                                                 
+                                                 |Kentucky                   LSU|                                                 
 Wisconsin                                        |_________            _________|                                             Duke
 _________                                        |                              |                                        _________
-         |Wisconsin                              |                              |                                   Duke|         
+         |Coast Car                              |                              |                                   Duke|         
 Coast Car|_________                              |                              |                              _________| Rob Morr
 _________|         |                             |                              |                             |         |_________
-                   |Okla St                      |                              |                         Duke|                   
+                   |Okla St                      |                              |                     St Johns|                   
 Oregon             |_________                    |                              |                    _________|           San D St
 _________          |         |                   |                              |                   |         |          _________
          |Okla St  |         |                   |                              |                   |         | St Johns|         
 Okla St  |_________|         |                   |                              |                   |         |_________| St Johns
 _________|                   |                   |                              |                   |                   |_________
-                             |UNC                |                              |               Utah|                             
+                             |Okla St            |                              |             G'town|                             
 Arkansas                     |_________          |                              |          _________|                         Utah
 _________                    |         |         |                              |         |         |                    _________
          |Arkansas           |         |         |                              |         |         |               Utah|         
 Wofford  |_________          |         |         |                              |         |         |          _________|SF Austin
 _________|         |         |         |         |                              |         |         |         |         |_________
-                   |UNC      |         |         |                              |         |         |     Utah|                   
+                   |Arkansas |         |         |                              |         |         |   G'town|                   
 UNC                |_________|         |         |                              |         |         |_________|             G'town
 _________          |                   |         |                              |         |                   |          _________
          |UNC      |                   |         |                              |         |                   |   G'town|         
 Harvard  |_________|                   |         |                              |         |                   |_________|   E Wash
 _________|                             |         |                              |         |                             |_________
-                                       |Ohio St  |                              |      SMU|                                       
+                                       |Ohio St  |                              |   G'town|                                       
 Xavier                                 |_________|                              |_________|                                    SMU
 _________                              |                                                  |                              _________
          |Xavier                       |                                                  |                          SMU|         
 Ole Miss |_________                    |                                                  |                    _________|     UCLA
 _________|         |                   |                                                  |                   |         |_________
-                   |Xavier             |                                                  |                SMU|                   
+                   |Baylor             |                                                  |                SMU|                   
 Baylor             |_________          |                                                  |          _________|            Iowa St
 _________          |         |         |                                                  |         |         |          _________
          |Baylor   |         |         |                                                  |         |         |  Iowa St|         
@@ -94,7 +94,7 @@ _________                    |                                                  
          |Ohio St            |                                                                      |               Iowa|         
 Ohio St  |_________          |                                                                      |          _________| Davidson
 _________|         |         |                                                                      |         |         |_________
-                   |Ohio St  |                                                                      |  Gonzaga|                   
+                   |Ohio St  |                                                                      |     Iowa|                   
 Arizona            |_________|                                                                      |_________|            Gonzaga
 _________          |                                                                                          |          _________
          |Arizona  |                                                                                          |  Gonzaga|         

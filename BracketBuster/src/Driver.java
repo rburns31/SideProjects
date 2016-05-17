@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -102,10 +103,70 @@ public class Driver extends Application {
         readInConfigFiles("config/formulas.txt", FORMULAS);
         readInConfigFiles("config/valid.txt", VALID);
         readInConfigFiles("config/stats_headers.txt", STATS_HEADERS);
-        
+
         // Initialize the YEAR_TO_SIZE map from the stats headers' lengths
         for (String key: STATS_HEADERS.keySet()) {
             DATA_SET_TO_SIZE.put(key, STATS_HEADERS.get(key).length + 1);
+        }
+
+        generateAverageFormulas();
+    }
+
+    /**
+     * Generates all of the 'Average' formulas present in the VALID map
+     */
+    private static void generateAverageFormulas() {
+        // Iterate through any valid formula which is an average
+        for (String[] validFormulas: VALID.values()) {
+            for (String validFormula: validFormulas) {
+                if (validFormula.contains("Average")) {
+                    String trimmedFormulaName = validFormula.substring(8);
+                    
+                    // This will hold the average formula as it is built up
+                    String dataSet = Character.toString(
+                            validFormula.charAt(validFormula.indexOf("(") + 1));
+                    double[] avgCoeff = new double[DATA_SET_TO_SIZE.get(dataSet) - 1];
+                    
+                    // Decide which formulas to combine to form this average
+                    String oldestYear = Collections.min(VALID.keySet()).substring(2);
+                    String thisFormula = trimmedFormulaName;
+                    String curYear = thisFormula.substring(2, 4);
+                    while (curYear.compareTo(oldestYear) > 0) {
+                        String olderYear = Integer.toString(Integer.parseInt(curYear) - 1);
+                        thisFormula = thisFormula.replace(curYear, olderYear);
+                        if (!thisFormula.equals(trimmedFormulaName)) {
+                            if (FORMULAS.get(thisFormula) == null) {
+                                // If this formula maps to null then append a "2.0"
+                                thisFormula += " 2.0";
+                            }
+                            
+                            // Scale the coefficients to be in the range [0, 1]
+                            double[] thisCoeff = FORMULAS.get(thisFormula);
+                            double max = findMaxInDoubleArray(thisCoeff);
+                            double min = findMinInDoubleArray(thisCoeff);
+                            for (int i = 0; i < thisCoeff.length; i++) {
+                                avgCoeff[i] += (thisCoeff[i] - min) / (max - min);
+                            }
+                        }
+                        
+                        curYear = olderYear;
+                    }
+
+                    // Trim the average coefficients
+                    YEAR = trimmedFormulaName.substring(0, 4);
+                    DATA_SET = dataSet;
+                    convertExcel();
+                    
+                    BracketBuster bb = new BracketBuster(0);
+                    int score = bb.score(avgCoeff);
+                    if (score != -1) {
+                        avgCoeff = (double[]) bb.trimCoeff(score, avgCoeff).get(1);
+                        bb.score(avgCoeff);
+                    }
+                    
+                    FORMULAS.put(validFormula, avgCoeff);
+                }
+            }
         }
     }
 
@@ -196,5 +257,35 @@ public class Driver extends Application {
         } catch (IOException e) {
             System.out.println(fileName + " file does not exist.");
         }
+    }
+
+    /**
+     * Finds the maximum element in the passed in double array
+     * @param input A double array
+     * @return The maximum element
+     */
+    private static double findMaxInDoubleArray(double[] input) {
+        double max = Double.MIN_VALUE;
+        for (double element: input) {
+            if (element > max) {
+                max = element;
+            }
+        }
+        return max;
+    }
+
+    /**
+     * Finds the minimum element in the passed in double array
+     * @param input A double array
+     * @return The minimum element
+     */
+    private static double findMinInDoubleArray(double[] input) {
+        double min = Double.MAX_VALUE;
+        for (double element: input) {
+            if (element < min) {
+                min = element;
+            }
+        }
+        return min;
     }
 }

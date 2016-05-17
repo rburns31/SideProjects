@@ -1,9 +1,9 @@
 Tournament bracket for year: 2015
-Generated at: 05-14-2016 13:39:10
+Generated at: 05-16-2016 12:06:08
 Mode: Select Formula
-Scored: 32 points
+Scored: 56 points
 Formula: 2014(1)
-Coefficients: -1.96, 3.42, -2.54, 3.81, 0.31, -3.5, 1.24, -1.03, 3, 3.29, 0.88, -6.02
+Coefficients: 4.3, 2.5, -1.2, 2.76, -0.92, -3.5, 1.88, -1.71, 3.2, 4.3, 0.09, -1.6
 
 Kentucky                                                                                                                 Villanova
 _________                                                                                                                _________
@@ -16,16 +16,16 @@ _________          |         |                                                  
          |Cincy    |         |                                                                      |         | NC State|         
 Purdue   |_________|         |                                                                      |         |_________|      LSU
 _________|                   |                                                                      |                   |_________
-                             |Maryland                                                      NC State|                             
+                             |Kentucky                                                      NC State|                             
 WVU                          |_________                                                    _________|                       N Iowa
 _________                    |         |                                                  |         |                    _________
          |Buffalo            |         |                                                  |         |             N Iowa|         
 Buffalo  |_________          |         |                                                  |         |          _________|  Wyoming
 _________|         |         |         |                                                  |         |         |         |_________
-                   |Maryland |         |                                                  |         |  L'ville|                   
+                   |Maryland |         |                                                  |         |UC Irvine|                   
 Maryland           |_________|         |                                                  |         |_________|            L'ville
 _________          |                   |                                                  |                   |          _________
-         |Maryland |                   |                                                  |                   |  L'ville|         
+         |Maryland |                   |                                                  |                   |UC Irvine|         
 Valpo    |_________|                   |                                                  |                   |_________|UC Irvine
 _________|                             |                                                  |                             |_________
                                        |Texas                                     NC State|                                       
@@ -37,66 +37,66 @@ _________|         |                   |         |                              
                    |Texas              |         |                              |         |           Oklahoma|                   
 ND                 |_________          |         |                              |         |          _________|           Oklahoma
 _________          |         |         |         |                              |         |         |         |          _________
-         |N eastern|         |         |         |                              |         |         |         | Oklahoma|         
+         |ND       |         |         |         |                              |         |         |         | Oklahoma|         
 N eastern|_________|         |         |         |                              |         |         |         |_________|   Albany
 _________|                   |         |         |                              |         |         |                   |_________
-                             |Texas    |         |                              |         |  Georgia|                             
+                             |Texas    |         |                              |         | Virginia|                             
 Wich St                      |_________|         |                              |         |_________|                      Mich St
 _________                    |                   |                              |                   |                    _________
-         |Indiana            |                   |                              |                   |            Georgia|         
+         |Indiana            |                   |                              |                   |            Mich St|         
 Indiana  |_________          |                   |                              |                   |          _________|  Georgia
 _________|         |         |                   |                              |                   |         |         |_________
-                   |Kansas   |                   |          Texas               |                   |  Georgia|                   
+                   |Indiana  |                   |          Texas               |                   | Virginia|                   
 Kansas             |_________|                   |         ____________         |                   |_________|           Virginia
 _________          |                             |                              |                             |          _________
          |Kansas   |                             |                              |                             | Virginia|         
 NM St    |_________|                             |                              |                             |_________|  Belmont
 _________|                                       |                              |                                       |_________
-                                                 |Texas                 NC State|                                                 
+                                                 |Texas                     Utah|                                                 
 Wisconsin                                        |_________            _________|                                             Duke
 _________                                        |                              |                                        _________
-         |Coast Car                              |                              |                                   Duke|         
+         |Wisconsin                              |                              |                                   Duke|         
 Coast Car|_________                              |                              |                              _________| Rob Morr
 _________|         |                             |                              |                             |         |_________
-                   |Okla St                      |                              |                     St Johns|                   
+                   |Wisconsin                    |                              |                         Duke|                   
 Oregon             |_________                    |                              |                    _________|           San D St
 _________          |         |                   |                              |                   |         |          _________
-         |Okla St  |         |                   |                              |                   |         | St Johns|         
+         |Oregon   |         |                   |                              |                   |         | St Johns|         
 Okla St  |_________|         |                   |                              |                   |         |_________| St Johns
 _________|                   |                   |                              |                   |                   |_________
-                             |Okla St            |                              |           St Johns|                             
+                             |Wisconsin          |                              |               Utah|                             
 Arkansas                     |_________          |                              |          _________|                         Utah
 _________                    |         |         |                              |         |         |                    _________
          |Arkansas           |         |         |                              |         |         |               Utah|         
 Wofford  |_________          |         |         |                              |         |         |          _________|SF Austin
 _________|         |         |         |         |                              |         |         |         |         |_________
-                   |Harvard  |         |         |                              |         |         |     Utah|                   
+                   |UNC      |         |         |                              |         |         |     Utah|                   
 UNC                |_________|         |         |                              |         |         |_________|             G'town
 _________          |                   |         |                              |         |                   |          _________
-         |Harvard  |                   |         |                              |         |                   |   E Wash|         
+         |UNC      |                   |         |                              |         |                   |   E Wash|         
 Harvard  |_________|                   |         |                              |         |                   |_________|   E Wash
 _________|                             |         |                              |         |                             |_________
-                                       |Okla St  |                              | St Johns|                                       
+                                       |Wisconsin|                              |     Utah|                                       
 Xavier                                 |_________|                              |_________|                                    SMU
 _________                              |                                                  |                              _________
-         |Ole Miss                     |                                                  |                         UCLA|         
+         |Ole Miss                     |                                                  |                          SMU|         
 Ole Miss |_________                    |                                                  |                    _________|     UCLA
 _________|         |                   |                                                  |                   |         |_________
-                   |Ole Miss           |                                                  |               UCLA|                   
+                   |Baylor             |                                                  |            Iowa St|                   
 Baylor             |_________          |                                                  |          _________|            Iowa St
 _________          |         |         |                                                  |         |         |          _________
-         |Baylor   |         |         |                                                  |         |         |      UAB|         
+         |Baylor   |         |         |                                                  |         |         |  Iowa St|         
 GA St    |_________|         |         |                                                  |         |         |_________|      UAB
 _________|                   |         |                                                  |         |                   |_________
-                             |Ole Miss |                                                  | N Dak St|                             
+                             |Ohio St  |                                                  |  Gonzaga|                             
 VCU                          |_________|                                                  |_________|                         Iowa
 _________                    |                                                                      |                    _________
-         |Ohio St            |                                                                      |               Iowa|         
+         |Ohio St            |                                                                      |           Davidson|         
 Ohio St  |_________          |                                                                      |          _________| Davidson
 _________|         |         |                                                                      |         |         |_________
-                   |Arizona  |                                                                      | N Dak St|                   
+                   |Ohio St  |                                                                      |  Gonzaga|                   
 Arizona            |_________|                                                                      |_________|            Gonzaga
 _________          |                                                                                          |          _________
-         |Arizona  |                                                                                          | N Dak St|         
+         |Arizona  |                                                                                          |  Gonzaga|         
 Texas So |_________|                                                                                          |_________| N Dak St
 _________|                                                                                                              |_________

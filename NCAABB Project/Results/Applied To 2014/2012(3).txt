@@ -1,46 +1,46 @@
 Tournament bracket for year: 2014
-Generated at: 05-14-2016 13:39:08
+Generated at: 05-16-2016 12:06:10
 Mode: Select Formula
-Scored: 39 points
+Scored: 52 points
 Formula: 2012(3)
-Coefficients: 55.043, 2.3471, 18.66, -24, -17.212, 33, -27.6, -7.43, 46.5, 35.492, 4.79, 9.372, -23.54, -20.23, -3.1054, 13, -19.33, -6.2, 0.078
+Coefficients: -16, -2, -24.7, -3, 1.34, 1, -39, 28, 36, 65, 39.4, -30.8, -21, 0.01, 24, -0.05, -22, 8, -9
 
 Florida                                                                                                                    Arizona
 _________                                                                                                                _________
-         |Florida                                                                                                Arizona|         
+         |Florida                                                                                               Weber St|         
 Albany   |_________                                                                                            _________| Weber St
 _________|         |                                                                                          |         |_________
-                   |Florida                                                                            Gonzaga|                   
+                   |Pitt                                                                               Okla St|                   
 Colorado           |_________                                                                        _________|            Gonzaga
 _________          |         |                                                                      |         |          _________
-         |Pitt     |         |                                                                      |         |  Gonzaga|         
+         |Pitt     |         |                                                                      |         |  Okla St|         
 Pitt     |_________|         |                                                                      |         |_________|  Okla St
 _________|                   |                                                                      |                   |_________
-                             |Florida                                                          NM St|                             
+                             |VCU                                                            Okla St|                             
 VCU                          |_________                                                    _________|                     Oklahoma
 _________                    |         |                                                  |         |                    _________
-         |SF Austin          |         |                                                  |         |           N Dak St|         
+         |VCU                |         |                                                  |         |           Oklahoma|         
 SF Austin|_________          |         |                                                  |         |          _________| N Dak St
 _________|         |         |         |                                                  |         |         |         |_________
-                   |SF Austin|         |                                                  |         |    NM St|                   
+                   |VCU      |         |                                                  |         |    NM St|                   
 UCLA               |_________|         |                                                  |         |_________|           San D St
 _________          |                   |                                                  |                   |          _________
          |UCLA     |                   |                                                  |                   |    NM St|         
 Tulsa    |_________|                   |                                                  |                   |_________|    NM St
 _________|                             |                                                  |                             |_________
-                                       |Kansas                                    American|                                       
+                                       |Kansas                                     Okla St|                                       
 Ohio St                                |_________                                _________|                                 Baylor
 _________                              |         |                              |         |                              _________
-         |Dayton                       |         |                              |         |                       Baylor|         
+         |Ohio St                      |         |                              |         |                       Baylor|         
 Dayton   |_________                    |         |                              |         |                    _________| Nebraska
 _________|         |                   |         |                              |         |                   |         |_________
-                   |Dayton             |         |                              |         |             Baylor|                   
+                   |Ohio St            |         |                              |         |             Baylor|                   
 Syracuse           |_________          |         |                              |         |          _________|          Creighton
 _________          |         |         |         |                              |         |         |         |          _________
          |Syracuse |         |         |         |                              |         |         |         | LA Lafay|         
 W Mich   |_________|         |         |         |                              |         |         |         |_________| LA Lafay
 _________|                   |         |         |                              |         |         |                   |_________
-                             |Kansas   |         |                              |         | American|                             
+                             |Kansas   |         |                              |         |   Baylor|                             
 New Mexic                    |_________|         |                              |         |_________|                       Oregon
 _________                    |                   |                              |                   |                    _________
          |Stanford           |                   |                              |                   |                BYU|         
@@ -52,7 +52,7 @@ _________          |                             |                              
          |Kansas   |                             |                              |                             | American|         
 E KY     |_________|                             |                              |                             |_________| American
 _________|                                       |                              |                                       |_________
-                                                 |Kansas                American|                                                 
+                                                 |Kansas                Kentucky|                                                 
 Virginia                                         |_________            _________|                                          Wich St
 _________                                        |                              |                                        _________
          |Virginia                               |                              |                                Wich St|         
@@ -64,19 +64,19 @@ _________          |         |                   |                              
          |Memphis  |         |                   |                              |                   |         | Kentucky|         
 G Wash   |_________|         |                   |                              |                   |         |_________|Kansas St
 _________|                   |                   |                              |                   |                   |_________
-                             |Memphis            |                              |              NC St|                             
+                             |Memphis            |                              |           Kentucky|                             
 Cincy                        |_________          |                              |          _________|                     St Louis
 _________                    |         |         |                              |         |         |                    _________
-         |Harvard            |         |         |                              |         |         |              NC St|         
+         |Cincy              |         |         |                              |         |         |           St Louis|         
 Harvard  |_________          |         |         |                              |         |         |          _________|    NC St
 _________|         |         |         |         |                              |         |         |         |         |_________
-                   |Mich St  |         |         |                              |         |         |    NC St|                   
+                   |Cincy    |         |         |                              |         |         |Manhattan|                   
 Mich St            |_________|         |         |                              |         |         |_________|            L'ville
 _________          |                   |         |                              |         |                   |          _________
-         |Mich St  |                   |         |                              |         |                   |  L'ville|         
+         |Mich St  |                   |         |                              |         |                   |Manhattan|         
 Delaware |_________|                   |         |                              |         |                   |_________|Manhattan
 _________|                             |         |                              |         |                             |_________
-                                       |Memphis  |                              |    UMass|                                       
+                                       |Memphis  |                              | Kentucky|                                       
 UNC                                    |_________|                              |_________|                                  UMass
 _________                              |                                                  |                              _________
          |UNC                          |                                                  |                        UMass|         
@@ -85,16 +85,16 @@ _________|         |                   |                                        
                    |UNC                |                                                  |              UMass|                   
 Iowa St            |_________          |                                                  |          _________|               Duke
 _________          |         |         |                                                  |         |         |          _________
-         |Iowa St  |         |         |                                                  |         |         |   Mercer|         
+         |NC Cen   |         |         |                                                  |         |         |     Duke|         
 NC Cen   |_________|         |         |                                                  |         |         |_________|   Mercer
 _________|                   |         |                                                  |         |                   |_________
-                             |St Joes  |                                                  |    UMass|                             
+                             |UNC      |                                                  |    UMass|                             
 UConn                        |_________|                                                  |_________|                        Texas
 _________                    |                                                                      |                    _________
-         |St Joes            |                                                                      |              Texas|         
+         |UConn              |                                                                      |              Texas|         
 St Joes  |_________          |                                                                      |          _________|      ASU
 _________|         |         |                                                                      |         |         |_________
-                   |St Joes  |                                                                      |    Texas|                   
+                   |UConn    |                                                                      |    Texas|                   
 Villanova          |_________|                                                                      |_________|           Michigan
 _________          |                                                                                          |          _________
          |Villanova|                                                                                          | Michigan|         

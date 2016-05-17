@@ -1,9 +1,9 @@
 Tournament bracket for year: 2015
-Generated at: 05-14-2016 13:39:10
+Generated at: 05-16-2016 12:06:08
 Mode: Select Formula
-Scored: 95 points
+Scored: 96 points
 Formula: Average 2015(1)
-Coefficients: 2, 2.1, 2.2, 3.1, 2, 2, 3.1, 2.7, 2.1, 4, 2, 2
+Coefficients: 2.287446605504348, 1.865620858848154, 2.15612287834426, 2.956680624351147, 1.926500284654226, 1.895668680671346, 3.089538615694284, 2.377638756795719, 2.094038510976183, 4.4, 2.10099764215403, 2.1068027891918
 
 Kentucky                                                                                                                 Villanova
 _________                                                                                                                _________
@@ -25,7 +25,7 @@ _________|         |         |         |                                        
                    |WVU      |         |                                                  |         |  L'ville|                   
 Maryland           |_________|         |                                                  |         |_________|            L'ville
 _________          |                   |                                                  |                   |          _________
-         |Valpo    |                   |                                                  |                   |  L'ville|         
+         |Maryland |                   |                                                  |                   |  L'ville|         
 Valpo    |_________|                   |                                                  |                   |_________|UC Irvine
 _________|                             |                                                  |                             |_________
                                        |Kentucky                                 Villanova|                                       

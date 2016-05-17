@@ -1,4 +1,4 @@
-Tournament bracket for year: 2015(1)
+Tournament bracket for year: 2015
 Generated: 02-01-2016 13:35:53
 Scored: 86 points
 Mode: Manual Entry

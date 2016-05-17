@@ -1,9 +1,9 @@
 Tournament bracket for year: 2016
-Generated at: 05-14-2016 13:39:13
+Generated at: 05-16-2016 12:06:05
 Mode: Select Formula
-Scored: 62 points
+Scored: 65 points
 Formula: Average 2016(3)
-Coefficients: 2.914962412, 2.005734776, 2.899419158, 3.996703162, 2.314656728, 1.954489519, 3.014716969, 1.974578675, 2.120978119, 3.519598271, 2.698474872, 3.220894163, 2.246231704, 1.835332603, 2.492658814, 3.044568511, 2.219805533, 2.427261717, 3.276574935
+Coefficients: 2.136, 2, 2.4772, 4, 2.5768, 1.61, 3.015, 2.3748, 2, 3.759, 3.1, 3, 2.3702, 2, 2.802, 2.9278, 2, 2.6, 3.23
 
 Kansas                                                                                                                         UNC
 _________                                                                                                                _________
@@ -40,19 +40,19 @@ _________          |         |         |         |                              
          |Miami    |         |         |         |                              |         |         |         |SF Austin|         
 Buffalo  |_________|         |         |         |                              |         |         |         |_________|SF Austin
 _________|                   |         |         |                              |         |         |                   |_________
-                             |Iowa     |         |                              |         |   Xavier|                             
+                             |Villanova|         |                              |         |   Xavier|                             
 Iowa                         |_________|         |                              |         |_________|                    Wisconsin
 _________                    |                   |                              |                   |                    _________
          |Iowa               |                   |                              |                   |               Pitt|         
 Temple   |_________          |                   |                              |                   |          _________|     Pitt
 _________|         |         |                   |                              |                   |         |         |_________
-                   |Iowa     |                   |          Mich St             |                   |   Xavier|                   
+                   |Villanova|                   |          Mich St             |                   |   Xavier|                   
 Villanova          |_________|                   |         ____________         |                   |_________|             Xavier
 _________          |                             |                              |                             |          _________
          |Villanova|                             |                              |                             |   Xavier|         
 UNC Ash  |_________|                             |                              |                             |_________| Weber St
 _________|                                       |                              |                                       |_________
-                                                 |Kansas                 Mich St|                                                 
+                                                 |Duke                   Mich St|                                                 
 Oregon                                           |_________            _________|                                         Virginia
 _________                                        |                              |                                        _________
          |Oregon                                 |                              |                               Virginia|         
@@ -82,10 +82,10 @@ _________                              |                                        
          |Texas                        |                                                  |                      Gonzaga|         
 N Iowa   |_________                    |                                                  |                    _________|  Gonzaga
 _________|         |                   |                                                  |                   |         |_________
-                   |Texas A&M          |                                                  |            Gonzaga|                   
+                   |Green Bay          |                                                  |            Gonzaga|                   
 Texas A&M          |_________          |                                                  |          _________|               Utah
 _________          |         |         |                                                  |         |         |          _________
-         |Texas A&M|         |         |                                                  |         |         |     Utah|         
+         |Green Bay|         |         |                                                  |         |         |     Utah|         
 Green Bay|_________|         |         |                                                  |         |         |_________|Fresno St
 _________|                   |         |                                                  |         |                   |_________
                              |Oklahoma |                                                  |  Mich St|                             

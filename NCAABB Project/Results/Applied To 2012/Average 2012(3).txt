@@ -1,9 +1,9 @@
 Tournament bracket for year: 2012
-Generated at: 05-14-2016 13:39:03
+Generated at: 05-16-2016 12:06:14
 Mode: Select Formula
 Scored: 66 points
 Formula: Average 2012(3)
-Coefficients: 0.48, 0.3, 1, 1.6, 1, 1, 1.27, 0.72, 0.6, 1.15, 1.2, 1.2, 1.4, 1.18, 1, 1.2, 1.1, 0.6, 1.1
+Coefficients: 0.48152, 0.337, 1, 1.59, 1.2, 0.66, 1.27, 0.7177, 0.585, 1.15, 1.1798, 1.23, 1.4, 1.179, 0.8, 1.2038, 1.0499, 0.6035, 1.13
 
 Kentucky                                                                                                                  Syracuse
 _________                                                                                                                _________

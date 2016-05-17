@@ -1,9 +1,9 @@
 Tournament bracket for year: 2013
-Generated at: 05-14-2016 13:39:06
+Generated at: 05-16-2016 12:06:12
 Mode: Select Formula
 Scored: 65 points
 Formula: Average 2013(1) 2.0
-Coefficients: 1, 1, 2, 2.1, 1.3, 1.6, 2, 2, 1, 2, 1, 2
+Coefficients: 1, 1, 2, 2, 1, 1.6, 2, 1.8, 1, 2, 1, 1.7
 
 L'ville                                                                                                                     Kansas
 _________                                                                                                                _________

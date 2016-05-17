@@ -1,9 +1,9 @@
 Tournament bracket for year: 2012
-Generated at: 05-14-2016 13:39:03
+Generated at: 05-16-2016 12:06:14
 Mode: Select Formula
-Scored: 73 points
+Scored: 68 points
 Formula: Average 2012(1) 1.0
-Coefficients: 0.3, 0, 0.8, 0.5, 0.47, 0, 2, 0, 0, 0.3, 0.6, 2
+Coefficients: 0.35, 0, 0.75, 0.45, 0.475, 0, 1.6, 0.1, 0.1, 0.35, 0.55, 2
 
 Kentucky                                                                                                                  Syracuse
 _________                                                                                                                _________
@@ -22,10 +22,10 @@ _________                    |         |                                        
          |VCU                |         |                                                  |         |              Vandy|         
 VCU      |_________          |         |                                                  |         |          _________|  Harvard
 _________|         |         |         |                                                  |         |         |         |_________
-                   |Indiana  |         |                                                  |         |Wisconsin|                   
+                   |NM St    |         |                                                  |         |Wisconsin|                   
 Indiana            |_________|         |                                                  |         |_________|          Wisconsin
 _________          |                   |                                                  |                   |          _________
-         |Indiana  |                   |                                                  |                   |Wisconsin|         
+         |NM St    |                   |                                                  |                   |Wisconsin|         
 NM St    |_________|                   |                                                  |                   |_________|  Montana
 _________|                             |                                                  |                             |_________
                                        |Kentucky                                  Syracuse|                                       
@@ -46,7 +46,7 @@ _________                    |                   |                              
          |ND                 |                   |                              |                   |                WVU|         
 Xavier   |_________          |                   |                              |                   |          _________|      WVU
 _________|         |         |                   |                              |                   |         |         |_________
-                   |Duke     |                   |          UNC                 |                   |  Ohio St|                   
+                   |Duke     |                   |          UNC                 |                   |      WVU|                   
 Duke               |_________|                   |         ____________         |                   |_________|            Ohio St
 _________          |                             |                              |                             |          _________
          |Duke     |                             |                              |                             |  Ohio St|         
@@ -64,7 +64,7 @@ _________          |         |                   |                              
          |St Louis |         |                   |                              |                   |         |Creighton|         
 St Louis |_________|         |                   |                              |                   |         |_________|  Alabama
 _________|                   |                   |                              |                   |                   |_________
-                             |Davidson           |                              |                UNC|                             
+                             |Mich St            |                              |                UNC|                             
 New Mexic                    |_________          |                              |          _________|                       Temple
 _________                    |         |         |                              |         |         |                    _________
          |LB St              |         |         |                              |         |         |             Temple|         
