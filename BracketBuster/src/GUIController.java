@@ -226,8 +226,6 @@ public class GUIController implements Initializable {
             dataSetBox.setVisible(true);
             clearButton.setVisible(true);
 
-            clearButtonHandler(null);
-
             // Add the correct children to the main coefficient row
             setUpRow(0, Driver.STATS_HEADERS.get("1"), coeffRow);
 
@@ -275,22 +273,7 @@ public class GUIController implements Initializable {
                     Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET) - 1), new double[]{0});
 
             // Fill in the coefficient rows with the selected formula
-            Object[] objs = coeffRow.getChildren().toArray();
-            VBox[] vboxes = new VBox[objs.length];
-            for (int i = 0; i < objs.length; i++) {
-                vboxes[i] = (VBox)objs[i];
-                ((TextField)vboxes[i].getChildren().toArray()[1]).setText(
-                        Double.toString(inputCoeff[i]));
-            }
-            if (!overflowCoeffRow.getChildren().isEmpty()) {
-                Object[] objs2 = overflowCoeffRow.getChildren().toArray();
-                VBox[] vboxes2 = new VBox[objs2.length];
-                for (int i = 0; i < objs2.length; i++) {
-                    vboxes2[i] = (VBox)objs2[i];
-                    ((TextField)vboxes2[i].getChildren().toArray()[1]).setText(
-                            Double.toString(inputCoeff[i + objs.length]));
-                }
-            }
+            populateCoeffBoxes(inputCoeff);
             
             // Reset the data set to what it was set to before this change
             Driver.DATA_SET = lastDataSet;
@@ -304,9 +287,38 @@ public class GUIController implements Initializable {
 
     /**
      * 
+     * @param coeff 
      */
-    private void setUpRow(int num, String[] arr, HBox row) {
-        for (int i = num; i < arr.length; i++) {
+    private void populateCoeffBoxes(double[] coeff) {
+        // Fill in the coefficient rows
+        Object[] objs = coeffRow.getChildren().toArray();
+        VBox[] vboxes = new VBox[objs.length];
+        for (int i = 0; i < objs.length; i++) {
+            vboxes[i] = (VBox)objs[i];
+            ((TextField)vboxes[i].getChildren().toArray()[1]).setText(
+                    Double.toString(coeff[i]));
+        }
+
+        // If the data set supports additional stats, fill them in too
+        if (!overflowCoeffRow.getChildren().isEmpty()) {
+            Object[] objs2 = overflowCoeffRow.getChildren().toArray();
+            VBox[] vboxes2 = new VBox[objs2.length];
+            for (int i = 0; i < objs2.length; i++) {
+                vboxes2[i] = (VBox)objs2[i];
+                ((TextField)vboxes2[i].getChildren().toArray()[1]).setText(
+                        Double.toString(coeff[i + objs.length]));
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param offset
+     * @param arr
+     * @param row 
+     */
+    private void setUpRow(int offset, String[] arr, HBox row) {
+        for (int i = offset; i < arr.length; i++) {
             VBox entry = new VBox();
             entry.setPrefWidth(82);
             Label label = new Label(arr[i]);
@@ -314,7 +326,7 @@ public class GUIController implements Initializable {
             
             if (Driver.MODE.equals("Select Formula")
                     || Driver.MODE.equals("Generate Formula")) {
-                field.setText("0");
+                //field.setText("0");
                 field.setEditable(false);
             } else {
                 field.setText(removeTrailingZeros(
@@ -350,10 +362,14 @@ public class GUIController implements Initializable {
      */
     @FXML
     private void saveButtonHandler(ActionEvent event) {
+        // Create a folder to house all of the formula results in this batch
+        new File("Applied to " + Driver.YEAR).mkdir();
+
         try {
             Scanner input = new Scanner(new File("bracket.txt"));
             PrintWriter output = new PrintWriter(
-                    outputFileNameField.getText() + ".txt");
+                    "Applied to " + Driver.YEAR + "\\"
+                            + outputFileNameField.getText() + ".txt");
             while (input.hasNextLine()) {
                 output.println(input.nextLine());
             }
@@ -398,6 +414,7 @@ public class GUIController implements Initializable {
                 new BracketVisual(bb.winnerPos, score, bb.best, -1);
             }
 
+            outputFileNameField.setText("High Seeds");
             scoreBox.setVisible(true);
             fileToGUI("bracket.txt");
 
@@ -415,22 +432,7 @@ public class GUIController implements Initializable {
             }
 
             // Fill in the coefficient rows with the trimmed manual formula
-            Object[] objs = coeffRow.getChildren().toArray();
-            VBox[] vboxes = new VBox[objs.length];
-            for (int i = 0; i < objs.length; i++) {
-                vboxes[i] = (VBox)objs[i];
-                ((TextField)vboxes[i].getChildren().toArray()[1]).setText(
-                        Double.toString(inputCoeff[i]));
-            }
-            if (!overflowCoeffRow.getChildren().isEmpty()) {
-                Object[] objs2 = overflowCoeffRow.getChildren().toArray();
-                VBox[] vboxes2 = new VBox[objs2.length];
-                for (int i = 0; i < objs2.length; i++) {
-                    vboxes2[i] = (VBox)objs2[i];
-                    ((TextField)vboxes2[i].getChildren().toArray()[1]).setText(
-                            Double.toString(inputCoeff[i + objs.length]));
-                }
-            }
+            populateCoeffBoxes(inputCoeff);
 
             // score = -1 if the current year does not have worths input
             if (score == -1) {
@@ -440,7 +442,8 @@ public class GUIController implements Initializable {
                 scoreField.setText(Integer.toString(score));
                 new BracketVisual(bb.winnerPos, score, inputCoeff, -1);
             }
-            
+
+            outputFileNameField.setText("Manual Formula");
             scoreBox.setVisible(true);
             fileToGUI("bracket.txt");
 
@@ -449,7 +452,6 @@ public class GUIController implements Initializable {
             String thisFormula = formulaDropdown.valueProperty().asString().getValue();
             Driver.DATA_SET = Character.toString(
                     thisFormula.charAt(thisFormula.indexOf("(") + 1));
-            System.out.println(Driver.DATA_SET);
             
             BracketBuster bb = new BracketBuster(0);
             storeCoeff();
@@ -459,14 +461,14 @@ public class GUIController implements Initializable {
                     Arrays.copyOfRange(Driver.FORMULAS.get(thisFormula), 0,
                             Driver.DATA_SET_TO_SIZE.get(Driver.DATA_SET) - 1),
                     new double[]{0});
-            System.out.println(inputCoeff.length);
 
             int score = bb.score(inputCoeff);
             scoreField.setText(Integer.toString(score));
             scoreBox.setVisible(true);
             
             new BracketVisual(bb.winnerPos, score, inputCoeff, -1);
-            
+
+            outputFileNameField.setText(thisFormula);
             fileToGUI("bracket.txt");
             
             // Reset the data set to what it was set to before this button selection
@@ -495,45 +497,28 @@ public class GUIController implements Initializable {
                 setUpRow(L1, Driver.STATS_HEADERS.get(Driver.DATA_SET), overflowCoeffRow);
             }
             
-            Object[] objs = coeffRow.getChildren().toArray();
-            VBox[] vboxes = new VBox[objs.length];
-            for (int i = 0; i < objs.length; i++) {
-                vboxes[i] = (VBox)objs[i];
-                ((TextField)vboxes[i].getChildren().toArray()[1]).setText(
-                        Double.toString(bb.best[i]));
-            }
-            
-            if (!overflowCoeffRow.getChildren().isEmpty()) {
-                Object[] objs2 = overflowCoeffRow.getChildren().toArray();
-                VBox[] vboxes2 = new VBox[objs2.length];
-                for (int i = 0; i < objs2.length; i++) {
-                    vboxes2[i] = (VBox)objs2[i];
-                    ((TextField)vboxes2[i].getChildren().toArray()[1]).setText(
-                            Double.toString(bb.best[i + objs.length]));
-                }
-            }
-            
+            populateCoeffBoxes(bb.best);
+
             scoreField.setText(Integer.toString(score));
             new BracketVisual(bb.winnerPos, score, bb.best,
                     Integer.parseInt(trialsField.getText()));
-            
+
             scoreBox.setVisible(true);
-            
-            fileToGUI("bracket.txt");
-            
             progressBox.setVisible(false);
-            
+
+            outputFileNameField.setText("Generate Formula");
+            fileToGUI("bracket.txt");
+
         } else if (Driver.MODE.equals("Actual Results")) {
             BracketBuster bb = new BracketBuster(0);
             bb.actualResults();
             new BracketVisual(bb.winnerPos, -1, bb.best, -1);
 
             fileToGUI("bracket.txt");
+            outputFileNameField.setText("Actual Results");
+
         } else if (Driver.MODE.equals("Run Formula Batch")) {
             progressBox.setVisible(true);
-
-            // Create a folder to house all of the formula results in this batch
-            new File("Applied to " + Driver.YEAR).mkdir();
 
             // Iterate through all of the valid formulas for the selected year
             Driver.MODE = "Select Formula";
@@ -556,8 +541,7 @@ public class GUIController implements Initializable {
                 new BracketVisual(bb.winnerPos, score, inputCoeff, -1);
 
                 // Save this formula's results in the batch's folder
-                outputFileNameField.setText(
-                        "Applied to " + Driver.YEAR + "\\" + thisFormulaName);
+                outputFileNameField.setText(thisFormulaName);
                 saveButtonHandler(null);
             }
             
@@ -566,7 +550,7 @@ public class GUIController implements Initializable {
             BracketBuster bb = new BracketBuster(0);
             bb.actualResults();
             new BracketVisual(bb.winnerPos, -1, bb.best, -1);
-            outputFileNameField.setText("Applied to " + Driver.YEAR + "\\Actual Results");
+            outputFileNameField.setText("Actual Results");
             saveButtonHandler(null);
             
             // Output a bracket for the high seeds
@@ -580,8 +564,7 @@ public class GUIController implements Initializable {
             } else {
                 new BracketVisual(bb2.winnerPos, score, bb2.best, -1);
             }
-            outputFileNameField.setText(
-                        "Applied to " + Driver.YEAR + "\\High Seeds");
+            outputFileNameField.setText("High Seeds");
             saveButtonHandler(null);
             
             // Reset Driver's mode and hide progress box when completed
@@ -609,7 +592,8 @@ public class GUIController implements Initializable {
     }
 
     /**
-     * 
+     * Pulls any coefficients in the coefficient rows and populates them into
+     *     the lastCoefficieints double array
      */
     private void storeCoeff() {
         if (!coeffRow.getChildren().isEmpty()) {
@@ -650,24 +634,12 @@ public class GUIController implements Initializable {
      */
     @FXML
     private void clearButtonHandler(ActionEvent event) {
-        if (!coeffRow.getChildren().isEmpty()) {
-            Object[] objs = coeffRow.getChildren().toArray();
-            VBox[] vboxes = new VBox[objs.length];
-            for (int i = 0; i < objs.length; i++) {
-                vboxes[i] = (VBox)objs[i];
-                ((TextField)vboxes[i].getChildren().toArray()[1]).setText("0");
-            }
-        }
-        if (!overflowCoeffRow.getChildren().isEmpty()) {
-            Object[] objs = overflowCoeffRow.getChildren().toArray();
-            VBox[] vboxes = new VBox[objs.length];
-            for (int i = 0; i < objs.length; i++) {
-                vboxes[i] = (VBox)objs[i];
-                ((TextField)vboxes[i].getChildren().toArray()[1]).setText("0");
-            }
-        }
+        double[] zeroArray = new double[lastCoefficients.length];
+        populateCoeffBoxes(zeroArray);
+
         bracketField.clear();
         scoreField.clear();
+        scoreBox.setVisible(false);
         fileNameRow.setVisible(false);
         storeCoeff();
     }
