@@ -123,9 +123,10 @@ public class BowlPickerController implements Initializable {
         // Initializes the championship game as a special case (TBD teams)
         Team champTeam1 = new Team("TBD", "-1", Team.Conference.TBD, "0-0", "-1");
         Team champTeam2 = new Team("TBD", "-1", Team.Conference.TBD, "0-0", "-1");
+        // TODO: Needs to be changed each year
         allGames[counter] = new GameRow(
                 new Game(champTeam1, champTeam2, "Championship Game",
-                        "1/12", "TBD"), counter);
+                        "1/9", "8:30pm"), counter);
         gamesVBox.getChildren().add(allGames[counter]);
     }
 
@@ -310,13 +311,14 @@ public class BowlPickerController implements Initializable {
                     }
                 }
                 // Handles the semifinals' picks affecting the championship game
-                if (game.getBowlName().equals("Orange Bowl")) {
+                // TODO: Needs to be changed each year
+                if (game.getBowlName().equals("Peach Bowl")) {
                     allGames[NUM_GAMES - 1] = new GameRow(
                             allGames[NUM_GAMES - 1].game.setAwayTeam(
                                     getCurrentlyPicked()), NUM_GAMES - 1);
                     gamesVBox.getChildren().remove(NUM_GAMES - 1);
                     gamesVBox.getChildren().add(allGames[NUM_GAMES - 1]);
-                } else if (game.getBowlName().equals("Cotton Bowl")) {
+                } else if (game.getBowlName().equals("Fiesta Bowl")) {
                     allGames[NUM_GAMES - 1] = new GameRow(
                             allGames[NUM_GAMES - 1].game.setHomeTeam(
                                     getCurrentlyPicked()), NUM_GAMES - 1);
