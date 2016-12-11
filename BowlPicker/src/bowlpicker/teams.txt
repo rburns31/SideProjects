@@ -33,7 +33,7 @@ EasternMichigan -1 MAC 7-5 2199
 OldDominion -1 CUSA 9-3 295
 ArmedForcesBowl 12/23 4:30pm
 LouisianaTech -1 CUSA 8-5 2348
-Navy 25 AAC 9-3 2426
+Navy 25 AAC 9-4 2426
 DollarGeneralBowl 12/23 8:00pm
 Ohio -1 MAC 8-5 195
 Troy -1 SUNBELT 9-3 2653
@@ -50,7 +50,7 @@ IndependenceBowl 12/26 5:00pm
 NorthCarolinaState -1 ACC 6-6 152
 Vanderbilt -1 SEC 6-6 238
 HeartOfDallasBowl 12/27 12:00pm
-Army -1 INDEPENDENT 6-5 349
+Army -1 INDEPENDENT 7-5 349
 NorthTexas -1 CUSA 5-7 249
 MilitaryBowl 12/27 3:30pm
 Temple 24 AAC 10-3 218
