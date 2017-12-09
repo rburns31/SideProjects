@@ -1,0 +1,433 @@
+// Open spreadsheet by URL
+var sheet = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/19LQR13y0lVVYuUYk7MsfJoRa-eDJ50f3i-L6UwSH6_Y/edit?usp=sharing');
+
+var botId = "2f2723c5dd6efddf60873baaf7";
+function sendText(text) {
+  UrlFetchApp.fetch("https://api.groupme.com/v3/bots/post", {"method":"post", "payload":'{"bot_id":"' + botId + '","text":"' + text + '"}'})
+}
+
+// This method is automatically called whenever the Web App's (to be) URL is called
+function doPost(e) {
+  var post = JSON.parse(e.postData.getDataAsString());
+  var text = post.text;
+  var name = post.name;
+
+  // Displays each member's picks of the game containing the inputted team
+  if (text.toLowerCase().substring(0, 6) == "!picks") {
+    // The team to search for
+    var team = text.toLowerCase().substring(7).trim();
+
+    // Handle special case of championship game
+    if (team.toLowerCase() == "championship") {
+      // The cell of the first picker's pick for the championship
+      cell = fixOffset("E89");
+      value = sheet.getRange(cell).getValue();
+
+      // The picks variable will accumulate the pickers and their picks for the championship
+      var picks = "";
+
+      // Keep iterating right until you come to an empty cell, adding to the picks output for each column
+      while (value != "") {
+        picks += sheet.getRange(cell.substring(0, 1) + 1).getValue() + " - ";
+        picks += value + "\\n";
+        cell = String.fromCharCode(cell.charAt(0).charCodeAt(0) + 1) + cell.substring(1);
+        value = sheet.getRange(cell).getValue();
+      }
+
+      // Output the picks for the game in one message
+      sendText(picks);
+      return;
+    }
+
+    // The cell of the first team name
+    var cell = "C7";
+    var value = sheet.getRange(cell).getValue();
+
+    // Keep iterating down the sheet until you come to an empty cell or find the desired team
+    while (value != "" && value.toLowerCase() != team && removeRankFromString(value).toLowerCase() != team) {
+      cell = cell.substring(0, 1) + (parseInt(cell.substring(1)) + 1).toString();
+      value = sheet.getRange(cell).getValue();
+    }
+
+    // If the team is not in a bowl game then output a diagnostic message to the user
+    if (value == "") {
+      sendText(">Team not found");
+    } else {
+      // The cell of the first picker's pick for this game
+      cell = fixOffset("E" + cell.substring(1));
+      value = sheet.getRange(cell).getValue();
+
+      // The picks variable will accumulate the pickers and their picks for this game
+      var picks = "";
+
+      // Keep iterating right until you come to an empty cell, adding to the picks output for each column
+      while (value != "") {
+        picks += sheet.getRange(cell.substring(0, 1) + 1).getValue() + " - ";
+        picks += value + "\\n";
+        cell = String.fromCharCode(cell.charAt(0).charCodeAt(0) + 1) + cell.substring(1);
+        value = sheet.getRange(cell).getValue();
+      }
+
+      // Output the picks for the game in one message
+      sendText(picks);
+    }
+    //sendText(">This function is unavailable until all picks have been submitted. Thanks!");
+  }
+
+  // Will display each member's score
+  if (text.toLowerCase().trim() == "!score") {
+    getScores(false);
+  }
+
+  // Allows users to submit their picks (in a format outputted by BowlPicker.exe)
+  // TODO: Remove
+  if (text.toLowerCase().substring(0, 7) == "!submit" && (name == "Ryan's Little Helper" || name == "test bowl bot")) {
+    // Separate out the name and the binary numbers
+    var numsAt = 8;
+    while (isNaN(text.charAt(numsAt))) {
+      numsAt++;
+    }
+
+    // Separate the first and last names and add in a space
+    var spaceAt = 9;
+    while (text.charAt(spaceAt) >= 'a' && text.charAt(spaceAt) <= 'z') {
+      spaceAt++;
+    }
+    var userName = text.substring(8, spaceAt) + " " + text.substring(spaceAt, numsAt);
+
+    // Convert the 2 numbers into a binary string of picks
+    var slashAt = numsAt;
+    while (!isNaN(text.charAt(slashAt))) {
+      slashAt++;
+    }
+    var binary1 = parseInt(text.substring(numsAt, slashAt)).toString(2);
+    while (binary1.length < 21) {
+      binary1 = "0" + binary1;
+    }
+    var binary2 = parseInt(text.substring(slashAt + 1, text.length - 2)).toString(2);
+    while (binary2.length < 20) {
+      binary2 = "0" + binary2;
+    }
+    var picks = binary1.split("").reverse().join("") + binary2.split("").reverse().join("");
+
+    // Search for an existing column for this user, otherwise find the first empty column to store these picks
+    var col = "E";
+    var value = sheet.getRange("E1").getValue();
+    while (value != "" && value != userName) {
+      col = String.fromCharCode(col.charCodeAt(0) + 1);
+      value = sheet.getRange(col + 1).getValue();
+    }
+
+    // Input the name into the spreadsheet
+    sheet.getRange(col + 1).setValue(userName);
+
+    // Input the picks into the spreadsheet
+    var cell = "C7"; // The cell of the first team name
+    var value = sheet.getRange(cell).getValue();
+    var curPick = 0;
+
+    // Keep iterating down the sheet until you run out of picks
+    while (curPick < picks.length) {
+      // Pick the game
+      if (picks.charAt(curPick) == "0") {
+        sheet.getRange(col + cell.substring(1)).setValue(value);
+      } else {
+        var otherTeam = sheet.getRange("C" + (parseInt(cell.substring(1)) + 1).toString()).getValue(); 
+        sheet.getRange(col + cell.substring(1)).setValue(otherTeam);
+      }
+
+      // Update which game we are now picking
+      cell = "C" + (parseInt(cell.substring(1)) + 2).toString();
+      value = sheet.getRange(cell).getValue();
+      curPick++;
+    }
+
+    // Input the championship game pick
+    if (text.charAt(text.length - 1) == 0) {
+      sheet.getRange(col + "87").setValue("(1) Clemson");
+    } else if (text.charAt(text.length - 1) == 1) {
+      sheet.getRange(col + "87").setValue("(2) Oklahoma");
+    } else if (text.charAt(text.length - 1) == 2) {
+      sheet.getRange(col + "87").setValue("(4) Alabama");
+    } else {
+      sheet.getRange(col + "87").setValue("(3) Georgia");
+    }
+
+    // Output a diagnostic message so the user knows the submission was successful
+    sendText(">" + text.substring(8, spaceAt) + "'s submission accepted, good luck!");
+  } else if (text.toLowerCase().substring(0, 7) == "!submit") {
+    sendText(">Picks not yet submitted due to untrusted source, please wait for Ryan to confirm this submission.");
+  }
+
+  // Allows users to input the winner of any game through the bot
+  if (text.toLowerCase().substring(0, 7) == "!winner" && (name == "Ryan Burns" || name == "Ian Trapp" || name == "Aaron Adams")) {
+    // The team to search for
+    var team = text.toLowerCase().substring(8).trim();
+
+    // The cell of the first team name
+    var cell = "C7";
+    var value = sheet.getRange(cell).getValue();
+    var skipped = false;
+
+    // Keep iterating down the sheet until you come to an empty cell
+    //     or find the desired team and it doesn't have a winner submitted already
+    while (value != "" && value.toLowerCase() != team && removeRankFromString(value).toLowerCase() != team
+            || sheet.getRange("D" + fixOffset(cell).substring(1)).getValue() != "") {
+
+      if (value.toLowerCase() == team && sheet.getRange("D" + fixOffset(cell).substring(1)).getValue() != "") {
+        skipped = true;
+      }
+      cell = cell.substring(0, 1) + (parseInt(cell.substring(1)) + 1).toString();
+      value = sheet.getRange(cell).getValue();
+    }
+
+    // If the team is not in a bowl game then output a diagnostic message to the user
+    if (value == "") {
+      if (skipped) {
+        sendText(">Game winner already submitted");
+      } else {
+        sendText(">Team not found");
+      }
+    } else {
+      var winnerCell = fixOffset("D" + cell.substring(1));
+      var winner = value;
+      sheet.getRange(winnerCell).setValue(winner);
+
+      // Determine who got the game right or wrong
+      var correct = "";
+      var incorrect = "";
+      cell = "E" + winnerCell.substring(1);
+      value = sheet.getRange(cell).getValue();
+
+      // 
+      while (value != "") {
+        if (value == winner) {
+          correct += sheet.getRange(cell.substring(0, 1) + 1).getValue() + "\\n";
+        } else {
+          incorrect += sheet.getRange(cell.substring(0, 1) + 1).getValue() + "\\n";
+        }
+        cell = String.fromCharCode(cell.charCodeAt(0) + 1) + cell.substring(1);
+        value = sheet.getRange(cell).getValue();
+      }
+
+      // Output a diagnostic message so the user knows the submission was successful
+      sendText(winner + " winning applied.\\nCorrect:\\n" + correct + "\\nIncorrect:\\n" + incorrect);
+      
+      getScores(false);
+    }
+  } else if (text.toLowerCase().substring(0, 7) == "!winner") {
+    sendText(">You're not eligible to apply winners #sorrynotsorry");
+  }
+
+  // Displays all of the day's games to the user
+  if (text.trim().toLowerCase() == "!today") {
+    // Get today's date
+    var today = new Date();
+    var month = today.getMonth();
+    if (month == 11) {
+      month = "Dec";
+    } else if (month == 0) {
+      month = "Jan";
+    }
+    var date = month + " " + today.getDate();
+    //var date = "Dec 21";
+
+    // Call the helper function containing the logic
+    var games = gamesOnDay(date, true);
+
+    // Output the games on the specified day in one message
+    if (games.length > 0) {
+      sendText("Today's games (" + date + "):\\n" + games);
+    }
+  }
+
+  // Displays all of tomorrow's games to the user
+  if (text.trim().toLowerCase() == "!tomorrow") {
+    // Get today's date
+    var today = new Date();
+    var month = today.getMonth();
+    if (month == 11) {
+      month = "Dec";
+    } else if (month == 0) {
+      month = "Jan";
+    }
+    var date = month + " " + (today.getDate() + 1);
+    //var date = "Dec 22";
+
+    // Handle the special case if today is the last day of December
+    if (date == "Dec 32") {
+      date = "Jan 1";
+    }
+
+    // Call the helper function containing the logic
+    var games = gamesOnDay(date, false);
+
+    // Output the games on the specified day in one message
+    if (games.length > 0) {
+      sendText("Tomorrow's games (" + date + "):\\n" + games);
+    }
+  }
+
+  // Convenience method to the spreadsheet link
+  if (text.trim().toLowerCase() == "!link") {
+    sendText("https://docs.google.com/spreadsheets/d/19LQR13y0lVVYuUYk7MsfJoRa-eDJ50f3i-L6UwSH6_Y/edit?usp=sharing");
+  }
+
+  if (text.toLowerCase() == "!fuck") {
+    if (name == "Ryan Burns") {
+      sendText(">me");
+    } else {
+      sendText(">you");
+    }
+  }
+
+  if (text.toLowerCase() == "!goodboy") {
+    if (name == "Ryan Burns") {
+      sendText(">Thank you master");
+    } else {
+      sendText(">Bitch, you ain't my master");
+    }
+  }
+
+  if (text.toLowerCase() == "!help") {
+    sendText(">Available BowlBot commands:\\n" + "!picks <teamName>\\n" + "!score\\n" + "!today\\n" + "!tomorrow\\n" + "!link\\n" + "!amidone\\n");
+  }
+
+  if (text.toLowerCase() == "!amidone") {
+    sendText(">Calculating...");
+
+    var scores = getScores(true);
+    var lines = scores.split("\\n");
+
+    var curRow = 7; // The row of the first winning team
+    var curValue = sheet.getRange("D" + curRow).getValue();
+
+    while (curValue != "") {
+      curRow += 2;
+      curValue = sheet.getRange("D" + curRow).getValue();
+    }
+    var firstEmptyRow = curRow;
+    
+    var output = ">Best possible finishes:\\n";
+
+    for (j = 0; j < lines.length - 2; j++) {
+      var thisPickerCol = String.fromCharCode("E".charCodeAt(0) + j);
+      curRow = firstEmptyRow;
+    
+      var pickedValue = sheet.getRange(thisPickerCol + curRow).getValue();
+      while (pickedValue != null && pickedValue != "") {
+        sheet.getRange("D" + curRow).setValue(pickedValue);
+        curRow += 2;
+        pickedValue = sheet.getRange(thisPickerCol + curRow).getValue();
+      }
+
+      output += sheet.getRange(thisPickerCol + "1").getValue() + " - " + sheet.getRange(thisPickerCol + "5").getValue() + "\\n";
+
+      clearWinnersFromHere(firstEmptyRow);
+    }
+
+    sendText(output);
+  }
+}
+
+// @param toPrint if true then print the output, otherwise return it
+function getScores(toPrint) {
+    // The scores variable will accumulate the pickers and their scores
+    var output = "Current scores:\\n";
+    var curColumn = "E";
+    var curScore = sheet.getRange("E4").getValue();
+    var pickers = [];
+
+    // Keep iterating right until you come to an empty cell, adding to the pickers for each column
+    while (curScore == "0" || curScore != "") {
+      pickers.push(curScore + " " + sheet.getRange(curColumn + 1).getValue());
+      curColumn = String.fromCharCode(curColumn.charAt(0).charCodeAt(0) + 1);
+      curScore = sheet.getRange(curColumn + 4).getValue();
+    }
+
+    pickers.sort(function(a, b){return parseInt(a) - parseInt(b)}).reverse();
+
+    for (i = 0; i < pickers.length; i++) {
+      var spaceAt = 0;
+      while (pickers[i].charAt(spaceAt) != " ") {
+        spaceAt++;
+      }
+      output += pickers[i].substring(spaceAt + 1) + " - " + pickers[i].substring(0, spaceAt) + "\\n";
+    }
+
+    // Output the scores for each picker in a message
+    if (!toPrint) {
+      sendText(output);
+    } else {
+      return output;
+    }
+}
+
+// Takes in a cell and outputs the odd cell containing the pick of the game
+//     (is necessary because the picks are housed in merged cells)
+function fixOffset(cell) {
+  if (parseInt(cell.substring(1)) % 2 == 0) {
+    return cell.substring(0, 1) + (parseInt(cell.substring(1)) - 1).toString();
+  } else {
+    return cell;
+  }
+}
+
+// Helper method containing the logic for !today and !tomorrow
+// @param today if true then the day is today, if false then tomorrow
+function gamesOnDay(date, today) {
+    // The cell of the first game's info
+    var cell = "A8";
+    var value = sheet.getRange(cell).getValue();
+
+    // Keep iterating down the sheet until you come to an empty cell or you find the first game on the specified day
+    while (value != "" && value.indexOf(date) == -1) {
+      cell = "A" + (parseInt(cell.substring(1)) + 2).toString();
+      value = sheet.getRange(cell).getValue();
+    }
+
+    // If there are no games on the specified day then output a diagnostic message to the user
+    if (value == "") {
+      if (today) {
+        sendText(">No games today (" + date + ")");
+      } else {
+        sendText(">No games tomorrow (" + date + ")");
+      }
+      return "";
+    } else {
+      // The games variable will accumulate the games and the teams in them for the specified day
+      var games = "";
+
+      // Keep iterating down until you come to an empty cell or a different date, adding to the game output for each row
+      while (value != "" && value.indexOf(date) != -1) {
+        var temp = value.split(" ");
+        var team1 = sheet.getRange("C" + (parseInt(cell.substring(1)) - 1).toString()).getValue();
+        var team2 = sheet.getRange("C" + cell.substring(1)).getValue();
+        var channel = sheet.getRange("B" + (parseInt(cell.substring(1)) - 1).toString()).getValue();;
+        games += team1 + " vs. " + team2 + " at " + temp[temp.length - 1] + " on " + channel + "\\n";
+
+        cell = "A" + (parseInt(cell.substring(1)) + 2).toString();
+        value = sheet.getRange(cell).getValue();
+      }
+
+      // Output the games on the specified day as a return value
+      return games;
+    }
+}
+
+function removeRankFromString(value) {
+  if (value.indexOf(")") > -1) {
+    return value.substring(value.indexOf(")") + 2);
+  } else {
+    return value;
+  }
+}
+
+function clearWinnersFromHere(startRow) {
+  var curValue = sheet.getRange("D" + startRow).getValue();
+  while (curValue != null && curValue != "") {
+    sheet.getRange("D" + startRow).setValue("");
+    startRow += 2;
+    curValue = sheet.getRange("D" + startRow).getValue();
+  }
+}

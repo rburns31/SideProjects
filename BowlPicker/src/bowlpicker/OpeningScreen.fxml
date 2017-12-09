@@ -36,7 +36,7 @@
             <Label fx:id="errorField" alignment="TOP_CENTER" textAlignment="CENTER" textFill="#ee0a0a" />
             <HBox alignment="CENTER">
                <children>
-                  <Label text="2016-17 Edition. Created by Ryan Burns" />
+                  <Label text="2017-18 Edition. Created by Ryan Burns" />
                </children>
             </HBox>
          </children>

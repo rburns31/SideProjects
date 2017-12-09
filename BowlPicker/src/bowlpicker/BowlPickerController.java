@@ -43,9 +43,9 @@ import javafx.util.Duration;
  */
 public class BowlPickerController implements Initializable {
     /**
-     * As of 2015-2016, there are 42 bowl games, including the championship
+     * As of 2017-2018, there are 41 bowl games, including the championship
      */
-    public static final int NUM_GAMES = 42;
+    public static final int NUM_GAMES = 41;
 
     private final Set<String> bigBowlNames = new HashSet<>();
 
@@ -126,7 +126,7 @@ public class BowlPickerController implements Initializable {
         // TODO: Needs to be changed each year
         allGames[counter] = new GameRow(
                 new Game(champTeam1, champTeam2, "Championship Game",
-                        "1/9", "8:30pm"), counter);
+                        "1/8", "8:00pm"), counter);
         gamesVBox.getChildren().add(allGames[counter]);
     }
 
@@ -148,9 +148,8 @@ public class BowlPickerController implements Initializable {
     }
 
     /**
-     * If the user has picked every game, their picks are outputted to a text
-     *     file and hopefully to an automated email, and the final message
-     *     is displayed
+     * If the user has picked every game, their picks are outputted as a
+     *     port of the the final message, which is displayed
      * @param event The submit button being pressed
      */
     @FXML
@@ -312,13 +311,13 @@ public class BowlPickerController implements Initializable {
                 }
                 // Handles the semifinals' picks affecting the championship game
                 // TODO: Needs to be changed each year
-                if (game.getBowlName().equals("Peach Bowl")) {
+                if (game.getBowlName().equals("Rose Bowl")) {
                     allGames[NUM_GAMES - 1] = new GameRow(
                             allGames[NUM_GAMES - 1].game.setAwayTeam(
                                     getCurrentlyPicked()), NUM_GAMES - 1);
                     gamesVBox.getChildren().remove(NUM_GAMES - 1);
                     gamesVBox.getChildren().add(allGames[NUM_GAMES - 1]);
-                } else if (game.getBowlName().equals("Fiesta Bowl")) {
+                } else if (game.getBowlName().equals("Sugar Bowl")) {
                     allGames[NUM_GAMES - 1] = new GameRow(
                             allGames[NUM_GAMES - 1].game.setHomeTeam(
                                     getCurrentlyPicked()), NUM_GAMES - 1);
